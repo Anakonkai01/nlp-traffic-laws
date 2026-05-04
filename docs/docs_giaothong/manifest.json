@@ -1,0 +1,126 @@
+{
+  "source_policy": "local_text_only",
+  "description": "Only enabled UTF-8 text files in this manifest are allowed into the traffic-law KB, QA generation, fine-tuning data, and production eval.",
+  "documents": [
+    {
+      "doc_id": "nd_168_2024_nd_cp",
+      "title": "Nghị định 168/2024/NĐ-CP quy định xử phạt vi phạm hành chính về trật tự, an toàn giao thông trong lĩnh vực giao thông đường bộ; trừ điểm, phục hồi điểm giấy phép lái xe",
+      "document_type": "nghi_dinh",
+      "authority": "Chính phủ",
+      "effective_date": "2025-01-01",
+      "source_path": "docs/docs_giaothong/text/nd_168_2024_nd_cp.txt",
+      "enabled": true,
+      "notes": "Primary penalty source for traffic violations under the current cleaned corpus."
+    },
+    {
+      "doc_id": "nd_158_2024_nd_cp",
+      "title": "Nghị định 158/2024/NĐ-CP quy định về hoạt động vận tải đường bộ",
+      "document_type": "nghi_dinh",
+      "authority": "Chính phủ",
+      "effective_date": null,
+      "source_path": "docs/docs_giaothong/text/nd_158_2024_nd_cp.txt",
+      "enabled": true,
+      "notes": "Local text supplied by project owner."
+    },
+    {
+      "doc_id": "nd_165_2024_nd_cp",
+      "title": "Nghị định 165/2024/NĐ-CP quy định chi tiết, hướng dẫn thi hành một số điều của Luật Đường bộ và Luật Trật tự, an toàn giao thông đường bộ",
+      "document_type": "nghi_dinh",
+      "authority": "Chính phủ",
+      "effective_date": null,
+      "source_path": "docs/docs_giaothong/text/nd_165_2024_nd_cp.txt",
+      "enabled": true,
+      "notes": "Local text supplied by project owner."
+    },
+    {
+      "doc_id": "nd_336_2025_nd_cp",
+      "title": "Nghị định 336/2025/NĐ-CP",
+      "document_type": "nghi_dinh",
+      "authority": "Chính phủ",
+      "effective_date": null,
+      "source_path": "docs/docs_giaothong/text/nd_336_2025_nd_cp.txt",
+      "enabled": true,
+      "notes": "Local text supplied by project owner."
+    },
+    {
+      "doc_id": "tt_65_2024_tt_bca",
+      "title": "Thông tư 65/2024/TT-BCA quy định kiểm tra kiến thức pháp luật về trật tự, an toàn giao thông đường bộ để được phục hồi điểm giấy phép lái xe",
+      "document_type": "thong_tu",
+      "authority": "Bộ Công an",
+      "effective_date": null,
+      "source_path": "docs/docs_giaothong/text/tt_65_2024_tt_bca.txt",
+      "enabled": true,
+      "notes": "Local text supplied by project owner."
+    },
+    {
+      "doc_id": "luat_35_2024_qh15",
+      "title": "Luật Đường bộ số 35/2024/QH15",
+      "document_type": "luat",
+      "authority": "Quốc hội",
+      "effective_date": "2025-01-01",
+      "source_path": "docs/docs_giaothong/text/luat_35_2024_qh15.txt",
+      "enabled": true,
+      "notes": "Extracted from 35-2024-qh15.pdf via extract_legal_pdf.py."
+    },
+    {
+      "doc_id": "luat_36_2024_qh15",
+      "title": "Luật Trật tự, an toàn giao thông đường bộ số 36/2024/QH15",
+      "document_type": "luat",
+      "authority": "Quốc hội",
+      "effective_date": "2025-01-01",
+      "source_path": "docs/docs_giaothong/text/luat_36_2024_qh15.txt",
+      "enabled": true,
+      "notes": "Extracted from 36-2024-qh15.pdf + 36-2024-qh15_tiep.pdf via extract_legal_pdf.py."
+    },
+    {
+      "doc_id": "qcvn_41_2024_bgtvt",
+      "title": "QCVN 41:2024/BGTVT — Quy chuẩn kỹ thuật quốc gia về báo hiệu đường bộ",
+      "document_type": "quy_chuan",
+      "authority": "Bộ Giao thông vận tải",
+      "effective_date": "2025-01-01",
+      "source_path": "docs/docs_giaothong/text/qcvn_41_2024_bgtvt.txt",
+      "enabled": true,
+      "notes": "Extracted from quychuankithuat_baohieuduongbo.pdf via PyMuPDF. Contains 17 chapters on road signs, markings, traffic signals."
+    },
+    {
+      "doc_id": "tt_suckhoe_lai_xe",
+      "title": "TT sức khỏe người lái xe — Quy định về tiêu chuẩn sức khỏe, khám sức khỏe đối với người lái xe, người điều khiển xe máy chuyên dùng",
+      "document_type": "thong_tu",
+      "authority": "Bộ Y tế",
+      "effective_date": null,
+      "source_path": "docs/docs_giaothong/text/tt_suckhoe_lai_xe.txt",
+      "enabled": true,
+      "notes": "Extracted from 36-byt.pdf via PyMuPDF. 10 articles on health standards for drivers."
+    },
+    {
+      "doc_id": "tt_05_2025_tt_bgtvt",
+      "title": "Thông tư 12/2025/TT-BCA quy định về sát hạch, cấp giấy phép lái xe",
+      "document_type": "thong_tu",
+      "authority": "Bộ Công an",
+      "effective_date": "2025-03-01",
+      "source_path": "docs/docs_giaothong/text/tt_05_2025_tt_bgtvt.txt",
+      "enabled": true,
+      "notes": "Anh Long download từ thuvienphapluat.vn. 39 Điều về sát hạch, cấp GPLX."
+    },
+    {
+      "doc_id": "nd_39_2023_nd_cp",
+      "title": "Nghị định 39/2023/NĐ-CP về đấu giá biển số xe ô tô",
+      "document_type": "nghi_dinh",
+      "authority": "Chính phủ",
+      "effective_date": null,
+      "source_path": "docs/docs_giaothong/text/nd_39_2023_nd_cp.txt",
+      "enabled": true,
+      "notes": "Anh Long download. 25 Điều về đấu giá biển số. Phiên bản 2023."
+    },
+    {
+      "doc_id": "tt_79_2024_tt_bca",
+      "title": "Thông tư 79/2024/TT-BCA quy định về cấp, thu hồi chứng nhận đăng ký xe, biển số xe cơ giới, xe máy chuyên dùng",
+      "document_type": "thong_tu",
+      "authority": "Bộ Công an",
+      "effective_date": null,
+      "source_path": "docs/docs_giaothong/text/tt_79_2024_tt_bca.txt",
+      "enabled": true,
+      "notes": "Anh Long download. 40 Điều về đăng ký xe, cấp biển số."
+    }
+  ]
+}

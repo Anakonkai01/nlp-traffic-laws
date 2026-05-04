@@ -1,0 +1,38 @@
+### Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.ipynb_checkpoints/
+
+### Environment / secrets
+.env
+.env.*
+*.env
+.cache/
+
+### Large model artifacts (upload to HuggingFace instead)
+models/
+unsloth_compiled_cache/
+
+### Vector DB (rebuilt from source text)
+vector_db_traffic/
+
+### Large PDF source documents (too big for GitHub)
+docs/docs_giaothong/*.pdf
+
+### Training logs and wandb
+wandb/
+logs/
+*.log
+
+### Large generated data files (>5MB each)
+data/gplx_600.pdf
+data/qa_pairs_traffic.jsonl
+data/qa_pairs_traffic_v2.jsonl
+
+### Misc
+*.zip
+handoff/

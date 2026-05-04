@@ -1,0 +1,306 @@
+{
+  "summary": {
+    "n_samples": 5,
+    "source_recall_at_5": null,
+    "source_recall_denominator": 0,
+    "context_rouge_recall_at_5": null,
+    "context_rouge_denominator": 0,
+    "source_hit_rate_by_doc": {}
+  },
+  "samples": [
+    {
+      "index": 1,
+      "question": "Nghị định 168/2024/NĐ-CP quy định về vấn đề gì?",
+      "category": "general",
+      "expected_doc_ids": [],
+      "expanded_query": "Nghị định 168/2024/NĐ-CP quy định về vấn đề gì?",
+      "intents": [],
+      "source_hit": null,
+      "context_rouge_hit": null,
+      "retrieved": []
+    },
+    {
+      "index": 2,
+      "question": "Nghị định 168 về giao thông khi nào có hiệu lực?",
+      "category": "general",
+      "expected_doc_ids": [],
+      "expanded_query": "Nghị định 168 về giao thông khi nào có hiệu lực?",
+      "intents": [],
+      "source_hit": null,
+      "context_rouge_hit": null,
+      "retrieved": [
+        {
+          "rank": 1,
+          "doc_id": "nd_165_2024_nd_cp",
+          "source": "nd_165_2024_nd_cp",
+          "title": "Nghị định 165/2024/NĐ-CP quy định chi tiết, hướng dẫn thi hành một số điều của Luật Đường bộ và Luật Trật tự, an toàn giao thông đường bộ",
+          "article": "Điều 68. Hiệu lực thi hành",
+          "article_number": "68",
+          "chunk_id": "nd_165_2024_nd_cp:000975",
+          "source_path": "docs/docs_giaothong/text/nd_165_2024_nd_cp.txt",
+          "corpus": "local_text"
+        },
+        {
+          "rank": 2,
+          "doc_id": "nd_168_2024_nd_cp",
+          "source": "nd_168_2024_nd_cp",
+          "title": "Nghị định 168/2024/NĐ-CP quy định xử phạt vi phạm hành chính về trật tự, an toàn giao thông trong lĩnh vực giao thông đường bộ; trừ điểm, phục hồi điểm giấy phép lái xe",
+          "article": "Điều 41. Phân định thẩm quyền xử phạt vi phạm hành chính về trật tự, an toàn giao thông trong lĩnh vực giao thông đường bộ",
+          "article_number": "41",
+          "chunk_id": "nd_168_2024_nd_cp:000287",
+          "source_path": "docs/docs_giaothong/text/nd_168_2024_nd_cp.txt",
+          "corpus": "local_text"
+        },
+        {
+          "rank": 3,
+          "doc_id": "luat_36_2024_qh15",
+          "source": "luat_36_2024_qh15",
+          "title": "Luật Trật tự, an toàn giao thông đường bộ số 36/2024/QH15",
+          "article": "Điều 88. Hiệu lực thi hành",
+          "article_number": "88",
+          "chunk_id": "luat_36_2024_qh15:001999",
+          "source_path": "docs/docs_giaothong/text/luat_36_2024_qh15.txt",
+          "corpus": "local_text"
+        },
+        {
+          "rank": 4,
+          "doc_id": "nd_165_2024_nd_cp",
+          "source": "nd_165_2024_nd_cp",
+          "title": "Nghị định 165/2024/NĐ-CP quy định chi tiết, hướng dẫn thi hành một số điều của Luật Đường bộ và Luật Trật tự, an toàn giao thông đường bộ",
+          "article": "Điều 68. Hiệu lực thi hành",
+          "article_number": "68",
+          "chunk_id": "nd_165_2024_nd_cp:000974",
+          "source_path": "docs/docs_giaothong/text/nd_165_2024_nd_cp.txt",
+          "corpus": "local_text"
+        },
+        {
+          "rank": 5,
+          "doc_id": "tt_suckhoe_lai_xe",
+          "source": "tt_suckhoe_lai_xe",
+          "title": "TT sức khỏe người lái xe — Quy định về tiêu chuẩn sức khỏe, khám sức khỏe đối với người lái xe, người điều khiển xe máy chuyên dùng",
+          "article": "Điều 7. Hiệu lực thi hành",
+          "article_number": "7",
+          "chunk_id": "tt_suckhoe_lai_xe:002334",
+          "source_path": "docs/docs_giaothong/text/tt_suckhoe_lai_xe.txt",
+          "corpus": "local_text"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "question": "Giấy phép lái xe có bao nhiêu điểm?",
+      "category": "general",
+      "expected_doc_ids": [],
+      "expanded_query": "Giấy phép lái xe có bao nhiêu điểm?\ntrừ điểm giấy phép lái xe phục hồi điểm giấy phép lái xe",
+      "intents": [
+        "penalty",
+        "license_points"
+      ],
+      "source_hit": null,
+      "context_rouge_hit": null,
+      "retrieved": [
+        {
+          "rank": 1,
+          "doc_id": "nd_168_2024_nd_cp",
+          "source": "nd_168_2024_nd_cp",
+          "title": "Nghị định 168/2024/NĐ-CP quy định xử phạt vi phạm hành chính về trật tự, an toàn giao thông trong lĩnh vực giao thông đường bộ; trừ điểm, phục hồi điểm giấy phép lái xe",
+          "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+          "article_number": "6",
+          "chunk_id": "nd_168_2024_nd_cp:000042",
+          "source_path": "docs/docs_giaothong/text/nd_168_2024_nd_cp.txt",
+          "corpus": "local_text"
+        },
+        {
+          "rank": 2,
+          "doc_id": "nd_168_2024_nd_cp",
+          "source": "nd_168_2024_nd_cp",
+          "title": "Nghị định 168/2024/NĐ-CP quy định xử phạt vi phạm hành chính về trật tự, an toàn giao thông trong lĩnh vực giao thông đường bộ; trừ điểm, phục hồi điểm giấy phép lái xe",
+          "article": "Điều 18. Xử phạt, trừ điểm giấy phép lái xe các hành vi vi phạm quy định về điều kiện của người điều khiển xe cơ giới",
+          "article_number": "18",
+          "chunk_id": "nd_168_2024_nd_cp:000137",
+          "source_path": "docs/docs_giaothong/text/nd_168_2024_nd_cp.txt",
+          "corpus": "local_text"
+        },
+        {
+          "rank": 3,
+          "doc_id": "nd_168_2024_nd_cp",
+          "source": "nd_168_2024_nd_cp",
+          "title": "Nghị định 168/2024/NĐ-CP quy định xử phạt vi phạm hành chính về trật tự, an toàn giao thông trong lĩnh vực giao thông đường bộ; trừ điểm, phục hồi điểm giấy phép lái xe",
+          "article": "Điều 20. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô chở hành khách, ô tô chở người và các loại xe tương tự xe ô tô chở hành khách vi phạm quy định về bảo đảm trật tự, an toàn giao thông",
+          "article_number": "20",
+          "chunk_id": "nd_168_2024_nd_cp:000150",
+          "source_path": "docs/docs_giaothong/text/nd_168_2024_nd_cp.txt",
+          "corpus": "local_text"
+        },
+        {
+          "rank": 4,
+          "doc_id": "nd_168_2024_nd_cp",
+          "source": "nd_168_2024_nd_cp",
+          "title": "Nghị định 168/2024/NĐ-CP quy định xử phạt vi phạm hành chính về trật tự, an toàn giao thông trong lĩnh vực giao thông đường bộ; trừ điểm, phục hồi điểm giấy phép lái xe",
+          "article": "Điều 50. Nguyên tắc, thẩm quyền, trình tự, thủ tục trừ điểm giấy phép lái xe",
+          "article_number": "50",
+          "chunk_id": "nd_168_2024_nd_cp:000330",
+          "source_path": "docs/docs_giaothong/text/nd_168_2024_nd_cp.txt",
+          "corpus": "local_text"
+        },
+        {
+          "rank": 5,
+          "doc_id": "nd_168_2024_nd_cp",
+          "source": "nd_168_2024_nd_cp",
+          "title": "Nghị định 168/2024/NĐ-CP quy định xử phạt vi phạm hành chính về trật tự, an toàn giao thông trong lĩnh vực giao thông đường bộ; trừ điểm, phục hồi điểm giấy phép lái xe",
+          "article": "Điều 18. Xử phạt, trừ điểm giấy phép lái xe các hành vi vi phạm quy định về điều kiện của người điều khiển xe cơ giới",
+          "article_number": "18",
+          "chunk_id": "nd_168_2024_nd_cp:000133",
+          "source_path": "docs/docs_giaothong/text/nd_168_2024_nd_cp.txt",
+          "corpus": "local_text"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "question": "Bị trừ hết 12 điểm giấy phép lái xe thì bị xử lý như thế nào?",
+      "category": "general",
+      "expected_doc_ids": [],
+      "expanded_query": "Bị trừ hết 12 điểm giấy phép lái xe thì bị xử lý như thế nào?\ntrừ điểm giấy phép lái xe phục hồi điểm giấy phép lái xe",
+      "intents": [
+        "license_points"
+      ],
+      "source_hit": null,
+      "context_rouge_hit": null,
+      "retrieved": [
+        {
+          "rank": 1,
+          "doc_id": "nd_168_2024_nd_cp",
+          "source": "nd_168_2024_nd_cp",
+          "title": "Nghị định 168/2024/NĐ-CP quy định xử phạt vi phạm hành chính về trật tự, an toàn giao thông trong lĩnh vực giao thông đường bộ; trừ điểm, phục hồi điểm giấy phép lái xe",
+          "article": "Điều 7. Xử phạt, trừ điểm giấy phép lái của người điều khiển xe mô tô, xe gắn máy, các loại xe tương tự xe mô tô và các loại xe tương tự xe gắn máy vi phạm quy tắc giao thông đường bộ",
+          "article_number": "7",
+          "chunk_id": "nd_168_2024_nd_cp:000054",
+          "source_path": "docs/docs_giaothong/text/nd_168_2024_nd_cp.txt",
+          "corpus": "local_text"
+        },
+        {
+          "rank": 2,
+          "doc_id": "nd_168_2024_nd_cp",
+          "source": "nd_168_2024_nd_cp",
+          "title": "Nghị định 168/2024/NĐ-CP quy định xử phạt vi phạm hành chính về trật tự, an toàn giao thông trong lĩnh vực giao thông đường bộ; trừ điểm, phục hồi điểm giấy phép lái xe",
+          "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+          "article_number": "6",
+          "chunk_id": "nd_168_2024_nd_cp:000042",
+          "source_path": "docs/docs_giaothong/text/nd_168_2024_nd_cp.txt",
+          "corpus": "local_text"
+        },
+        {
+          "rank": 3,
+          "doc_id": "nd_168_2024_nd_cp",
+          "source": "nd_168_2024_nd_cp",
+          "title": "Nghị định 168/2024/NĐ-CP quy định xử phạt vi phạm hành chính về trật tự, an toàn giao thông trong lĩnh vực giao thông đường bộ; trừ điểm, phục hồi điểm giấy phép lái xe",
+          "article": "Điều 20. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô chở hành khách, ô tô chở người và các loại xe tương tự xe ô tô chở hành khách vi phạm quy định về bảo đảm trật tự, an toàn giao thông",
+          "article_number": "20",
+          "chunk_id": "nd_168_2024_nd_cp:000150",
+          "source_path": "docs/docs_giaothong/text/nd_168_2024_nd_cp.txt",
+          "corpus": "local_text"
+        },
+        {
+          "rank": 4,
+          "doc_id": "tt_65_2024_tt_bca",
+          "source": "tt_65_2024_tt_bca",
+          "title": "Thông tư 65/2024/TT-BCA quy định kiểm tra kiến thức pháp luật về trật tự, an toàn giao thông đường bộ để được phục hồi điểm giấy phép lái xe",
+          "article": "Điều 6. Nội dung, phương pháp, thời gian, kết cấu bài kiểm tra, kết quả kiểm tra đạt yêu cầu",
+          "article_number": "6",
+          "chunk_id": "tt_65_2024_tt_bca:001217",
+          "source_path": "docs/docs_giaothong/text/tt_65_2024_tt_bca.txt",
+          "corpus": "local_text"
+        },
+        {
+          "rank": 5,
+          "doc_id": "nd_168_2024_nd_cp",
+          "source": "nd_168_2024_nd_cp",
+          "title": "Nghị định 168/2024/NĐ-CP quy định xử phạt vi phạm hành chính về trật tự, an toàn giao thông trong lĩnh vực giao thông đường bộ; trừ điểm, phục hồi điểm giấy phép lái xe",
+          "article": "Điều 18. Xử phạt, trừ điểm giấy phép lái xe các hành vi vi phạm quy định về điều kiện của người điều khiển xe cơ giới",
+          "article_number": "18",
+          "chunk_id": "nd_168_2024_nd_cp:000137",
+          "source_path": "docs/docs_giaothong/text/nd_168_2024_nd_cp.txt",
+          "corpus": "local_text"
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "question": "Làm sao để phục hồi điểm giấy phép lái xe khi đã bị trừ hết?",
+      "category": "general",
+      "expected_doc_ids": [],
+      "expanded_query": "Làm sao để phục hồi điểm giấy phép lái xe khi đã bị trừ hết?\ntrừ điểm giấy phép lái xe phục hồi điểm giấy phép lái xe",
+      "intents": [
+        "license_points"
+      ],
+      "source_hit": null,
+      "context_rouge_hit": null,
+      "retrieved": [
+        {
+          "rank": 1,
+          "doc_id": "tt_65_2024_tt_bca",
+          "source": "tt_65_2024_tt_bca",
+          "title": "Thông tư 65/2024/TT-BCA quy định kiểm tra kiến thức pháp luật về trật tự, an toàn giao thông đường bộ để được phục hồi điểm giấy phép lái xe",
+          "article": "Điều 1. Phạm vi điều chỉnh",
+          "article_number": "1",
+          "chunk_id": "tt_65_2024_tt_bca:001205",
+          "source_path": "docs/docs_giaothong/text/tt_65_2024_tt_bca.txt",
+          "corpus": "local_text"
+        },
+        {
+          "rank": 2,
+          "doc_id": "luat_36_2024_qh15",
+          "source": "luat_36_2024_qh15",
+          "title": "Luật Trật tự, an toàn giao thông đường bộ số 36/2024/QH15",
+          "article": "Điều 58. Điểm của giấy phép lái xe",
+          "article_number": "58",
+          "chunk_id": "luat_36_2024_qh15:001867",
+          "source_path": "docs/docs_giaothong/text/luat_36_2024_qh15.txt",
+          "corpus": "local_text"
+        },
+        {
+          "rank": 3,
+          "doc_id": "nd_168_2024_nd_cp",
+          "source": "nd_168_2024_nd_cp",
+          "title": "Nghị định 168/2024/NĐ-CP quy định xử phạt vi phạm hành chính về trật tự, an toàn giao thông trong lĩnh vực giao thông đường bộ; trừ điểm, phục hồi điểm giấy phép lái xe",
+          "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+          "article_number": "6",
+          "chunk_id": "nd_168_2024_nd_cp:000042",
+          "source_path": "docs/docs_giaothong/text/nd_168_2024_nd_cp.txt",
+          "corpus": "local_text"
+        },
+        {
+          "rank": 4,
+          "doc_id": "tt_65_2024_tt_bca",
+          "source": "tt_65_2024_tt_bca",
+          "title": "Thông tư 65/2024/TT-BCA quy định kiểm tra kiến thức pháp luật về trật tự, an toàn giao thông đường bộ để được phục hồi điểm giấy phép lái xe",
+          "article": "Điều 6. Nội dung, phương pháp, thời gian, kết cấu bài kiểm tra, kết quả kiểm tra đạt yêu cầu",
+          "article_number": "6",
+          "chunk_id": "tt_65_2024_tt_bca:001217",
+          "source_path": "docs/docs_giaothong/text/tt_65_2024_tt_bca.txt",
+          "corpus": "local_text"
+        },
+        {
+          "rank": 5,
+          "doc_id": "nd_168_2024_nd_cp",
+          "source": "nd_168_2024_nd_cp",
+          "title": "Nghị định 168/2024/NĐ-CP quy định xử phạt vi phạm hành chính về trật tự, an toàn giao thông trong lĩnh vực giao thông đường bộ; trừ điểm, phục hồi điểm giấy phép lái xe",
+          "article": "Điều 18. Xử phạt, trừ điểm giấy phép lái xe các hành vi vi phạm quy định về điều kiện của người điều khiển xe cơ giới",
+          "article_number": "18",
+          "chunk_id": "nd_168_2024_nd_cp:000137",
+          "source_path": "docs/docs_giaothong/text/nd_168_2024_nd_cp.txt",
+          "corpus": "local_text"
+        }
+      ]
+    }
+  ],
+  "eval_validation": {
+    "n_samples": 5,
+    "missing_category": 0,
+    "supported_missing_expected_doc_ids": 5,
+    "unsupported_with_expected_doc_ids": 0,
+    "expected_doc_ids_not_in_manifest": {},
+    "measurable_source_rows": 0
+  }
+}

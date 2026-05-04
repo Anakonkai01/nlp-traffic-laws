@@ -1,0 +1,613 @@
+CHÍNH PHỦ
+-------
+
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập - Tự do - Hạnh phúc
+---------------
+
+Số: 39/2023/NĐ-CP
+
+Hà Nội, ngày 26 tháng 6 năm 2023
+
+
+NGHỊ ĐỊNH
+
+QUY ĐỊNH CHI TIẾT MỘT SỐ ĐIỀU NGHỊ QUYẾT SỐ 73/2022/QH15 NGÀY 15 THÁNG 11 NĂM 2022 CỦA QUỐC HỘI VỀ THÍ ĐIỂM ĐẤU GIÁ BIỂN SỐ XE Ô TÔ
+
+Căn cứ Luật Tổ chức Chính phủ ngày 19 tháng 6 năm 2015; Luật sửa đổi, bổ sung một số điều của Luật Tổ chức Chính phủ và Luật Tổ chức chính quyền địa phương ngày 22 tháng 11 năm 2019;
+
+Căn cứ Luật Giao thông đường bộ ngày 13 tháng 11 năm 2008;
+
+Căn cứ Luật Ngân sách nhà nước ngày 25 tháng 6 năm 2015;
+
+Căn cứ Luật Đấu giá tài sản ngày 17 tháng 11 năm 2016;
+
+Căn cứ Luật Quản lý, sử dụng tài sản công ngày 21 tháng 6 năm 2017;
+
+Căn cứ Luật Công nghệ thông tin ngày 29 tháng 6 năm 2006;
+
+Căn cứ Luật An toàn thông tin mạng ngày 19 tháng 11 năm 2015;
+
+Căn cứ Luật An ninh mạng ngày 12 tháng 6 năm 2018;
+
+Căn cứ Nghị quyết số 73/2022/QH15 ngày 15 tháng 11 năm 2022 của Quốc hội về thí điểm đấu giá biển số xe ô tô;
+
+Chính phủ ban hành Nghị định quy định chi tiết một số điều Nghị quyết số 73/2022/QH15 ngày 15 tháng 11 năm 2022 của Quốc hội về thí điểm đấu giá biển số xe ô tô.
+
+Chương I
+
+QUY ĐỊNH CHUNG
+
+Điều 1. Phạm vi điều chỉnh
+
+Nghị định này quy định chi tiết một số điều Nghị quyết số 73/2022/QH15 ngày 15 tháng 11 năm 2022 của Quốc hội về thí điểm đấu giá biển số xe ô tô (sau đây viết gọn là Nghị quyết số 73/2022/QH15), bao gồm trình tự, thủ tục đấu giá biển số xe ô tô và quản lý, sử dụng số tiền thu được từ đấu giá biển số xe ô tô.
+
+Điều 2. Đối tượng áp dụng
+
+1. Bộ Công an.
+
+2. Tổ chức đấu giá tài sản, đấu giá viên được lựa chọn để đấu giá biển số xe ô tô.
+
+3. Tổ chức, cá nhân tham gia đấu giá.
+
+4. Cơ quan, tổ chức, cá nhân khác có liên quan.
+
+Điều 3. Giải thích từ ngữ
+
+Trong Nghị định này, các từ ngữ dưới đây được hiểu như sau:
+
+1. Người tham gia đấu giá là tổ chức, cá nhân người Việt Nam có đủ điều kiện tham gia đấu giá biển số xe ô tô theo quy định của Nghị định này và quy định khác của pháp luật có liên quan.
+
+2. Người trúng đấu giá là người tham gia đấu giá trực tuyến biển số xe ô tô có mức trả giá cao nhất so với giá khởi điểm hoặc bằng giá khởi điểm theo quy định tại Điều 5 Nghị quyết số 73/2022/QH15.
+
+3. Cuộc đấu giá biển số xe ô tô là toàn bộ quá trình đấu giá đối với một biển số xe ô tô.
+
+4. Phiên đấu giá biển số xe ô tô bao gồm các cuộc đấu giá biển số xe ô tô được tổ chức thực hiện trong một kế hoạch đấu giá đã được phê duyệt.
+
+5. Tiền trúng đấu giá là số tiền mà người trúng đấu giá nộp để được cấp quyền sử dụng biển số xe ô tô thông qua việc được cấp văn bản xác nhận biển số trúng đấu giá.
+
+6. Hệ thống quản lý đấu giá biển số xe ô tô của Bộ Công an là một tập hợp bao gồm phần mềm, hạ tầng và đường truyền được thiết kế chuyên biệt để phục vụ công tác quản lý đấu giá biển số ô tô.
+
+Điều 4. Nguyên tắc đấu giá trực tuyến
+
+Đấu giá biển số xe ô tô được thực hiện bằng hình thức trực tuyến trên môi trường mạng, phải tuân thủ quy định của pháp luật về đấu giá tài sản, an toàn an ninh mạng.
+
+Chương II
+
+TRÌNH TỰ, THỦ TỤC ĐẤU GIÁ BIỂN SỐ XE Ô TÔ
+
+Điều 5. Số lượng, ký hiệu sê ri biển số xe ô tô đưa ra đấu giá
+
+Bộ trưởng Bộ Công an quyết định số lượng biển số xe ô tô đưa ra đấu giá tại mỗi phiên đấu giá, bao gồm biển số xe ô tô của các tỉnh, thành phố trực thuộc trung ương, ký hiệu sê ri: A, B, C, D, E, F, G, H, K, L, M, N, P, S, T, U, V, X, Y, Z nền màu trắng, chữ, số màu đen chưa được đăng ký, dự kiến cấp mới, đang trong Hệ thống đăng ký, quản lý xe của Bộ Công an và bổ sung số lượng biển số xe ô tô cho Công an các tỉnh, thành phố trực thuộc trung ương trong trường hợp hết biển số xe ô tô để đăng ký khi chưa đến phiên đấu giá tiếp theo.
+
+Điều 6. Kế hoạch tổ chức đấu giá
+
+1. Bộ trưởng Bộ Công an phê duyệt kế hoạch tổ chức đấu giá biển số xe ô tô cho từng phiên đấu giá.
+
+2. Kế hoạch đấu giá bao gồm các nội dung chính sau đây:
+
+a) Danh sách biển số xe ô tô đưa ra đấu giá;
+
+b) Giá khởi điểm, bước giá và tiền đặt trước;
+
+c) Hình thức, phương thức tổ chức đấu giá;
+
+d) Thời gian tổ chức đấu giá;
+
+đ) Xử lý tình huống đấu giá (nếu có);
+
+e) Các nội dung khác có liên quan.
+
+3. Kế hoạch tổ chức đấu giá phải được thông báo công khai trên Cổng thông tin điện tử của Bộ Công an trong thời hạn 5 ngày làm việc kể từ ngày phê duyệt.
+
+Điều 7. Hợp đồng dịch vụ đấu giá, thù lao dịch vụ đấu giá, chi phí đấu giá thanh toán cho tổ chức đấu giá
+
+1. Hợp đồng dịch vụ đấu giá biển số xe ô tô
+
+a) Bộ Công an ký hợp đồng dịch vụ đấu giá biển số xe ô tô với một tổ chức đấu giá tài sản để thực hiện đấu giá biển số xe ô tô. Hợp đồng dịch vụ đấu giá biển số xe ô tô phải được lập thành văn bản, được thực hiện theo quy định của pháp luật dân sự và Điều 33 Luật Đấu giá tài sản 2016;
+
+b) Thời hạn của hợp đồng dịch vụ đấu giá biển số xe ô tô theo thời hạn thực hiện Nghị quyết số 73/2022/QH15, trừ trường hợp tổ chức đấu giá tài sản được lựa chọn chấm dứt hoạt động, không đáp ứng tiêu chuẩn, điều kiện để tổ chức đấu giá biển số xe ô tô hoặc hợp đồng bị chấm dứt thực hiện theo quy định của pháp luật;
+
+c) Trường hợp chấm dứt hợp đồng trước thời hạn thực hiện Nghị quyết số 73/2022/QH15, Bộ Công an lựa chọn một tổ chức đấu giá tài sản khác đáp ứng các điều kiện quy định tại khoản 3 Điều 2 Nghị quyết số 73/2022/QH15 để tiếp tục thực hiện.
+
+2. Thù lao dịch vụ đấu giá, chi phí đấu giá thanh toán cho tổ chức đấu giá
+
+a) Đối với mỗi biển số xe ô tô đấu giá thành, thù lao dịch vụ đấu giá thanh toán cho tổ chức đấu giá tài sản được tính bằng 8% giá khởi điểm, chưa bao gồm thuế giá trị gia tăng và chi phí đấu giá;
+
+b) Chi phí đấu giá thanh toán cho tổ chức đấu giá tài sản là 10.000 đồng trên một biển số xe ô tô đưa ra đấu giá.
+
+Điều 8. Quy chế đấu giá
+
+Căn cứ các nội dung đã được Bộ Công an thống nhất, tổ chức đấu giá tài sản ban hành Quy chế đấu giá, gồm các nội dung: Danh sách biển số xe ô tô đưa ra đấu giá, thời gian đấu giá cho mỗi biển số xe ô tô, tài khoản nộp tiền đặt trước tham gia đấu giá và các nội dung khác theo quy định tại Điều 34 Luật Đấu giá tài sản.
+
+Điều 9. Niêm yết, thông báo công khai việc đấu giá tài sản
+
+1. Bộ Công an chuyển danh sách biển số xe ô tô đưa ra đấu giá cho tổ chức đấu giá tài sản, đồng thời thông báo công khai danh sách, kế hoạch tổ chức đấu giá biển số xe ô tô trên Cổng thông tin điện tử Bộ Công an, Trang thông tin điện tử Cục Cảnh sát giao thông, có đường dẫn đến Trang thông tin đấu giá trực tuyến của tổ chức đấu giá tài sản.
+
+2. Tổ chức đấu giá tài sản thông báo công khai danh sách biển số xe ô tô đưa ra đấu giá trên cổng thông tin điện tử quốc gia về đấu giá tài sản, Trang thông tin đấu giá trực tuyến của tổ chức đấu giá tài sản và niêm yết tại trụ sở. Quy chế đấu giá phải được niêm yết, thông báo công khai trên Trang thông tin đấu giá trực tuyến, trụ sở của tổ chức đấu giá tài sản.
+
+3. Thời gian thông báo công khai, niêm yết, Quy chế đấu giá, danh sách biển số xe ô tô đưa ra đấu giá ít nhất 30 ngày trước ngày tổ chức phiên đấu giá.
+
+Điều 10. Điều kiện đăng ký tham gia đấu giá
+
+1. Thuộc đối tượng tham gia đấu giá theo quy định tại khoản 1 Điều 3 Nghị định này và nộp tiền đặt trước cho tổ chức đấu giá tài sản theo quy định tại khoản 2 Điều 3 Nghị quyết số 73/2022/QH15.
+
+2. Tổ chức, cá nhân đăng ký tham gia đấu giá tự chịu trách nhiệm về tính chính xác, tính trung thực việc kê khai thông tin để đăng ký tham gia đấu giá.
+
+Điều 11. Các bước thực hiện một cuộc đấu giá biển số xe ô tô
+
+1. Đăng ký tham gia đấu giá
+
+a) Việc đăng ký tham gia đấu giá được thực hiện hoàn toàn trên môi trường mạng tại Trang thông tin đấu giá trực tuyến của tổ chức đấu giá tài sản;
+
+b) Người tham gia đấu giá được cấp một tài khoản truy cập, được hướng dẫn về cách sử dụng tài khoản, cách trả giá và các nội dung khác trên Trang thông tin đấu giá trực tuyến để thực hiện việc đấu giá;
+
+c) Người tham gia đấu giá được lựa chọn biển số xe ô tô theo nhu cầu trong danh sách biển số xe ô tô đưa ra đấu giá của tất cả các tỉnh, thành phố trực thuộc trung ương trên toàn quốc để tham gia đấu giá;
+
+d) Người tham gia đấu giá nộp tiền hồ sơ, tiền đặt trước của biển số xe ô tô đã lựa chọn tham gia đấu giá vào tài khoản của tổ chức đấu giá tài sản và được cấp mã số tham gia đấu giá của cuộc đấu giá biển số xe ô tô đó;
+
+đ) Tổ chức đấu giá tài sản có trách nhiệm tiếp nhận thông tin đăng ký tham gia đấu giá và tiền đặt trước liên tục kể từ ngày niêm yết việc đấu giá tài sản cho đến trước thời điểm tổ chức đấu giá 03 ngày.
+
+2. Người tham gia đấu giá truy cập vào Trang thông tin đấu giá trực tuyến bằng tài khoản truy cập của mình và thực hiện thủ tục đấu giá theo Quy chế đấu giá.
+
+3. Tại thời điểm kết thúc cuộc đấu giá trực tuyến, Trang thông tin đấu giá trực tuyến xác định người trúng đấu giá, thông báo kết quả cuộc đấu giá, hiển thị biên bản đấu giá để người trúng đấu giá xác nhận, gửi vào hòm thư điện tử của người tham gia đấu giá đã đăng ký với tổ chức đấu giá tài sản.
+
+4. Đấu giá viên chịu trách nhiệm tổ chức thực hiện cuộc đấu giá trực tuyến, xác thực vào biên bản đấu giá bằng chữ ký số để gửi cho người trúng đấu giá.
+
+5. Bộ Công an phân công cán bộ theo dõi, giám sát quá trình tổ chức đấu giá: số lượng đấu giá viên, số lượng người tham gia đấu giá, kết quả đấu giá và các vấn đề khác có liên quan.
+
+6. Các trình tự, thủ tục đấu giá không được quy định tại Nghị định này thì thực hiện theo quy định của Luật Đấu giá tài sản.
+
+Điều 12. Tiền đặt trước tham gia đấu giá
+
+1. Tiền đặt trước được gửi vào một tài khoản thanh toán riêng của tổ chức đấu giá tài sản mở tại ngân hàng kể từ khi đăng ký tham gia cho đến trước thời điểm tổ chức đấu giá 03 ngày. Trường hợp trúng đấu giá, tiền đặt trước được chuyển vào tài khoản chuyên thu của Bộ Công an để nộp vào ngân sách nhà nước theo quy định.
+
+2. Việc xử lý tiền đặt trước trong các trường hợp cụ thể được thực hiện theo quy định tại Điều 39 Luật Đấu giá tài sản.
+
+Điều 13. Chuyển hồ sơ đấu giá
+
+1. Trong thời hạn 01 ngày làm việc kể từ ngày kết thúc phiên đấu giá, tổ chức đấu giá tài sản phải ghi kết quả đấu giá tài sản vào Sổ đăng ký đấu giá tài sản và thông báo bằng văn bản điện tử cho Bộ Công an.
+
+2. Trong thời hạn 05 ngày làm việc kể từ ngày kết thúc phiên đấu giá, tổ chức đấu giá tài sản phải chuyển kết quả đấu giá, biên bản đấu giá, danh sách người trúng đấu giá cho Bộ Công an để phê duyệt kết quả trúng đấu giá và hoàn thiện các thủ tục liên quan.
+
+Điều 14. Phê duyệt kết quả trúng đấu giá
+
+Trong thời hạn 07 ngày làm việc kể từ ngày nhận được kết quả đấu giá, biên bản đấu giá, danh sách người trúng đấu giá từ tổ chức đấu giá tài sản, Bộ Công an ban hành văn bản phê duyệt kết quả đấu giá.
+
+Điều 15. Thông báo kết quả trúng đấu giá
+
+1. Bộ Công an gửi thông báo kết quả trúng đấu giá biển số xe ô tô vào hòm thư điện tử và gửi tin nhắn thông báo tới số điện thoại đã đăng ký tại tài khoản truy cập cho người trúng đấu giá ngay sau khi phê duyệt kết quả đấu giá; thông báo kết quả trúng đấu giá biển số xe ô tô thay thế hợp đồng mua bán tài sản đấu giá hoặc hợp đồng bán tài sản nhà nước.
+
+2. Nội dung thông báo kết quả trúng đấu giá gồm: Biển số xe ô tô trúng đấu giá, tên, mã định danh của cá nhân, tổ chức (trường hợp tổ chức chưa được cấp mã định danh thì ghi mã số thuế hoặc số quyết định thành lập tổ chức), địa chỉ người trúng đấu giá, giá trúng đấu giá, số tiền phải nộp, số tài khoản chuyên thu do Bộ Công an mở tại ngân hàng, chi nhánh ngân hàng nước ngoài để nộp tiền trúng đấu giá, thời hạn nộp tiền trúng đấu giá, việc huỷ kết quả đấu giá nếu không nộp đủ số tiền trúng đấu giá theo quy định.
+
+Điều 16. Nộp tiền trúng đấu giá
+
+Trong thời hạn 15 ngày kể từ ngày có thông báo kết quả đấu giá, người trúng đấu giá phải nộp toàn bộ tiền trúng đấu giá sau khi đã trừ số tiền đặt trước vào tài khoản chuyên thu của Bộ Công an mở tại ngân hàng, chi nhánh ngân hàng nước ngoài. Tiền trúng đấu giá không bao gồm lệ phí đăng ký xe.
+
+Điều 17. Cấp văn bản xác nhận biển số trúng đấu giá
+
+Ngay sau khi nhận đủ số tiền trúng đấu giá, Bộ Công an cấp hoá đơn điện tử bán tài sản công và văn bản điện tử xác nhận biển số xe ô tô trúng đấu giá gửi vào hòm thư điện tử cho người trúng đấu giá để làm thủ tục đăng ký xe.
+
+Điều 18. Trường hợp dừng cuộc đấu giá
+
+1. Tổ chức đấu giá tài sản buộc phải dừng cuộc đấu giá trong các trường hợp sau:
+
+a) Bộ Công an yêu cầu dừng cuộc đấu giá theo quy định tại điểm c, điểm d khoản 1 Điều 47 Luật Đấu giá tài sản;
+
+b) Sự kiện bất khả kháng.
+
+2. Bộ Công an quyết định việc thực hiện tổ chức đấu giá lại sau khi đáp ứng đủ điều kiện tổ chức đấu giá theo quy định.
+
+Điều 19. Trường hợp hủy kết quả đấu giá, thông báo kết quả đấu giá, văn bản xác nhận biển số xe ô tô trúng đấu giá và người trúng đấu giá không xác nhận biên bản đấu giá
+
+1. Kết quả đấu giá bị hủy trong các trường hợp quy định tại Luật Đấu giá tài sản.
+
+2. Người trúng đấu giá không xác nhận biên bản đấu giá được coi như không chấp nhận giao kết hợp đồng mua bán tài sản đấu giá.
+
+3. Thông báo kết quả trúng đấu giá, văn bản xác nhận biển số xe ô tô trúng đấu giá bị huỷ trong các trường hợp sau:
+
+a) Người trúng đấu giá không nộp đủ tiền trúng đấu giá trong thời hạn quy định tại Điều 16 Nghị định này;
+
+b) Người trúng đấu giá không làm thủ tục đăng ký biển số xe ô tô trúng đấu giá theo quy định tại điểm b khoản 2 Điều 6 Nghị quyết số 73/2022/QH15;
+
+c) Người trúng đấu giá vi phạm về tính trung thực của hồ sơ đăng ký tham gia đấu giá.
+
+4. Biển số xe ô tô trúng đấu giá được đưa ra đấu giá lại; số tiền đặt trước, số tiền trúng đấu giá mà người trúng đấu giá đã nộp không được hoàn trả lại và được nộp vào ngân sách nhà nước trong các trường hợp quy định tại khoản 1, 2, 3 Điều này.
+
+Điều 20. Quản lý biển số xe ô tô trúng đấu giá
+
+1. Biển số xe ô tô trúng đấu giá chỉ được cấp cho người trúng đấu giá.
+
+2. Thủ tục đăng ký biển số xe ô tô trúng đấu giá thực hiện theo quy định của pháp luật về đăng ký xe.
+
+Điều 21. Gia hạn thời hạn đăng ký trong trường hợp sự kiện bất khả kháng hoặc trở ngại khách quan
+
+1. Trước khi hết thời hạn 12 tháng kể từ ngày cấp văn bản điện tử xác nhận biển số xe ô tô trúng đấu giá, người trúng đấu giá chưa thực hiện thủ tục đăng ký xe ô tô để gắn biển số trúng đấu giá mà phát sinh sự kiện bất khả kháng hoặc trở ngại khách quan thì người trúng đấu giá phải gửi đề nghị gia hạn bằng văn bản điện tử qua Hệ thống quản lý đấu giá biển số xe ô tô của Bộ Công an.
+
+2. Trong thời hạn 15 ngày, kể từ ngày xảy ra sự kiện bất khả kháng hoặc trở ngại khách quan, người trúng đấu giá phải gửi giấy tờ chứng minh về Bộ Công an (qua Cục Cảnh sát giao thông) để xem xét, giải quyết.
+
+3. Trong thời hạn 07 ngày, kể từ ngày nhận được giấy tờ chứng minh sự kiện bất khả kháng hoặc trở ngại khách quan của người trúng đấu giá, Bộ Công an xem xét, giải quyết và thông báo kết quả gia hạn cho người trúng đấu giá bằng văn bản điện tử.
+
+Chương III
+
+QUẢN LÝ, SỬ DỤNG SỐ TIỀN THU ĐƯỢC TỪ ĐẤU GIÁ
+
+Điều 22. Quản lý, sử dụng số tiền thu được từ đấu giá
+
+1. Giao Bộ Công an mở một tài khoản chuyên thu tại ngân hàng, chi nhánh ngân hàng nước ngoài để thu tiền trúng đấu giá. Tiền lãi phát sinh (nếu có) trên số dư tài khoản chuyên thu của Bộ Công an nộp toàn bộ vào ngân sách nhà nước.
+
+2. Số tiền thu được từ đấu giá biển số xe ô tô sau khi trừ các khoản chi phí tổ chức đấu giá (viết gọn là tiền bán đấu giá) và tiền lãi phát sinh (nếu có) trên số dư tài khoản chuyên thu của Bộ Công an thực hiện kê khai, nộp, quyết toán với cơ quan thuế. Cơ quan thuế quản lý kê khai, nộp, quyết toán khoản thu này theo quy định pháp luật về quản lý thuế.
+
+a) Chậm nhất ngày 20 hàng tháng, Bộ Công an (hoặc cơ quan được Bộ Công an giao quản lý thu, nộp tiền bán đấu giá) kê khai, nộp tiền bán đấu giá thu được tháng trước với cơ quan thuế (theo Mẫu số 01/DG ban hành kèm theo Nghị định này). Bộ Công an (hoặc cơ quan được Bộ Công an giao quản lý thu, nộp tiền bán đấu giá) thực hiện quyết toán tiền bán đấu giá theo năm (theo Mẫu số 02/DG ban hành kèm theo Nghị định này) theo quy định pháp luật quản lý thuế;
+
+b) Số tiền bán đấu giá nộp toàn bộ vào ngân sách trung ương;
+
+c) Tiền lãi phát sinh (nếu có) trên số dư tài khoản chuyên thu của Bộ Công an tại ngân hàng, chi nhánh ngân hàng nước ngoài phải nộp toàn bộ vào ngân sách trung ương, cùng với số tiền bán đấu giá thu được trong tháng phát sinh;
+
+d) Bộ Công an chịu trách nhiệm xác định, phê duyệt các khoản chi phí tổ chức đấu giá để làm căn cứ tính số tiền đấu giá thu được nộp ngân sách nhà nước.
+
+3. Cùng thời điểm lập dự toán ngân sách nhà nước hàng năm, căn cứ vào tiến độ thực hiện và nhu cầu kinh phí, Bộ Công an xây dựng dự toán tương ứng với 30% số tiền thu được từ đấu giá biển số xe năm trước đã nộp ngân sách nhà nước để phục vụ công tác đảm bảo trật tự an toàn giao thông và đấu tranh phòng chống tội phạm, đầu tư hệ thống cơ sở vật chất, tập huấn nâng cao trình độ cho cán bộ thực hiện công tác đăng ký, quản lý phương tiện giao thông cơ giới đường bộ và đảm bảo an ninh trật tự, gửi Bộ Tài chính để tổng hợp trình cấp có thẩm quyền bố trí kinh phí thực hiện trong dự toán ngân sách nhà nước hàng năm của Bộ Công an theo quy định của Luật Ngân sách nhà nước và các văn bản pháp luật có liên quan.
+
+4. Ngoài các quy định được quy định tại khoản 1, 2, 3 Điều này, việc quản lý, sử dụng số tiền thu được từ đấu giá biển số xe ô tô còn được thực hiện theo quy định của pháp luật về ngân sách nhà nước, pháp luật về phí, lệ phí và pháp luật có liên quan.
+
+Điều 23. Hoàn tiền trúng đấu giá
+
+1. Trong thời hạn 12 tháng kể từ ngày có văn bản xác nhận biển số xe ô tô trúng đấu giá hoặc văn bản gia hạn thời hạn đăng ký trong trường hợp sự kiện bất khả kháng hoặc trở ngại khách quan, người trúng đấu giá chưa đăng ký biển số xe ô tô trúng đấu giá gắn với xe thì Bộ Công an sẽ gửi thông báo cho người trúng đấu giá theo địa chỉ đã đăng ký trong hồ sơ đăng ký đấu giá.
+
+Trường hợp người trúng đấu giá chết thì người thừa kế hợp pháp của người trúng đấu giá được hoàn trả số tiền trúng đấu giá đã nộp (sau khi trừ các khoản chi phí tổ chức đấu giá theo quy định và không được tính lãi suất) theo quy định pháp luật.
+
+2. Hồ sơ đề nghị hoàn tiền trúng đấu giá gồm có:
+
+a) Đơn đề nghị hoàn tiền trúng đấu giá biển số xe ô tô;
+
+b) Văn bản khai nhận di sản thừa kế hoặc văn bản thỏa thuận phân chia di sản thừa kế đã được công chứng theo quy định pháp luật;
+
+c) Văn bản xác nhận biển số xe ô tô trúng đấu giá;
+
+d) Giấy ủy quyền (nếu có);
+
+đ) Căn cước công dân của các đồng thừa kế.
+
+3. Trong thời hạn 15 ngày kể từ ngày nhận đủ Hồ sơ đề nghị hoàn tiền, Bộ Công an có trách nhiệm làm thủ tục hoàn trả lại tiền trúng đấu giá biển số cho người thừa kế hợp pháp của người trúng đấu giá như sau:
+
+a) Trường hợp hoàn trả trước thời điểm nộp ngân sách nhà nước: Thực hiện hoàn tiền từ tài khoản chuyên thu của Bộ Công an mở tại ngân hàng, chi nhánh ngân hàng nước ngoài;
+
+b) Trường hợp hoàn trả sau thời điểm nộp ngân sách nhà nước: Bộ Công an có trách nhiệm kiểm tra đối chiếu hồ sơ đề nghị hoàn trả với các chứng từ nộp ngân sách nhà nước của khoản đã nộp trước đó, nếu phù hợp thì Bộ Công an ban hành quyết định hoàn trả và lập lệnh hoàn trả khoản thu ngân sách nhà nước, chuyển cho Kho bạc Nhà nước nơi đã thu ngân sách nhà nước để thực hiện hoàn trả cho người nộp ngân sách nhà nước.
+
+Chương IV
+
+HIỆU LỰC THI HÀNH
+
+Điều 24. Tổ chức thực hiện
+
+Bộ Công an chủ trì, phối hợp với các bộ, ngành liên quan tổ chức thực hiện Nghị định này và giao các đơn vị chức năng giám sát, bảo đảm an ninh, an toàn quá trình tổ chức đấu giá biển số xe ô tô.
+
+Điều 25. Hiệu lực thi hành
+
+1. Nghị định này có hiệu lực thi hành kể từ ngày 01 tháng 7 năm 2023.
+
+2. Nội dung thí điểm đấu giá biển số xe ô tô quy định tại Nghị định này được thực hiện từ ngày 01 tháng 7 năm 2023 đến ngày 01 tháng 7 năm 2026.
+
+
+
+Nơi nhận:
+- Ban Bí thư Trung ương Đảng;
+- Thủ tướng, các Phó Thủ tướng Chính phủ;
+- Các bộ, cơ quan ngang bộ, cơ quan thuộc Chính phủ;
+- HĐND, UBND các tỉnh, thành phố trực thuộc trung ương;
+- Văn phòng Trung ương và các Ban của Đảng;
+- Văn phòng Tổng Bí thư;
+- Văn phòng Chủ tịch nước;
+- Hội đồng Dân tộc và các Ủy ban của Quốc hội;
+- Văn phòng Quốc hội;
+- Tòa án nhân dân tối cao;
+- Viện kiểm sát nhân dân tối cao;
+- Kiểm toán nhà nước;
+- Ủy ban Giám sát tài chính Quốc gia;
+- Ngân hàng Chính sách Xã hội;
+- Ngân hàng Phát triển Việt Nam;
+- Ủy ban trung ương Mặt trận Tổ quốc Việt Nam;
+- Cơ quan trung ương của các đoàn thể;
+- VPCP: BTCN, các PCN, Trợ lý TTg, TGĐ Cổng TTĐT, các Vụ, Cục, đơn vị trực thuộc, Công báo;
+- Lưu: VT, KTTH (2).
+
+TM. CHÍNH PHỦ
+KT. THỦ TƯỚNG
+PHÓ THỦ TƯỚNG
+
+
+
+
+Lê Minh Khái
+
+
+PHỤ LỤC
+
+(Kèm theo Nghị định số 39/2023/NĐ-CP ngày 26 tháng 6 năm 2023 của Chính phủ)
+
+Mẫu số 01/DG
+
+Tờ khai tiền bán đấu giá biển số xe
+
+Mẫu số 02/DG
+
+Tờ khai quyết toán tiền bán đấu giá biển số xe
+
+
+Mẫu số 01/DG
+
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập - Tự do - Hạnh phúc
+---------------
+
+TỜ KHAI TIỀN BÁN ĐẤU GIÁ BIỂN SỐ XE
+
+[01] Kỳ tính thuế: Tháng.... năm….
+
+[02] Lần đầu: □ [03] Bổ sung lần thứ:...
+
+[04] Người nộp thuế :................................................................................................
+
+[05] Mã số thuế:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[06] Đại lý thuế (nếu có):......................................................................................................
+
+[07] Mã số thuế:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[08] Hợp đồng đại lý thuế: Số:………………………………..ngày……………………………….
+
+STT
+
+Biển số xe đấu giá
+
+Đơn vị tiền
+
+Số tiền đấu giá thu được
+
+Chi phí liên quan được trừ
+
+Số tiền phải nộp NSNN
+
+Chi phí đấu giá
+
+Thù lao dịch vụ đấu giá
+
+Số tiền hoàn trả (nếu có)
+
+Chi phí khác
+
+(1)
+
+(2)
+
+(3)
+
+(4)
+
+(5)
+
+(6)
+
+(7)
+
+(8) = (3) - (4) -(5) - (6) - (7)
+
+
+
+
+
+
+
+
+
+
+Tổng cộng
+
+
+
+
+
+
+
+
+
+Tôi cam đoan số liệu khai trên là đúng và chịu trách nhiệm trước pháp luật về số liệu đã khai.
+
+
+
+NHÂN VIÊN ĐẠI LÝ THUẾ
+
+Họ và tên:………
+
+Chứng chỉ hành nghề số:…..
+
+..., ngày…..tháng…..năm…
+NGƯỜI NỘP THUẾ hoặc
+ĐẠI DIỆN HỢP PHÁP CỦA NGƯỜI NỘP THUẾ
+(Chữ ký, ghi rõ họ tên; chức vụ và đóng dấu
+(nếu có)/Ký điện tử)
+
+
+Lưu ý:
+
+- Người nộp thuế có thể khai chi tiết theo biển số xe đấu giá hoặc chỉ khai số liệu tổng tại dòng “Tổng cộng”. Trong trường hợp chỉ khai số liệu tổng, người nộp thuế phải quản lý và lập danh mục chi tiết biển số xe đấu giá, số tiền đấu giá thu được, chi phí liên quan được trừ (trường hợp trong cùng một phiên đấu giá có nhiều biển số đấu giá thì phân bổ chi phí cho từng biển số) để lưu trữ tại trụ sở của người nộp thuế và cung cấp cho cơ quan thuế khi có yêu cầu.
+
+- Chỉ tiêu (1): Điền tổng số lượng biển số xe đấu giá tại dòng “Tổng cộng”.
+
+- Chỉ tiêu (3), (4), (5), (6): Xác định theo quy định tại Nghị định này.
+
+- Chỉ tiêu (7): Là các chi phí tổ chức đấu giá khác do Bộ Công an chịu trách nhiệm xác định, phê duyệt theo quy định tại Nghị định này. Đối với các chi phí phát sinh qua nhiều tháng thì thực hiện phân bổ theo tháng, trường hợp khai chi tiết theo biển số xe đấu giá thì tiếp tục thực hiện phân bổ theo số lượng biển số xe đấu giá trong kỳ kê khai.
+
+
+Mẫu số 02/DG
+
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập - Tự do - Hạnh phúc
+---------------
+
+TỜ KHAI QUYẾT TOÁN TIỀN BÁN ĐẤU GIÁ BIỂN SỐ XE
+[01] Kỳ tính thuế: Năm…..
+
+[02] Lần đầu: □ [03] Bổ sung lần thứ:...
+
+[04] Người nộp thuế :……………………………………………………………………………
+
+[05] Mã số thuế:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[06] Đại lý thuế (nếu có):………………………………………………………………………..
+
+[07] Mã số thuế:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[08] Hợp đồng đại lý thuế: Số:.......................................... ngày..........................................
+
+STT
+
+Biển số xe đấu giá
+
+Đơn vị tiền
+
+Số tiền đấu giá thu được
+
+Chi phí liên quan được trừ
+
+Số tiền phải nộp
+
+NSNN
+
+Số tiền đã kê khai trong kỳ
+
+Chênh lệch giữa số quyết toán và số kê khai
+
+Chi phí đấu giá
+
+Thù lao dịch vụ đấu giá
+
+Số tiền hoàn trả (nếu có)
+
+Chi phí khác
+
+(1)
+
+(2)
+
+(3)
+
+(4)
+
+(5)
+
+(6)
+
+(7)
+
+(8) = (3) - (4) - (5) - (6) - (7)
+
+(9)
+
+(10) = (8) - (9)
+
+
+
+
+
+
+
+
+
+
+
+
+Tổng cộng
+
+
+
+
+
+
+
+
+
+
+
+Tôi cam đoan số liệu khai trên là đúng và chịu trách nhiệm trước pháp luật về số liệu đã khai.
+
+
+
+NHÂN VIÊN ĐẠI LÝ THUẾ
+
+Họ và tên:………………………
+
+Chứng chỉ hành nghề số:…..
+
+..., ngày…..tháng…..năm…
+NGƯỜI NỘP THUẾ hoặc
+ĐẠI DIỆN HỢP PHÁP CỦA NGƯỜI NỘP THUẾ
+(Chữ ký, ghi rõ họ tên; chức vụ và đóng dấu
+(nếu có)/Ký điện tử)
+
+
+Lưu ý:
+
+- Người nộp thuế có thể khai chi tiết theo biển số xe đấu giá hoặc chỉ khai số liệu tổng tại dòng “Tổng cộng”. Trong trường hợp chỉ khai số liệu tổng, người nộp thuế phải quản lý và lập danh mục chi tiết biển số xe đấu giá, số tiền đấu giá thu được, chi phí liên quan được trừ (trường hợp trong cùng một phiên đấu giá có nhiều biển số đấu giá thì phân bổ chi phí cho từng biển số) để lưu trữ tại trụ sở của người nộp thuế và cung cấp cho cơ quan thuế khi có yêu cầu.
+
+- Chỉ tiêu (1): Điền tổng số lượng biển số xe đấu giá tại dòng “Tổng cộng”.
+
+- Chỉ tiêu (3), (4), (5), (6): Xác định theo quy định tại Nghị định này.
+
+- Chỉ tiêu (7): Là các chi phí tổ chức đấu giá khác do Bộ Công an chịu trách nhiệm xác định, phê duyệt theo quy định tại Nghị định này. Đối với các chi phí phát sinh qua nhiều tháng thì thực hiện phân bổ theo tháng, trường hợp khai chi tiết theo biển số xe đấu giá thì tiếp tục thực hiện phân bổ theo số lượng biển số xe đấu giá trong kỳ kê khai.

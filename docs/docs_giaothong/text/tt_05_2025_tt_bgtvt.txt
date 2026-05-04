@@ -1,0 +1,897 @@
+(Chinhphu.vn) - Toàn văn Thông tư 12/2025/TT-BCA ngày 28/2/2025 của Bộ Công an quy định về sát hạch, cấp giấy phép lái xe; cấp, sử dụng giấy phép lái xe quốc tế.
+BỘ CÔNG AN
+‎
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+‎Độc lập - Tự do - Hạnh phúc
+‎
+Số: 12/2025/TT-BCA
+
+Hà Nội, ngày 28 tháng 02 năm 2025
+
+THÔNG TƯ
+Quy định về sát hạch, cấp giấy phép lái xe;
+cấp, sử dụng giấy phép lái xe quốc tế
+
+Căn cứ Luật Trật tự, an toàn giao thông đường bộ ngày 27 tháng 6 năm 2024;
+
+Căn cứ Nghị quyết số 190/2025/QH15 ngày 19 tháng 02 năm 2025 của Quốc hội quy định về xử lý một số vấn đề liên quan đến sắp xếp tổ chức bộ máy nhà nước;
+
+Căn cứ Nghị định số 02/2025/NĐ-CP ngày 18 tháng 02 năm 2025 của Chính phủ quy định chức năng, nhiệm vụ, quyền hạn và cơ cấu tổ chức của Bộ Công an;
+
+Theo đề nghị của Cục trưởng Cục Cảnh sát giao thông;
+
+Bộ trưởng Bộ Công an ban hành Thông tư quy định về sát hạch, cấp giấy phép lái xe; cấp, sử dụng giấy phép lái xe quốc tế.
+
+Chương I
+QUY ĐỊNH CHUNG
+Điều 1. Phạm vi điều chỉnh
+1. Thông tư này quy định về sát hạch, cấp, đổi, cấp lại, thu hồi, sử dụng giấy phép lái xe; cấp, sử dụng giấy phép lái xe quốc tế; mẫu giấy phép lái xe, mẫu giấy phép lái xe quốc tế.
+
+2. Thông tư này không điều chỉnh đối với việc sát hạch, cấp, đổi, cấp lại, thu hồi giấy phép lái xe cho lực lượng quân đội, công an làm nhiệm vụ quốc phòng, an ninh.
+
+Điều 2. Đối tượng áp dụng
+Thông tư này áp dụng đối với tổ chức, cá nhân có liên quan tới sát hạch, cấp, đổi, cấp lại, thu hồi, sử dụng giấy phép lái xe; cấp, sử dụng giấy phép lái xe quốc tế.
+
+Điều 3. Giải thích từ ngữ
+Trong Thông tư này, các từ ngữ dưới đây được hiểu như sau:
+
+1. Số phôi giấy phép lái xe là mã số do nhà sản xuất phôi ghi ở mặt sau của giấy phép lái xe, bao gồm 02 chữ cái và các số phía sau.
+
+2. Giấy phép lái xe điện tử là giấy phép lái xe thể hiện dưới dạng thông điệp dữ liệu, được tích hợp lên hệ thống dữ liệu điện tử, tài khoản định danh điện tử.
+
+3. Hồ sơ điện tử cấp, đổi, cấp lại giấy phép lái xe là tập hợp các tài liệu điện tử liên quan để cấp giấy phép lái xe.
+
+5. Giấy phép lái xe quốc tế là giấy phép lái xe có tên tiếng Anh là International Driving Permit, sau đây gọi tắt là IDP.
+
+6. Giấy phép lái xe quốc gia là giấy phép lái xe do cơ quan có thẩm quyền của các nước cấp, có giá trị trên lãnh thổ quốc gia đó.
+
+7. Hồ sơ điện tử giấy phép lái xe quốc tế là tập hợp các tài liệu điện tử liên quan đến cấp IDP.
+
+8. Hệ thống thông tin về sát hạch, cấp giấy phép lái xe là tập hợp phần cứng, đường truyền và phần mềm phục vụ công tác quản lý thông tin về sát hạch, cấp, đổi, cấp lại, thu hồi giấy phép lái xe (còn gọi là cơ sở dữ liệu về sát hạch, cấp giấy phép lái xe), bao gồm:
+
+a) Hệ thống thông tin sát hạch lái xe tại trung tâm sát hạch lái xe, Phòng Cảnh sát giao thông Công an các tỉnh, thành phố trực thuộc Trung ương (sau đây viết gọn là Phòng Cảnh sát giao thông) và Cục Cảnh sát giao thông;
+
+b) Hệ thống thông tin giấy phép lái xe tại Cục Cảnh sát giao thông, Phòng Cảnh sát giao thông Công an cấp tỉnh và Công an xã, phường, thị trấn, Đồn Công an ở huyện nơi không tổ chức Công an cấp xã (sau đây viết gọn là Công an cấp xã) nơi được bố trí điểm tiếp nhận.
+
+Chương II
+SÁT HẠCH LÁI XE
+Điều 4. Hình thức, nội dung và quy trình sát hạch lái xe
+1. Sát hạch lý thuyết
+
+a) Sát hạch lý thuyết: gồm các câu hỏi liên quan đến quy định của pháp luật về trật tự, an toàn giao thông đường bộ; kỹ thuật lái xe; nội dung liên quan đến cấu tạo và sửa chữa thông thường (đối với hạng B1 và hạng B trở lên); đạo đức người lái xe, văn hóa giao thông và phòng, chống tác hại của rượu, bia khi tham gia giao thông; kỹ năng phòng cháy, chữa cháy và cứu nạn, cứu hộ (đối với hạng B trở lên).
+
+Thí sinh dự sát hạch lái xe hạng A1, A có giấy phép lái xe ô tô còn hiệu lực được miễn sát hạch lý thuyết;
+
+b) Sát hạch lý thuyết thực hiện trên máy vi tính, trừ trường hợp quy định tại khoản 2 Điều 5 Thông tư này.
+
+2. Sát hạch thực hành lái xe trong hình
+
+a) Đối với hạng A1, A
+
+Thực hiện sát hạch bằng phương pháp chấm điểm trực tiếp kết hợp thiết bị chấm điểm tự động, trừ trường hợp quy định tại khoản 2 Điều 5 Thông tư này. Người dự sát hạch phải điều khiển xe mô tô qua 04 bài sát hạch: đi theo hình số 8, qua vạch đường thẳng, qua đường có vạch cản, qua đường gồ ghề;
+
+b) Đối với hạng B1
+
+Thực hiện sát hạch bằng phương pháp chấm điểm trực tiếp, sát hạch viên không ngồi trên xe sát hạch. Người dự sát hạch phải điều khiển xe tiến qua hình chữ chi và lùi theo hướng ngược lại;
+
+c) Đối với các hạng B, C1, C, D1, D2, D
+
+Thực hiện sát hạch bằng phương pháp sử dụng thiết bị chấm điểm tự động; không có sát hạch viên ngồi trên xe sát hạch, trừ trường hợp quy định tại điểm a khoản 2 Điều 13 Thông tư này.
+
+Người dự sát hạch phải điều khiển xe qua các bài sát hạch đã bố trí tại trung tâm sát hạch lái xe gồm: xuất phát, dừng xe nhường đường cho người đi bộ, dừng và khởi hành xe trên dốc, qua vệt bánh xe và đường vòng vuông góc, qua ngã tư có đèn tín hiệu điều khiển giao thông, qua đường vòng quanh co, ghép xe vào nơi đỗ (hạng B và C1 thực hiện ghép xe dọc; hạng B, C, D1, D2 và D thực hiện ghép xe ngang), tạm dừng ở chỗ có đường sắt chạy qua, thao tác khi gặp tình huống nguy hiểm, thay đổi số trên đường bằng, kết thúc;
+
+d) Đối với các hạng BE, D1E, D2E, DE
+
+Thực hiện sát hạch bằng phương pháp chấm điểm trực tiếp, sát hạch viên không ngồi trên xe sát hạch. Người dự sát hạch điều khiển xe qua bài sát hạch: tiến qua hình có 05 cọc chuẩn và vòng trở lại;
+
+đ) Đối với hạng C1E, CE
+
+Thực hiện sát hạch bằng phương pháp chấm điểm trực tiếp, sát hạch viên không ngồi trên xe sát hạch. Người dự sát hạch điều khiển xe qua 02 bài sát hạch: tiến qua hình có 05 cọc chuẩn và vòng trở lại; ghép xe dọc vào nơi đỗ.
+
+3. Sát hạch thực hành lái xe trên đường
+
+a) Đối với các hạng B, C1, C, D1, D2, D
+
+Thực hiện sát hạch bằng phương pháp sử dụng thiết bị chấm điểm tự động, có một sát hạch viên ngồi trên xe sát hạch. Người dự sát hạch điều khiển xe ô tô sát hạch, xử lý các tình huống trên đường giao thông và thực hiện theo hiệu lệnh của sát hạch viên;
+
+b) Đối với các hạng BE, C1E, CE, D1E, D2E, DE
+
+Thực hiện sát hạch bằng phương pháp chấm điểm trực tiếp, có một sát hạch viên ngồi trên xe sát hạch.
+
+4. Sát hạch lái xe ô tô bằng phần mềm mô phỏng các tình huống giao thông đối với các hạng B, C1, C, D1, D2, D, BE, C1E, CE, D1E, D2E, DE: người dự sát hạch phát hiện các thời điểm có nguy cơ mất an toàn giao thông thông qua việc quan sát các tình huống mô phỏng xuất hiện trên máy tính và đưa ra các thao tác xử lý tình huống đó.
+
+5. Quy trình sát hạch lái xe
+
+a) Hạng A1 và A thực hiện theo quy định tại Phụ lục II ban hành kèm theo Thông tư này;
+
+b) Hạng B1 thực hiện theo quy định tại Phụ lục III ban hành kèm theo Thông tư này;
+
+c) Các hạng B, C1, C, D1, D2, D thực hiện theo quy định tại Phụ lục IV ban hành kèm theo Thông tư này; các hạng BE, D1E, D2E, DE thực hiện theo quy định tại Phụ lục V ban hành kèm theo Thông tư này; hạng C1E, CE thực hiện theo quy định tại Phụ lục VI ban hành kèm theo Thông tư này.
+
+Điều 5. Tiêu chuẩn kỹ thuật sân tập lái dùng để sát hạch lái xe mô tô
+1. Đối với sân tập lái dùng để sát hạch lái xe mô tô trang bị máy tính để sát hạch lý thuyết và thiết bị chấm điểm tự động để sát hạch lái xe trong hình
+
+Sân tập lái dùng để sát hạch lái xe mô tô phải đáp ứng các yêu cầu kỹ thuật theo quy định của Quy chuẩn kỹ thuật quốc gia về trung tâm sát hạch lái xe cơ giới đường bộ, gồm: hình của các bài sát hạch, xe sát hạch, thiết bị sát hạch lý thuyết, thiết bị sát hạch thực hành lái xe trong hình, phòng chờ sát hạch, phòng sát hạch lý thuyết, phòng điều hành thiết bị chấm điểm thực hành lái xe trong hình.
+
+2. Đối với sân tập lái dùng để sát hạch lái xe mô tô tổ chức sát hạch lý thuyết bằng phương pháp trắc nghiệm trên giấy và sát hạch trong hình bằng phương pháp chấm điểm trực tiếp
+
+Sân tập lái dùng để sát hạch lái xe mô tô phải đáp ứng các yêu cầu kỹ thuật theo quy định của Quy chuẩn kỹ thuật quốc gia về trung tâm sát hạch lái xe cơ giới đường bộ, gồm: hình của các bài sát hạch, xe sát hạch, phòng chờ sát hạch, phòng sát hạch lý thuyết.
+
+Điều 6. Hội đồng sát hạch
+1. Hội đồng sát hạch được thành lập theo quyết định tổ chức kỳ sát hạch lái xe do Giám đốc Công an tỉnh, thành phố trực thuộc Trung ương (sau đây viết gọn là Giám đốc Công an cấp tỉnh) ban hành, gồm:
+
+a) Chủ tịch Hội đồng là lãnh đạo Phòng Cảnh sát giao thông;
+
+b) Phó Chủ tịch Hội đồng là chỉ huy Đội thuộc Phòng Cảnh sát giao thông;
+
+c) Ủy viên Hội đồng là lãnh đạo Trung tâm sát hạch lái xe;
+
+d) Sát hạch viên;
+
+đ) Thư ký Hội đồng là cán bộ thuộc Phòng Cảnh sát giao thông.
+
+2. Hội đồng sát hạch làm việc phải có tối thiểu 2/3 số lượng thành viên tham dự, quyết định theo đa số; trường hợp các thành viên trong Hội đồng có ý kiến ngang nhau thì thực hiện theo kết luận của Chủ tịch Hội đồng. Hội đồng sát hạch tự giải thể khi kết thúc kỳ sát hạch.
+
+3. Khi làm nhiệm vụ sát hạch, Phó Chủ tịch, thư ký, sát hạch viên phải có thẻ sát hạch viên còn thời hạn, giấy phép lái xe còn điểm, còn hiệu lực.
+
+4. Nhiệm vụ, quyền hạn của Hội đồng sát hạch
+
+a) Chỉ đạo, kiểm tra và yêu cầu hoàn thiện các điều kiện tổ chức kỳ sát hạch;
+
+b) Phân công và sắp xếp kế hoạch thực hiện kỳ sát hạch;
+
+c) Phổ biến, hướng dẫn các quy định, nội quy sát hạch và các quy định cần thiết cho các sát hạch viên và người dự sát hạch biết và chấp hành;
+
+d) Kiểm tra xe sát hạch, thiết bị chấm điểm, sân sát hạch, phương án đảm bảo an toàn trong quá trình sát hạch;
+
+đ) Tổ chức kỳ sát hạch theo quy định;
+
+e) Lập biên bản các trường hợp vi phạm để xử lý vi phạm theo thẩm quyền hoặc báo cáo, đề nghị cơ quan có thẩm quyền xử lý vi phạm theo quy định;
+
+g) Yêu cầu thí sinh bồi thường thiệt hại nếu để xảy ra tai nạn do lỗi của thí sinh dự sát hạch gây ra trong quá trình sát hạch;
+
+h) Tổng hợp kết quả kỳ sát hạch và ký xác nhận biên bản;
+
+i) Gửi các văn bản, tài liệu của kỳ sát hạch để lưu trữ tại trung tâm sát hạch lái xe;
+
+k) Nhiệm vụ, quyền hạn của các thành viên Hội đồng sát hạch theo quy định tại Phụ lục VII ban hành kèm theo Thông tư này.
+
+Điều 7. Tiêu chuẩn sát hạch viên, thư ký Hội đồng sát hạch
+
+1. Tiêu chuẩn của sát hạch viên thuộc lực lượng Công an nhân dân
+
+a) Là sĩ quan thuộc lực lượng Công an nhân dân;
+
+b) Có giấy phép lái xe tương ứng với hạng xe sát hạch từ 03 năm trở lên, còn điểm, còn hiệu lực;
+
+c) Đã được Cục Cảnh sát giao thông tập huấn về nghiệp vụ sát hạch, kiểm tra đạt yêu cầu và cấp thẻ sát hạch viên. Thẻ sát hạch viên có thời hạn tối đa 03 năm và không quá thời hạn hiệu lực của giấy phép lái xe tương ứng hạng xe sát hạch của sát hạch viên.
+
+2. Tiêu chuẩn của thư ký: là sĩ quan nghiệp vụ thuộc lực lượng Công an nhân dân đang công tác trong lĩnh vực sát hạch, cấp giấy phép lái xe; có thẻ sát hạch viên.
+
+Điều 8. Tập huấn, kiểm tra và cấp, đổi, cấp lại, thu hồi thẻ sát hạch viên thuộc lực lượng Công an nhân dân
+1. Tổ chức tập huấn
+
+a) Căn cứ tình hình thực tế hoặc theo đề nghị của Phòng Cảnh sát giao thông, Cục Cảnh sát giao thông tổ chức tập huấn để cấp thẻ sát hạch viên;
+
+b) Phòng Cảnh sát giao thông rà soát, lập danh sách cán bộ (kèm theo 02 ảnh chân dung chụp chính diện trên nền xanh, mặc trang phục theo Điều lệnh Công an nhân dân, khổ 2 x 3 cm) đủ tiêu chuẩn theo quy định tại điểm a, b khoản 1 Điều 7 Thông tư này tham gia tập huấn gửi về Cục Cảnh sát giao thông;
+
+c) Cục Cảnh sát giao thông tiếp nhận, ra quyết định tổ chức lớp tập huấn kèm theo danh sách học viên đủ điều kiện tham dự tập huấn, tổ chức tập huấn.
+
+2. Nội dung tập huấn
+
+a) Tập huấn lý thuyết, nghiệp vụ
+
+Văn hóa ứng xử của sát hạch viên khi thực thi nhiệm vụ, kỹ năng giao tiếp.
+
+Hệ thống văn bản quy phạm pháp luật, tiêu chuẩn, quy chuẩn, quy trình, hướng dẫn nghiệp vụ liên quan đến công tác sát hạch lái xe, gồm các nội dung: nhiệm vụ, quyền hạn của Hội đồng sát hạch, sát hạch viên; quy trình sát hạch lý thuyết, mô phỏng, trong hình và trên đường; trách nhiệm, nhiệm vụ, quyền hạn của tổ chức, cá nhân có liên quan trong hoạt động sát hạch; cung ứng dịch vụ công lĩnh vực sát hạch; quy định về vi phạm và xử lý vi phạm trong lĩnh vực sát hạch lái xe.
+
+Kiến thức chung về cấu tạo, nguyên lý hoạt động thiết bị chấm điểm tự động và phương pháp kiểm tra thiết bị sát hạch gồm: xe sát hạch, các trang thiết bị phục vụ, thiết bị chấm điểm tự động; phương án đảm bảo an toàn trong quá trình tổ chức sát hạch; hướng dẫn sử dụng hệ thống chương trình phần mềm liên quan đến thiết bị chấm điểm tự động; phương pháp chấm điểm các nội dung sát hạch của các hạng xe bằng hình thức trắc nghiệm, tự động, cho người dân tộc thiểu số không biết đọc, viết tiếng Việt; phương pháp bảo hiểm tay lái khi sát hạch lái xe ô tô trên đường;
+
+b) Tập huấn thực hành tại trung tâm sát hạch lái xe
+
+Học viên được tập huấn thực hành nghiệp vụ sát hạch viên tại trung tâm sát hạch lái xe bao gồm các nội dung sau: thực hành kiểm tra các trang thiết bị phục vụ và thiết bị chấm điểm tự động; thực hành nhiệm vụ của sát hạch viên khi sát hạch lý thuyết, sát hạch trên phần mềm mô phỏng, sát hạch lái xe trong hình và sát hạch lái xe trên đường; thực hành kỹ năng lái xe và bảo hiểm tay lái khi sát hạch lái xe trên đường; thực hành các tình huống giả định khi xảy ra sự cố kỹ thuật trong quá trình sát hạch.
+
+3. Kiểm tra
+
+Học viên dự tập huấn phải đảm bảo tham gia đầy đủ nội dung chương trình tập huấn mới đủ điều kiện để được dự kiểm tra. Điểm kiểm tra kết thúc chương trình tập huấn bao gồm: điểm bài thu hoạch được chấm theo thang điểm 10, điểm kiểm tra từ 05 điểm trở lên là đạt yêu cầu; điểm kiểm tra trắc nghiệm trên máy tính theo bộ câu hỏi sát hạch lái xe và thực hành lái xe theo kết quả đạt yêu cầu theo quy định tại các Phụ lục II, III, IV, V và VI ban hành kèm theo Thông tư này (trừ nội dung lái xe trên đường) và kỹ năng bảo hiểm tay lái khi sát hạch lái xe trên đường.
+
+4. Hình thức tổ chức tập huấn, kiểm tra: tập trung.
+
+5. Cán bộ hướng dẫn tập huấn và kiểm tra là cán bộ thuộc Cục Cảnh sát giao thông được giao nhiệm vụ quản lý sát hạch, cấp giấy phép lái xe.
+
+6. Cấp thẻ sát hạch viên: học viên dự tập huấn có kết quả kiểm tra đạt yêu cầu tất cả các nội dung kiểm tra thì được cấp thẻ sát hạch viên; trường hợp học viên dự tập huấn có kết quả kiểm tra không đạt yêu cầu một trong các nội dung kiểm tra thì phải tham gia đợt tập huấn tiếp theo để được kiểm tra và cấp thẻ sát hạch viên.
+
+7. Thẻ sát hạch viên được đổi khi bị sai thông tin hoặc hết thời hạn sử dụng hoặc bị hỏng.
+
+8. Thẻ sát hạch viên được cấp lại khi bị mất.
+
+9. Thẻ sát hạch viên bị thu hồi khi cấp sai đối tượng, không đúng thẩm quyền.
+
+Điều 9. Chuẩn bị kỳ sát hạch
+1. Tiếp nhận hồ sơ
+
+a) Hồ sơ đề nghị sát hạch do cơ sở đào tạo gửi Phòng Cảnh sát giao thông trước kỳ sát hạch ít nhất 07 ngày làm việc;
+
+b) Hồ sơ đề nghị sát hạch của cá nhân gửi trực tiếp hoặc qua hệ thống dịch vụ công trực tuyến đến Phòng Cảnh sát giao thông trước kỳ sát hạch ít nhất 07 ngày làm việc.
+
+2. Kiểm tra hồ sơ
+
+a) Khi tiếp nhận hồ sơ đề nghị sát hạch cấp giấy phép lái xe, Phòng Cảnh sát giao thông kiểm tra, đối chiếu điều kiện của người dự sát hạch theo quy định tại Điều 15 và Điều 16 Thông tư này; duyệt hồ sơ thí sinh dự sát hạch, lập biên bản kiểm tra hồ sơ theo quy định tại mẫu số 01 Phụ lục VIII ban hành kèm theo Thông tư này và thông báo thời gian, địa điểm tổ chức kỳ sát hạch cho người nộp hồ sơ; báo cáo Giám đốc Công an cấp tỉnh ban hành quyết định tổ chức kỳ sát hạch lái xe; đối với hồ sơ không hợp lệ thì thông báo và hướng dẫn người nộp hồ sơ hoàn thiện theo quy định;
+
+b) Trường hợp người dự sát hạch giấy phép lái xe hạng A1 là người dân tộc thiểu số không biết đọc, viết tiếng Việt, hồ sơ dự sát hạch phải có xác nhận của Ủy ban nhân dân cấp xã về việc người dân tộc thiểu số không biết đọc, viết tiếng Việt;
+
+c) Trường hợp người không đạt kết quả sát hạch, có nhu cầu đăng ký sát hạch lại, Phòng Cảnh sát giao thông kiểm tra, đối chiếu với biên bản xác nhận vắng, trượt của Hội đồng sát hạch kỳ trước, trường hợp không có tên thì không được tham dự sát hạch lại.
+
+3. Phòng Cảnh sát giao thông căn cứ số lượng học viên dự sát hạch, tiến hành rà soát và đề xuất danh sách sát hạch viên.
+
+4. Phòng Cảnh sát giao thông báo cáo Giám đốc Công an cấp tỉnh ban hành quyết định tổ chức kỳ sát hạch lái xe theo quy định tại mẫu số 04 Phụ lục VIII kèm theo danh sách thí sinh dự sát hạch để cấp giấy phép lái xe theo quy định tại mẫu số 06 Phụ lục VIII, danh sách thí sinh có giấy phép lái xe quá thời hạn sử dụng dự sát hạch để cấp giấy phép lái xe theo quy định tại mẫu số 05 Phụ lục VIII ban hành kèm theo Thông tư này.
+
+5. Trước kỳ sát hạch ít nhất 02 ngày làm việc, Phòng Cảnh sát giao thông phải báo cáo Cục Cảnh sát giao thông, thông báo cho cơ sở đào tạo lái xe, trung tâm sát hạch lái xe, người dự sát hạch trực tiếp nộp hồ sơ về quyết định tổ chức kỳ sát hạch. Việc thông báo qua Cổng dịch vụ công quốc gia, tài khoản định danh điện tử hoặc hình thức phù hợp khác.
+
+Điều 10. Trình tự tổ chức sát hạch
+1. Họp Hội đồng sát hạch và khai mạc kỳ sát hạch
+
+a) Trước khi tổ chức sát hạch, Chủ tịch Hội đồng sát hạch tổ chức họp Hội đồng, phân công nhiệm vụ của từng thành viên trong Hội đồng sát hạch;
+
+b) Tổ chức khai mạc kỳ sát hạch để công bố quyết định tổ chức kỳ sát hạch, phổ biến các nội dung có liên quan của kỳ sát hạch cho người dự sát hạch.
+
+2. Sát hạch theo hình thức, nội dung, quy trình sát hạch quy định tại Điều 4 và các Phụ lục II, III, IV, V và VI ban hành kèm theo Thông tư này.
+
+3. Kết thúc kỳ sát hạch
+
+Chủ tịch Hội đồng sát hạch tổ chức họp Hội đồng, Tổ giám sát (nếu có), thư ký Hội đồng báo cáo kết quả kỳ sát hạch. Chủ tịch Hội đồng sát hạch thông qua biên bản tổng hợp kết quả sát hạch lái xe với các thành viên Hội đồng, thống nhất, ký tên và đóng dấu vào biên bản tổng hợp kết quả kỳ sát hạch lái xe theo Phụ lục IX ban hành kèm theo Thông tư này. Chủ tịch Hội đồng sát hạch ký tên và đóng dấu vào biên bản tổng hợp kết quả sát hạch lái xe của thí sinh dự sát hạch theo quy định tại Phụ lục IX ban hành kèm theo Thông tư này;
+
+Biên bản tổng hợp kết quả sát hạch lái xe của thí sinh đạt kết quả kỳ sát hạch là hồ sơ gốc, giao cho người đạt kết quả kỳ sát hạch tự bảo quản. Phòng Cảnh sát giao thông tích hợp biên bản tổng hợp kết quả sát hạch lái xe của thí sinh vào hệ thống thông tin về sát hạch, cấp giấy phép lái xe.
+
+Điều 11. Giám sát kỳ sát hạch
+1. Căn cứ tình hình thực tế, Cục Cảnh sát giao thông thành lập Tổ giám sát để tổ chức giám sát kỳ sát hạch.
+
+2. Thành phần Tổ giám sát:
+
+a) Cán bộ Cục Cảnh sát giao thông được giao nhiệm vụ quản lý sát hạch, cấp giấy phép lái xe, có thẻ sát hạch viên hạng B trở lên còn thời hạn, có thâm niên trong công tác sát hạch, cấp giấy phép lái xe tối thiểu 03 năm;
+
+b) Cán bộ có kiến thức chuyên môn về pháp luật trật tự, an toàn giao thông đường bộ thuộc Cục Pháp chế và cải cách hành chính, tư pháp;
+
+c) Số lượng người giám sát đối với kỳ sát hạch lái xe mô tô tối thiểu là 02 người, sát hạch lái xe ô tô tối thiểu là 03 người.
+
+3. Khi làm nhiệm vụ giám sát các kỳ sát hạch, cán bộ giám sát phải mặc trang phục Công an nhân dân.
+
+4. Nhiệm vụ của Tổ giám sát khi giám sát kỳ sát hạch lái xe
+
+a) Giám sát việc thực hiện đúng nội dung, quy trình sát hạch của Hội đồng sát hạch, bảo đảm tính công khai, khách quan, minh bạch trong quá trình sát hạch;
+
+b) Giám sát việc kiểm tra nhận dạng thí sinh trước khi vào phòng sát hạch lý thuyết, sát hạch thực hành lái xe trong hình, trên đường; người không có nhiệm vụ không được vào phòng sát hạch lý thuyết;
+
+c) Giám sát việc tổ chức sát hạch thực hành lái xe trên đường, tiêu chuẩn đoạn đường tổ chức sát hạch;
+
+d) Cán bộ giám sát làm việc độc lập, không làm thay nhiệm vụ của sát hạch viên;
+
+đ) Giám sát việc chuẩn bị bộ đề sát hạch lý thuyết đúng quy định, không bị đánh dấu khi giám sát sát hạch lái xe tại sân tập lái dùng để sát hạch lái xe quy định tại khoản 2 Điều 5 Thông tư này.
+
+5. Quyền hạn của Tổ giám sát
+
+a) Khi phát hiện vi phạm phải lập biên bản, đề nghị Hội đồng sát hạch xử lý kịp thời, đúng quy định;
+
+b) Đối với trường hợp vi phạm nghiêm trọng liên quan đến nội dung, quy trình sát hạch, kết quả sát hạch, Tổ giám sát phải lập biên bản và báo cáo Cục trưởng Cục Cảnh sát giao thông đề nghị Giám đốc Công an cấp tỉnh xem xét, xử lý.
+
+6. Kết thúc kỳ sát hạch, Tổ giám sát báo cáo bằng văn bản kết quả giám sát với Cục trưởng Cục Cảnh sát giao thông.
+
+Điều 12. Công nhận kết quả sát hạch
+1. Xét công nhận kết quả sát hạch đối với thí sinh dự sát hạch lái xe hạng A1, A và B1
+
+a) Thí sinh đạt nội dung sát hạch lý thuyết và thực hành lái xe trong hình thì được công nhận đạt kết quả kỳ sát hạch;
+
+b) Thí sinh không đạt nội dung sát hạch lý thuyết thì được tiếp tục dự nội dung sát hạch thực hành lái xe trong hình;
+
+c) Thí sinh đạt một trong các nội dung sát hạch lý thuyết hoặc thực hành lái xe trong hình thì được bảo lưu kết quả nội dung sát hạch đã đạt trong thời gian 01 năm kể từ ngày đạt kết quả sát hạch; nếu có nhu cầu dự sát hạch phải có tên trong biên bản xác nhận vắng, trượt của Hội đồng sát hạch kỳ trước và giấy khám sức khỏe của người lái xe còn hiệu lực hoặc có tên trong hệ thống thông tin sát hạch lái xe.
+
+2. Xét công nhận kết quả sát hạch đối với thí sinh tham dự sát hạch lái xe hạng B, C1, C, D1, D2, D, BE, C1E, CE, D1E, D2E, DE
+
+a) Thí sinh đạt nội dung sát hạch lý thuyết, sát hạch mô phỏng các tình huống giao thông, sát hạch thực hành lái xe trong hình và sát hạch thực hành lái xe trên đường thì được công nhận đạt kết quả kỳ sát hạch;
+
+b) Thí sinh đạt một trong các nội dung sát hạch lý thuyết, sát hạch mô phỏng các tình huống giao thông, sát hạch thực hành lái xe trong hình hoặc sát hạch thực hành lái xe trên đường thì được công nhận kết quả nội dung sát hạch đó và được bảo lưu kết quả nội dung sát hạch đạt trong thời gian 01 năm kể từ ngày đạt kết quả sát hạch; nếu muốn dự sát hạch lại phải có giấy khám sức khỏe của người lái xe còn hiệu lực và phải có tên trong biên bản xác nhận vắng, trượt của Hội đồng sát hạch hoặc có tên trong hệ thống thông tin sát hạch lái xe;
+
+c) Trường hợp thí sinh không đạt một trong các nội dung sát hạch quy định tại điểm a khoản này thì được tiếp tục sát hạch các nội dung còn lại.
+
+3. Trong thời hạn 02 ngày làm việc, kể từ ngày kết thúc kỳ sát hạch, Phòng Cảnh sát giao thông rà soát, tổng hợp kết quả và chuyển dữ liệu người đạt kết quả sát hạch về Cục Cảnh sát giao thông để cấp giấy phép lái xe, đồng thời báo cáo Giám đốc Công an cấp tỉnh kết quả kỳ sát hạch.
+
+4. Thí sinh mang điện thoại hoặc thiết bị truyền tin vào phòng sát hạch lý thuyết, phòng sát hạch mô phỏng các tình huống giao thông, trên xe sát hạch hoặc có các hành vi gian dối khác làm sai lệch kết quả sát hạch sẽ bị đình chỉ, hủy bỏ kết quả sát hạch.
+
+5. Thí sinh không đạt kết quả sát hạch có thể đăng ký sát hạch lại tại đơn vị tiếp nhận hồ sơ theo quy định tại điểm b khoản 1 Điều 9 Thông tư này.
+
+Điều 13. Sát hạch lái xe đối với người khuyết tật
+1. Sát hạch để cấp giấy phép lái xe hạng A1 điều khiển xe mô tô ba bánh
+
+a) Thí sinh thực hiện sát hạch lý thuyết và sát hạch lái xe trong hình theo nội dung và quy trình quy định tại khoản 1, 2 Điều 4 và Phụ lục III ban hành kèm theo Thông tư này; sát hạch tại trung tâm sát hạch lái xe hoặc sân tập lái dùng để sát hạch lái xe mô tô có đủ điều kiện, có hai sát hạch viên chấm điểm trực tiếp;
+
+b) Hình sát hạch theo quy định tại Quy chuẩn kỹ thuật quốc gia về trung tâm sát hạch lái xe cơ giới đường bộ.
+
+2. Sát hạch để cấp giấy phép lái xe hạng B số tự động
+
+a) Sát hạch để cấp giấy phép lái xe hạng B số tự động cho người khuyết tật bàn chân phải hoặc bàn tay phải hoặc bàn tay trái: thí sinh thực hiện đủ nội dung và quy trình sát hạch quy định tại Điều 4 Thông tư này; sát hạch tại trung tâm sát hạch lái xe, có hai sát hạch viên ngồi trên xe chấm điểm trực tiếp nội dung sát hạch lái xe trong hình và trên đường;
+
+b) Sát hạch để cấp giấy phép lái xe hạng B số tự động cho người khuyết tật, trừ người khuyết tật bàn chân phải hoặc bàn tay phải hoặc bàn tay trái: thí sinh thực hiện đủ nội dung và quy trình sát hạch quy định tại Điều 4 Thông tư này; sát hạch tại trung tâm sát hạch lái xe.
+
+Điều 14. Sát hạch để cấp giấy phép lái xe mô tô hạng A1 đối với người dân tộc thiểu số không biết đọc, viết tiếng Việt
+1. Nội dung và quy trình sát hạch lái xe: thực hiện theo nội dung và quy trình sát hạch lái xe hạng A1 quy định tại khoản 1, 2 Điều 4 Thông tư này.
+
+2. Việc tổ chức sát hạch được thực hiện như sau: tổ chức sát hạch riêng. Sát hạch lý thuyết bằng hình thức hỏi - đáp; sử dụng phương pháp trắc nghiệm trên giấy; thời gian thi là 30 phút. 02 sát hạch viên thực hiện nhiệm vụ, sát hạch lần lượt cho từng thí sinh; mỗi thí sinh chọn ngẫu nhiên 01 đề sát hạch trong bộ đề; 01 sát hạch viên đọc câu hỏi và quan sát thí sinh, 01 sát hạch viên đánh dấu nhân (x) vào ô tương ứng mà thí sinh chọn trên bài sát hạch lý thuyết. Sát hạch viên chấm điểm, ký tên xác nhận vào bài sát hạch lý thuyết, biên bản tổng hợp kết quả sát hạch lái xe và thông báo kết quả sát hạch cho thí sinh. Trường hợp thực hiện nội dung sát hạch thông qua người phiên dịch, người phiên dịch phải dịch đúng, đủ câu hỏi của sát hạch viên và câu trả lời của thí sinh; cơ sở đào tạo lái xe hoặc người dự sát hạch thuê người phiên dịch.
+
+3. Thí sinh ký tên hoặc điểm chỉ tại vị trí ký tên trong biên bản tổng hợp kết quả sát hạch lái xe, bài sát hạch lý thuyết, biên bản sát hạch thực hành lái xe trong hình.
+
+Điều 15. Người dự sát hạch lái xe
+1. Đủ tuổi (tính đến ngày dự sát hạch lái xe), sức khỏe theo quy định tại khoản 1, 2 Điều 59 Luật Trật tự, an toàn giao thông đường bộ.
+
+2. Được cơ đào tạo lái xe xác nhận hoàn thành khóa đào tạo lái xe hoặc được cấp chứng chỉ sơ cấp nghề hoặc chứng chỉ đào tạo.
+
+Điều 16. Hồ sơ dự sát hạch lái xe
+1. Hồ sơ đề nghị sát hạch do cơ sở đào tạo lái xe nộp gồm: Báo cáo đề nghị tổ chức sát hạch theo mẫu 02 Phụ lục VIII kèm theo danh sách thí sinh đề nghị sát hạch để cấp giấy phép lái xe theo mẫu 03 Phụ lục VIII ban hành kèm theo Thông tư này và hồ sơ đề nghị sát hạch của cá nhân theo quy định tại điểm b, c, d khoản 2 Điều này.
+
+2. Hồ sơ đề nghị sát hạch của cá nhân nộp tại Phòng Cảnh sát giao thông
+
+a) Đề nghị sát hạch để cấp giấy phép lái xe theo mẫu quy định tại Phụ lục I ban hành kèm theo Thông tư này;
+
+b) Chứng chỉ sơ cấp hoặc chứng chỉ đào tạo hoặc xác nhận hoàn thành khóa đào tạo đối với người dự sát hạch lái xe hạng B1, B, C1, C, D1, D2, D, BE, C1E, CE, D1E, D2E, DE;
+
+c) Giấy khám sức khoẻ của người lái xe do cơ sở khám bệnh, chữa bệnh đủ tiêu chuẩn theo quy định của pháp luật về khám bệnh, chữa bệnh cấp còn hiệu lực;
+
+d) Bản sao hoặc bản sao điện tử được chứng thực từ bản chính hoặc bản sao điện tử được cấp từ sổ gốc một trong các giấy tờ sau: thẻ tạm trú, thẻ thường trú, chứng minh thư ngoại giao, chứng minh thư công vụ (đối với người nước ngoài).
+
+3. Hồ sơ đề nghị sát hạch cấp giấy phép lái xe do quá thời hạn sử dụng, do giấy phép lái xe mất và quá thời hạn sử dụng của cá nhân nộp tại Phòng Cảnh sát giao thông
+
+a) Đề nghị sát hạch để cấp giấy phép lái xe theo quy định tại Phụ lục I ban hành kèm theo Thông tư này;
+
+b) Bản sao hoặc bản sao điện tử được chứng thực từ bản chính hoặc bản sao điện tử được cấp từ sổ gốc một trong các giấy tờ sau: thẻ tạm trú, thẻ thường trú, chứng minh thư ngoại giao, chứng minh thư công vụ (đối với người nước ngoài);
+
+c) Giấy phép lái xe quân sự do Bộ Quốc phòng cấp hoặc xác nhận của cơ quan đã cấp đối với trường hợp mất giấy phép lái xe (đối với giấy phép lái xe quân sự do Bộ Quốc phòng cấp);
+
+d) Giấy khám sức khoẻ của người lái xe do cơ sở khám bệnh, chữa bệnh đủ tiêu chuẩn theo quy định của pháp luật về khám bệnh, chữa bệnh cấp còn hiệu lực;
+
+đ) Bản sao giấy tờ chứng minh thôi không còn phục vụ trong lực lượng Quân đội nhân dân, Công an nhân dân (đối với trường hợp giấy phép lái xe quân sự do Bộ Quốc phòng cấp, giấy phép lái xe trong Công an nhân dân).
+
+Điều 17. Lưu trữ hồ sơ kết quả sát hạch
+1. Sau mỗi kỳ sát hạch, Phòng Cảnh sát giao thông chịu trách nhiệm lưu trữ hồ sơ của kỳ sát hạch, bao gồm:
+
+a) Quyết định tổ chức kỳ sát hạch lái xe;
+
+b) Danh sách thí sinh dự sát hạch;
+
+c) Biên bản kiểm tra hồ sơ thí sinh;
+
+d) Báo cáo, đề xuất tổ chức sát hạch kèm theo danh sách thí sinh dự sát hạch; báo cáo rà soát và đề xuất danh sách sát hạch viên tham gia kỳ sát hạch;
+
+đ) Biên bản phân công nhiệm vụ của Hội đồng sát hạch lái xe;
+
+e) Biên bản tổng hợp kết quả kỳ sát hạch;
+
+g) Danh sách thí sinh đạt, vắng, trượt các nội dung sát hạch.
+
+2. Trường hợp cơ sở đào tạo lái xe có sân tập lái dùng để thực hiện sát hạch lái xe mô tô phải lưu trữ dữ liệu giám sát sát hạch; dữ liệu kết quả sát hạch lý thuyết, thực hành lái xe trong hình với thời hạn 03 năm, trừ sân tập lái quy định tại khoản 2 Điều 5 Thông tư này.
+
+3. Trung tâm sát hạch lái xe lưu trữ hồ sơ của kỳ sát hạch bao gồm:
+
+a) Các tài liệu quy định tại các điểm a, e, g khoản 1 Điều này;
+
+b) Dữ liệu giám sát sát hạch; dữ liệu kết quả sát hạch lý thuyết, thực hành lái xe trong hình, phần mềm mô phỏng các tình huống giao thông và sát hạch thực hành lái xe trên đường;
+
+c) Danh sách, kết quả sát hạch lái xe trên phần mềm mô phỏng các tình huống giao thông.
+
+4. Thí sinh tự bảo quản Biên bản tổng hợp kết quả sát hạch.
+
+5. Thời gian lưu trữ hồ sơ
+
+a) 05 năm đối với các tài liệu quy định tại khoản 1 Điều này;
+
+b) 02 năm đối với các tài liệu quy định tại điểm b khoản 3 Điều này.
+
+6. Cục Cảnh sát giao thông có trách nhiệm hướng dẫn Phòng Cảnh sát giao thông thực hiện việc số hóa, lưu trữ dữ liệu hồ sơ kết quả sát hạch.
+
+Chương III
+CẤP, ĐỔI, CẤP LẠI, THU HỒI GIẤY PHÉP LÁI XE
+Điều 18. Mẫu giấy phép lái xe, sử dụng, quản lý giấy phép lái xe
+1. Cục Cảnh sát giao thông quản lý cấp, đổi, cấp lại giấy phép lái xe trên toàn quốc; cấp phôi, vật tư in giấy phép lái xe cho Phòng Cảnh sát giao thông. Phòng Cảnh sát giao thông tổ chức in và trả giấy phép lái xe theo mẫu quy định tại Phụ lục X ban hành kèm theo Thông tư này.
+
+2. Giấy phép lái xe bằng vật liệu PET cấp cho mỗi người bảo đảm duy nhất có 01 số quản lý, dùng chung cho cả giấy phép lái xe không thời hạn và giấy phép lái xe có thời hạn.
+
+3. Cá nhân nếu có nhu cầu tích hợp giấy phép lái xe không thời hạn với giấy phép lái xe có thời hạn thì đăng ký vào đề nghị đổi giấy phép lái xe quy định tại Phụ lục XII ban hành kèm theo Thông tư này, làm thủ tục đổi giấy phép lái xe theo quy định tại Điều 21, 22, 23 của Thông tư này.
+
+4. Người có giấy phép lái xe chỉ được lái loại xe ghi trong giấy phép lái xe.
+
+5. Khi đổi, cấp giấy phép lái xe nâng hạng, Phòng Cảnh sát giao thông thu lại giấy phép lái xe cũ và tiêu huỷ theo quy định của pháp luật về lưu trữ.
+
+6. Người có giấy phép lái xe hạng B số tự động không được lái loại xe ô tô số cơ khí (số sàn).
+
+7. Người nước ngoài hoặc người Việt Nam cư trú ở nước ngoài có nhu cầu lái xe ở Việt Nam thực hiện như sau:
+
+a) Nếu có giấy phép lái xe quốc gia thì phải làm thủ tục đổi sang giấy phép lái xe tương ứng của Việt Nam;
+
+b) Trường hợp điều ước quốc tế về giấy phép lái xe mà Việt Nam là thành viên có quy định khác thì áp dụng quy định của điều ước quốc tế đó.
+
+8. Giấy phép lái xe bằng vật liệu PET và giấy phép lái xe cấp từ ngày 01 tháng 01 năm 2025, giấy phép lái xe cấp trước ngày Thông tư này có hiệu lực là giấy phép lái xe do cơ quan có thẩm quyền cấp có hiệu lực, có số phôi, ngày cấp, ngày hết hạn in trên giấy phép lái xe trùng với số phôi, ngày cấp, ngày hết hạn trong hệ thống thông tin quản lý giấy phép lái xe hoặc có thông tin giấy phép lái xe đã được tích hợp vào tài khoản định danh điện tử.
+
+Điều 19. Cấp giấy phép lái xe
+1. Cục Cảnh sát giao thông cấp giấy phép lái xe cho người đạt kết quả kỳ sát hạch trong thời hạn 07 ngày làm việc, kể từ ngày kết thúc kỳ sát hạch. Giấy phép lái xe điện tử được tích hợp vào hệ thống dữ liệu điện tử, tài khoản định danh điện tử trong thời hạn 03 ngày làm việc, kể từ ngày kết thúc kỳ sát hạch.
+
+2. Việc cấp giấy phép lái xe cho người có giấy phép lái xe ô tô các hạng mà quá thời hạn sử dụng; mất giấy phép lái xe ô tô và giấy phép lái xe đó quá thời hạn sử dụng bao gồm cả người có giấy phép lái xe quân sự do Bộ Quốc phòng cấp, giấy phép lái xe trong Công an nhân dân khi thôi không còn làm nhiệm vụ quốc phòng, an ninh thực hiện như sau:
+
+a) Người có giấy phép lái xe thuộc các trường hợp trên phải có tên trong hệ thống thông tin giấy phép lái xe tại Cục Cảnh sát giao thông hoặc bảng kê danh sách cấp giấy phép lái xe (sổ quản lý), trường hợp giấy phép lái xe quân sự do Bộ Quốc phòng cấp mất giấy phép lái xe phải có xác nhận của cơ quan đã cấp thì phải dự sát hạch các nội dung sau đây:
+
+Trường hợp giấy phép lái xe quá thời hạn sử dụng dưới 01 tháng kể từ ngày hết hạn mà người có giấy phép lái xe không thể thực hiện được thủ tục đổi giấy phép lái xe do ốm đau, thiên tai, hỏa hoạn, dịch bệnh thì người đó không phải sát hạch lý thuyết để cấp giấy phép lái xe.
+
+Trường hợp giấy phép lái xe quá thời hạn sử dụng dưới 01 năm kể từ ngày hết hạn thì phải sát hạch lý thuyết theo quy định tại điểm a khoản 1 Điều 4 Thông tư này để cấp giấy phép lái xe.
+
+Trường hợp giấy phép lái xe quá thời hạn sử dụng từ 01 năm trở lên kể từ ngày hết hạn thì phải sát hạch lý thuyết, thực hành lái xe trong hình và trên đường để cấp giấy phép lái xe theo quy định tại các khoản 1, 2, 3 Điều 4 Thông tư này.
+
+Hồ sơ đề nghị sát hạch thực hiện theo quy định tại khoản 3 Điều 16 Thông tư này;
+
+b) Người có giấy phép lái xe được quy định tại điểm a khoản này có nhu cầu ôn tập thì đăng ký với các cơ sở đào tạo lái xe hoặc trung tâm sát hạch lái xe để được hướng dẫn ôn tập;
+
+c) Trường hợp người có giấy phép lái xe được quy định tại điểm a khoản này sát hạch không đạt kết quả để được cấp giấy phép lái xe nếu có nhu cầu thì đăng ký với Phòng Cảnh sát giao thông để tham gia sát hạch lại.
+
+3. Chưa sát hạch cấp giấy phép lái xe đối với người vi phạm trật tự, an toàn giao thông đường bộ chưa thực hiện xong yêu cầu của cơ quan nhà nước có thẩm quyền về giải quyết, xử lý vụ việc vi phạm hành chính trong lĩnh vực trật tự, an toàn giao thông đường bộ.
+
+Điều 20. Cấp lại giấy phép lái xe
+1. Người có giấy phép lái xe còn thời hạn sử dụng mà bị mất, được đề nghị cấp lại giấy phép lái xe. Việc cấp lại giấy phép lái xe bị mất thực hiện theo quy định tại các khoản 2, 3, 4 Điều 21 Thông tư này.
+
+2. Không cấp lại giấy phép lái xe đối với các trường hợp sau: thông tin giấy phép lái xe không có trong hệ thống thông tin giấy phép lái xe tại Cục Cảnh sát giao thông hoặc không có trong bảng kê danh sách cấp giấy phép lái xe (sổ quản lý); người vi phạm trật tự, an toàn giao thông đường bộ chưa thực hiện xong yêu cầu của cơ quan nhà nước có thẩm quyền về giải quyết, xử lý vụ việc vi phạm hành chính trong lĩnh vực trật tự, an toàn giao thông đường bộ.
+
+Điều 21. Đổi giấy phép lái xe
+1. Yêu cầu đối với việc đổi giấy phép lái xe
+
+a) Người Việt Nam, người nước ngoài được sát hạch, cấp giấy phép lái xe tại Việt Nam;
+
+b) Người có giấy phép lái xe bị hỏng không còn sử dụng được;
+
+c) Người Việt Nam, người nước ngoài có thẻ thường trú ở Việt Nam đã có giấy phép lái xe Việt Nam đổi từ giấy phép lái xe nước ngoài, khi hết hạn nếu có nhu cầu được đổi giấy phép lái xe;
+
+d) Trường hợp ngày, tháng, năm sinh, họ, tên, tên đệm, quốc tịch, nơi sinh, nơi cư trú ghi trên giấy phép lái xe có sai lệch với căn cước công dân hoặc căn cước thì cơ quan có thẩm quyền làm thủ tục đổi giấy phép lái xe mới phù hợp với thông tin ghi trong căn cước công dân hoặc căn cước;
+
+đ) Người có nhu cầu tích hợp giấy phép lái xe không thời hạn với giấy phép lái xe có thời hạn;
+
+e) Không đổi giấy phép lái xe đối với các trường hợp sau: người đề nghị đổi giấy phép lái xe không còn giấy phép lái xe đã được cấp và thông tin giấy phép lái xe không có trong hệ thống thông tin giấy phép lái xe của Cục Cảnh sát giao thông hoặc không có bảng kê danh sách cấp giấy phép lái xe (sổ quản lý); người vi phạm trật tự, an toàn giao thông đường bộ chưa thực hiện xong yêu cầu của cơ quan nhà nước có thẩm quyền về giải quyết, xử lý vụ việc vi phạm hành chính trong lĩnh vực trật tự, an toàn giao thông đường bộ.
+
+2. Hồ sơ đổi giấy phép lái xe, gồm:
+
+a) Đề nghị đổi giấy phép lái xe theo mẫu quy định tại Phụ lục XII ban hành kèm theo Thông tư này;
+
+b) Giấy khám sức khỏe của người lái xe do cơ sở khám bệnh, chữa bệnh đủ tiêu chuẩn theo quy định của pháp luật về khám bệnh, chữa bệnh cấp còn hiệu lực (trừ người có giấy phép lái xe hạng A1, A, B1);
+
+c) Hộ chiếu còn thời hạn sử dụng (đối với người nước ngoài, người Việt Nam định cư ở nước ngoài);
+
+d) Các giấy tờ khác thể hiện thông tin quy định tại điểm d khoản 1 Điều này.
+
+3. Trình tự thực hiện
+
+a) Cá nhân lập 01 bộ hồ sơ theo quy định tại khoản 2 Điều này gửi trực tiếp tại Công an cấp xã nơi được bố trí điểm tiếp nhận hoặc Phòng Cảnh sát giao thông hoặc gửi qua hệ thống dịch vụ công trực tuyến.
+
+Trường hợp nộp hồ sơ trực tiếp, cá nhân chụp ảnh trực tiếp tại nơi tiếp nhận hồ sơ và phải hoàn thành nghĩa vụ nộp lệ phí khi được tiếp nhận hồ sơ.
+
+Trường hợp nộp hồ sơ qua hệ thống dịch vụ công trực tuyến, cá nhân kê khai theo hướng dẫn, phải chịu trách nhiệm về tính chính xác, tính hợp pháp của nội dung đã kê khai và phải hoàn thành nghĩa vụ nộp lệ phí đổi giấy phép lái xe thông qua chức năng thanh toán của hệ thống dịch vụ công trực tuyến theo quy định và nộp phí sử dụng dịch vụ khác theo nhu cầu của cá nhân;
+
+b) Phòng Cảnh sát giao thông hoặc Công an cấp xã nơi được bố trí điểm tiếp nhận kiểm tra hồ sơ khi tiếp nhận và tra cứu thông tin về giấy phép lái xe từ hệ thống thông tin giấy phép lái xe, trường hợp chưa có thông tin phải có văn bản đề nghị xác minh giấy phép lái xe đã cấp theo mẫu số 01 Phụ lục XI ban hành kèm theo Thông tư này (khi chưa có kết quả xác minh giấy phép lái xe thì chưa giải quyết đề nghị); tra cứu phần mềm cơ sở dữ liệu về trật tự, an toàn giao thông đường bộ hoặc tra cứu vi phạm của người lái xe thông qua tài khoản định danh điện tử.
+
+Trường hợp giấy phép lái xe không thuộc đối tượng được đổi thì phải thông báo về việc không tiếp nhận hồ sơ; trường hợp hồ sơ không đúng theo quy định thì hướng dẫn những nội dung cần bổ sung hoặc sửa đổi cho cá nhân trong thời hạn 02 ngày làm việc, kể từ ngày nhận hồ sơ.
+
+Phòng Cảnh sát giao thông hoặc Công an cấp xã nơi được bố trí điểm tiếp nhận thực hiện nhập thông tin điện tử; in phiếu hẹn trả kết quả hoặc gửi thông tin hẹn trả qua hệ thống dịch vụ công;
+
+c) Trong thời hạn 01 ngày làm việc, kể từ ngày nhận đủ hồ sơ hợp lệ theo quy định, Phòng Cảnh sát giao thông chuyển dữ liệu đến Cục Cảnh sát giao thông để quản lý tập trung và cấp giấy phép lái xe, tích hợp giấy phép lái xe lên hệ thống dữ liệu điện tử, tài khoản định danh điện tử trong thời hạn 03 ngày làm việc kể từ ngày nhận đủ hồ sơ hợp lệ. Phòng Cảnh sát giao thông tổ chức in và trả giấy phép lái xe trong thời hạn 05 ngày làm việc, kể từ ngày nhận đủ hồ sơ hợp lệ;
+
+d) Việc trả giấy phép lái xe được thực hiện tại Phòng Cảnh sát giao thông hoặc Công an cấp xã nơi được bố trí điểm tiếp nhận hoặc thông qua dịch vụ bưu chính theo yêu cầu của cá nhân; trường hợp nộp hồ sơ qua hệ thống dịch vụ công trực tuyến, giấy phép lái xe được trả cho đúng cá nhân đổi giấy phép lái xe, khi nhận giấy phép lái xe, người lái xe chịu trách nhiệm gửi giấy phép lái xe đã được cấp đến cơ quan cấp giấy phép lái xe để tiêu hủy theo quy định, trừ trường hợp đổi giấy phép lái xe cho người có giấy phép lái xe tích hợp đang trong thời gian bị tước giấy phép lái xe.
+
+4. Trường hợp người lái xe có nhu cầu đổi giấy phép lái xe xuống hạng thấp hơn, phải khai rõ tại Phụ lục XII ban hành kèm theo Thông tư này và chịu trách nhiệm về nội dung kê khai.
+
+Điều 22. Đổi giấy phép lái xe quân sự do Bộ Quốc phòng cấp
+1. Yêu cầu đối với việc đổi giấy phép lái xe quân sự do Bộ Quốc phòng cấp khi thôi phục vụ trong Quân đội
+
+a) Người có giấy phép lái xe quân sự do Bộ Quốc phòng cấp còn thời hạn sử dụng, bị hỏng nhưng vẫn còn thời hạn sử dụng có nhu cầu được đổi giấy phép lái xe;
+
+b) Giấy phép lái xe quân sự có hiệu lực được phép lái nhiều hạng xe khác nhau, được đổi sang giấy phép lái xe có hiệu lực lái các hạng xe tương ứng; giấy phép lái xe quân sự hạng Cx được đổi sang giấy phép lái xe hạng C;
+
+c) Không đổi giấy phép lái xe quân sự bị tẩy xóa thông tin; người vi phạm trật tự, an toàn giao thông đường bộ chưa thực hiện xong yêu cầu của cơ quan nhà nước có thẩm quyền về giải quyết, xử lý vụ việc vi phạm hành chính trong lĩnh vực trật tự, an toàn giao thông đường bộ.
+
+2. Hồ sơ bao gồm:
+
+a) Đề nghị đổi giấy phép lái xe theo mẫu quy định tại Phụ lục XII ban hành kèm theo Thông tư này;
+
+b) Bản sao giấy tờ chứng minh thôi không còn phục vụ trong lực lượng Quân đội nhân dân;
+
+c) Giấy khám sức khỏe của người lái xe do cơ sở khám bệnh, chữa bệnh đủ tiêu chuẩn theo quy định của pháp luật về khám bệnh, chữa bệnh cấp còn hiệu lực;
+
+d) Bản sao hoặc bản sao điện tử được chứng thực từ bản chính hoặc bản sao điện tử được cấp từ sổ gốc của giấy phép lái xe quân sự còn thời hạn sử dụng.
+
+3. Trình tự thực hiện
+
+a) Cá nhân lập 01 bộ hồ sơ theo quy định tại khoản 2 Điều này gửi trực tiếp đến Phòng Cảnh sát giao thông hoặc Công an cấp xã nơi bố trí điểm tiếp nhận; cá nhân chụp ảnh trực tiếp tại cơ quan tiếp nhận hồ sơ, xuất trình bản chính các giấy tờ quy định tại điểm b khoản 2 Điều này để đối chiếu và phải hoàn thành nghĩa vụ nộp lệ phí khi được tiếp nhận hồ sơ;
+
+b) Phòng Cảnh sát giao thông hoặc Công an cấp xã nơi bố trí điểm tiếp nhận kiểm tra hồ sơ khi tiếp nhận, tra cứu phần mềm cơ sở dữ liệu về trật tự, an toàn giao thông đường bộ hoặc tra cứu vi phạm của người lái xe thông qua tài khoản định danh điện tử. Trường hợp phát hiện có nghi vấn, Phòng Cảnh sát giao thông có văn bản đề nghị đơn vị chức năng thuộc Bộ Quốc phòng xác minh giấy phép lái xe đã cấp theo mẫu số 01 Phụ lục XI ban hành kèm theo Thông tư này. Khi chưa có kết quả xác minh giấy phép lái xe hoặc có kết quả xác minh giấy phép lái xe không do Bộ Quốc phòng cấp thì không đổi giấy phép lái xe.
+
+Trường hợp giấy phép lái xe không thuộc đối tượng được đổi thì phải thông báo về việc không tiếp nhận hồ sơ; trường hợp hồ sơ không đúng theo quy định thì hướng dẫn những nội dung cần bổ sung hoặc sửa đổi cho cá nhân trong thời hạn 02 ngày làm việc, kể từ ngày nhận hồ sơ.
+
+Phòng Cảnh sát giao thông hoặc Công an cấp xã nơi bố trí điểm tiếp nhận nhập thông tin điện tử, in phiếu hẹn trả kết quả;
+
+c) Trong thời hạn 01 ngày làm việc, kể từ ngày nhận đủ hồ sơ hợp lệ theo quy định (bao gồm có kết quả xác minh giấy phép lái xe đối với trường hợp phát hiện nghi vấn), Phòng Cảnh sát giao thông chuyển dữ liệu đến Cục Cảnh sát giao thông để quản lý tập trung và cấp giấy phép lái xe, giấy phép lái xe điện tử được tích hợp vào tài khoản định danh điện tử trong thời hạn 03 ngày làm việc kể từ ngày nhận đủ hồ sơ hợp lệ; Phòng Cảnh sát giao thông tổ chức in và trả giấy phép lái xe trong thời hạn 05 ngày làm việc kể từ ngày nhận đủ hồ sơ hợp lệ;
+
+d) Việc trả giấy phép lái xe được thực hiện tại cơ quan tiếp nhận hồ sơ hoặc thông qua dịch vụ bưu chính theo yêu cầu của cá nhân. Khi nhận giấy phép lái xe, người lái xe chịu trách nhiệm gửi giấy phép lái xe đã được cấp đến cơ quan cấp giấy phép lái xe để tiêu hủy theo quy định.
+
+4. Trường hợp người lái xe có nhu cầu đổi giấy phép lái xe xuống hạng thấp hơn, phải khai rõ tại đơn đề nghị đổi hoặc cấp lại giấy phép lái xe quy định tại Phụ lục XII ban hành kèm theo Thông tư này và chịu trách nhiệm về nội dung kê khai.
+
+5. Hồ sơ đổi giấy phép lái xe quân sự là hồ sơ gốc gồm các tài liệu quy định tại khoản 2 Điều này, giao cho người lái xe tự bảo quản.
+
+Điều 23. Đổi giấy phép lái xe trong Công an nhân dân
+1. Yêu cầu đối với việc đổi giấy phép lái xe trong Công an nhân dân khi thôi không còn phục vụ trong lực lượng Công an
+
+a) Người có giấy phép lái xe còn thời hạn sử dụng; bị mất, bị hỏng nhưng vẫn còn thời hạn sử dụng, có thông tin trong hệ thống thông tin giấy phép lái xe tại Cục Cảnh sát giao thông hoặc bảng kê danh sách cấp giấy phép lái xe (sổ quản lý) có nhu cầu được đổi giấy phép lái xe;
+
+b) Người có giấy phép lái xe mô tô bằng vật liệu giấy, không bị tẩy xóa, rách nát, có đủ thông tin trong giấy phép lái xe có nhu cầu được đổi giấy phép lái xe;
+
+c) Không đổi giấy phép lái xe trong trường hợp bị tẩy xóa thông tin; người vi phạm trật tự, an toàn giao thông đường bộ chưa thực hiện xong yêu cầu của cơ quan nhà nước có thẩm quyền về giải quyết, xử lý vụ việc vi phạm hành chính trong lĩnh vực trật tự, an toàn giao thông đường bộ; người không có thông tin trong hệ thống thông tin giấy phép lái xe tại Cục Cảnh sát giao thông hoặc bảng kê danh sách cấp giấy phép lái xe (sổ quản lý).
+
+2. Hồ sơ đổi giấy phép lái xe
+
+a) Đề nghị đổi giấy phép lái xe theo quy định tại Phụ lục XII ban hành kèm theo Thông tư này;
+
+b) Bản sao giấy phép lái xe trong trường hợp không có thông tin trong hệ thống thông tin giấy phép lái xe tại Cục Cảnh sát giao thông hoặc bảng kê danh sách cấp giấy phép lái xe (sổ quản lý); bản cam kết trong trường hợp giấy phép lái xe bị mất;
+
+c) Bản sao giấy tờ chứng minh thôi không còn phục vụ trong lực lượng Công an nhân dân;
+
+d) Giấy khám sức khỏe của người lái xe do cơ sở khám bệnh, chữa bệnh đủ tiêu chuẩn theo quy định của pháp luật về khám bệnh, chữa bệnh cấp còn hiệu lực.
+
+3. Trình tự thực hiện
+
+a) Cá nhân lập 01 bộ hồ sơ theo quy định tại khoản 2 Điều này gửi trực tiếp đến Phòng Cảnh sát giao thông hoặc Công an cấp xã nơi được bố trí điểm tiếp nhận; cá nhân chụp ảnh trực tiếp tại cơ quan tiếp nhận hồ sơ, xuất trình bản chính các giấy tờ quy định tại điểm c khoản 2 Điều này để đối chiếu và phải hoàn thành nghĩa vụ nộp lệ phí khi được tiếp nhận hồ sơ;
+
+b) Phòng Cảnh sát giao thông hoặc Công an cấp xã nơi được bố trí điểm tiếp nhận kiểm tra hồ sơ khi tiếp nhận và tra cứu phần mềm cơ sở dữ liệu về trật tự, an toàn giao thông đường bộ hoặc tra cứu vi phạm của người lái xe thông qua tài khoản định danh điện tử. Trường hợp phát hiện có nghi vấn, Phòng Cảnh sát giao thông có văn bản đề nghị đơn vị cấp giấy phép lái xe xác minh giấy phép lái xe đã cấp theo mẫu số 01 Phụ lục XI ban hành kèm theo Thông tư này, khi chưa có kết quả xác minh giấy phép lái xe thì chưa đổi giấy phép lái xe.
+
+Trường hợp giấy phép lái xe không thuộc đối tượng được đổi thì phải thông báo về việc không tiếp nhận hồ sơ; trường hợp hồ sơ không đúng theo quy định thì hướng dẫn những nội dung cần bổ sung hoặc sửa đổi cho cá nhân trong thời hạn 02 ngày làm việc, kể từ ngày nhận hồ sơ.
+
+Phòng Cảnh sát giao thông hoặc Công an cấp xã nơi được bố trí điểm tiếp nhận nhập thông tin điện tử, in phiếu hẹn trả kết quả;
+
+c) Trong thời hạn 01 ngày làm việc, kể từ ngày nhận đủ hồ sơ hợp lệ theo quy định (bao gồm có kết quả xác minh giấy phép lái xe đối với trường hợp phát hiện nghi vấn), Phòng Cảnh sát giao thông chuyển dữ liệu đến Cục Cảnh sát giao thông để quản lý tập trung và cấp giấy phép lái xe, tích hợp giấy phép lái xe lên hệ thống dữ liệu điện tử, tài khoản định danh điện tử trong thời hạn 03 ngày làm việc kể từ ngày nhận đủ hồ sơ hợp lệ. Phòng Cảnh sát giao thông tổ chức in và trả giấy phép lái xe trong thời hạn 05 ngày làm việc, kể từ ngày nhận đủ hồ sơ hợp lệ;
+
+d) Việc trả giấy phép lái xe được thực hiện tại cơ quan tiếp nhận hồ sơ hoặc thông qua dịch vụ bưu chính theo yêu cầu của cá nhân. Khi nhận giấy phép lái xe, người lái xe chịu trách nhiệm gửi giấy phép lái xe đã được cấp đến cơ quan cấp giấy phép lái xe để tiêu hủy theo quy định.
+
+4. Trường hợp người lái xe có nhu cầu đổi giấy phép lái xe xuống hạng thấp hơn, phải khai rõ tại đơn đề nghị đổi hoặc cấp lại giấy phép lái xe quy định tại Phụ lục XII ban hành kèm theo Thông tư này và chịu trách nhiệm về nội dung kê khai.
+
+5. Hồ sơ gốc, gồm tài liệu quy định tại khoản 2 Điều này, giao cho người lái xe tự bảo quản.
+
+Điều 24. Đổi giấy phép lái xe của nước ngoài
+1. Yêu cầu đối với việc đổi giấy phép lái xe của nước ngoài
+
+a) Người nước ngoài cư trú, làm việc, học tập tại Việt Nam có giấy phép lái xe quốc gia còn thời hạn sử dụng và có một trong các giấy tờ sau: giấy chứng minh thư ngoại giao, giấy chứng minh thư công vụ, thẻ tạm trú hoặc thẻ thường trú với thời gian từ 03 tháng trở lên nếu có nhu cầu lái xe ở Việt Nam được xét đổi sang hạng giấy phép lái xe tương ứng của Việt Nam;
+
+b) Người Việt Nam (mang quốc tịch Việt Nam) trong thời gian cư trú, học tập, làm việc ở nước ngoài được cơ quan có thẩm quyền nước ngoài cấp giấy phép lái xe quốc gia, còn thời hạn sử dụng, nếu có nhu cầu lái xe tại Việt Nam được xét đổi sang hạng giấy phép lái xe tương ứng của Việt Nam;
+
+c) Không đổi giấy phép lái xe tạm thời của nước ngoài; giấy phép lái xe quốc tế; giấy phép lái xe của nước ngoài quá thời hạn sử dụng, bị tẩy xóa, rách nát không còn đủ thông tin để đổi giấy phép lái xe hoặc có sự khác biệt về nhận dạng; giấy phép lái xe nước ngoài không do cơ quan có thẩm quyền cấp; người Việt Nam có giấy phép lái xe nước ngoài có thời gian lưu trú tại nước ngoài dưới 03 tháng và thời hạn lưu trú không phù hợp với thời gian đào tạo lái xe của nước cấp giấy phép lái xe.
+
+2. Hồ sơ bao gồm:
+
+a) Đề nghị đổi giấy phép lái xe (đối với người Việt Nam theo mẫu quy định tại Phụ lục XII, đối với người nước ngoài theo mẫu quy định tại Phụ lục XIII ban hành kèm theo Thông tư này);
+
+b) Bản dịch giấy phép lái xe nước ngoài ra tiếng Việt được bảo chứng chất lượng dịch thuật của cơ quan Công chứng tại Việt Nam, cơ quan đại diện Việt Nam ở nước ngoài mà người dịch làm việc, đóng dấu giáp lai với bản sao giấy phép lái xe;
+
+c) Giấy khám sức khỏe của người lái xe do cơ sở khám bệnh, chữa bệnh đủ tiêu chuẩn theo quy định của pháp luật về khám bệnh, chữa bệnh cấp còn hiệu lực (trừ người nước ngoài đổi giấy phép lái xe theo thời hạn ghi trong thị thực nhập cảnh hoặc thẻ tạm trú);
+
+d) Bản sao hoặc bản sao điện tử được chứng thực từ bản chính hoặc bản sao điện tử được cấp từ sổ gốc của một trong các giấy tờ: giấy chứng minh thư ngoại giao, giấy chứng minh thư công vụ, thẻ tạm trú hoặc thẻ thường trú với thời gian từ 03 tháng trở lên.
+
+3. Trình tự thực hiện
+
+a) Cá nhân lập 01 bộ hồ sơ theo quy định tại khoản 2 Điều này gửi trực tiếp đến Phòng Cảnh sát giao thông hoặc Công an cấp xã nơi được bố trí điểm tiếp nhận hồ sơ; cá nhân chụp ảnh trực tiếp tại cơ quan tiếp nhận hồ sơ và phải xuất trình bản chính các hồ sơ nêu trên (trừ các bản chính đã gửi) để đối chiếu và phải hoàn thành nghĩa vụ nộp lệ phí khi được tiếp nhận hồ sơ;
+
+b) Trường hợp phát hiện có nghi vấn về việc nhập cảnh, cư trú của người nước ngoài tại Việt Nam, cơ quan đổi giấy phép lái xe có văn bản đề nghị Bộ Ngoại giao, Cục Quản lý Xuất nhập cảnh, Phòng Quản lý xuất nhập cảnh thuộc Công an cấp tỉnh xác minh;
+
+c) Trường hợp hồ sơ giấy phép lái xe hợp lệ, Phòng Cảnh sát giao thông hoặc Công an cấp xã nơi được bố trí điểm tiếp nhận nhập thông tin điện tử; in phiếu hẹn trả kết quả; trường hợp không đổi giấy phép lái xe thì phải trả lời bằng văn bản và nêu rõ lý do;
+
+d) Trong thời hạn 01 ngày làm việc, kể từ ngày nhận đủ hồ sơ hợp lệ theo quy định (bao gồm có kết quả xác minh giấy phép lái xe đối với trường hợp phát hiện nghi vấn), Phòng Cảnh sát giao thông chuyển dữ liệu đến Cục Cảnh sát giao thông để quản lý tập trung và cấp giấy phép lái xe, tích hợp giấy phép lái xe lên hệ thống dữ liệu điện tử, tài khoản định danh điện tử trong thời hạn 03 ngày làm việc kể từ ngày nhận đủ hồ sơ hợp lệ. Phòng Cảnh sát giao thông tổ chức in và trả giấy phép lái xe trong thời hạn 05 ngày làm việc, kể từ ngày nhận đủ hồ sơ hợp lệ;
+
+đ) Việc trả giấy phép lái xe được thực hiện tại cơ quan tiếp nhận hồ sơ hoặc thông qua dịch vụ bưu chính theo yêu cầu của cá nhân.
+
+4. Hồ sơ đổi giấy phép lái xe được giao cho người lái xe quản lý là hồ sơ gốc, gồm các tài liệu quy định tại khoản 2 Điều này và giấy phép lái xe nước ngoài.
+
+5. Thời hạn sử dụng và hạng xe được phép điều khiển
+
+a) Thời hạn sử dụng giấy phép lái xe Việt Nam đổi cho người nước ngoài phù hợp với thời hạn ghi tại một trong các giấy tờ quy định tại điểm a khoản 1 Điều này phù hợp với thời hạn sử dụng giấy phép lái xe nước ngoài nhưng không vượt quá thời hạn quy định của giấy phép lái xe Việt Nam;
+
+b) Giấy phép lái xe quốc gia cấp cho người đổi được điều khiển nhiều hạng xe khác nhau được đổi sang giấy phép lái xe Việt Nam để điều khiển các hạng xe tương ứng.
+
+Điều 25. Thu hồi giấy phép lái xe
+1. Cơ quan có thẩm quyền cấp giấy phép lái xe thực hiện thu hồi theo trình tự sau:
+
+a) Trong thời hạn 03 ngày làm việc, kể từ ngày phát hiện người có giấy phép lái xe thuộc một trong các trường hợp quy định tại khoản 5 Điều 62 Luật Trật tự, an toàn giao thông đường bộ, Cục trưởng Cục Cảnh sát giao thông ra quyết định thu hồi để hủy bỏ giấy phép lái xe (nội dung của quyết định nêu rõ lý do thu hồi và hủy bỏ) và hủy bỏ việc tích hợp giấy phép lái xe điện tử trên hệ thống dữ liệu điện tử, tài khoản định danh điện tử;
+
+b) Trong thời hạn 05 ngày làm việc, kể từ ngày nhận được quyết định thu hồi giấy phép lái xe, cá nhân phải nộp giấy phép lái xe bị thu hồi đến Phòng Cảnh sát giao thông, Phòng cảnh sát giao thông có trách nhiệm tiếp nhận giấy phép lái xe bị thu hồi và hủy bỏ theo quy định.
+
+2. Xử lý đối với trường hợp giấy phép lái xe bị thu hồi
+
+a) Giấy phép lái xe bị thu hồi theo quy định tại điểm a, b khoản 5 Điều 62 Luật Trật tự, an toàn giao thông đường bộ; hồ sơ, trình tự thực hiện cấp lại giấy phép lái xe thực hiện theo quy định tại các khoản 2, 3, 4 Điều 21 Thông tư này;
+
+b) Giấy phép lái xe bị thu hồi theo quy định tại điểm c khoản 5 Điều 62 Luật Trật tự, an toàn giao thông đường bộ không có giá trị sử dụng, cơ quan quản lý giấy phép lái xe cập nhật dữ liệu về hành vi vi phạm trên hệ thống thông tin giấy phép lái xe tại Cục Cảnh sát giao thông kể từ ngày phát hiện hành vi vi phạm; ngoài ra, người có hành vi vi phạm không được cấp giấy phép lái xe trong thời hạn 05 năm, kể từ ngày phát hiện hành vi vi phạm; sau thời hạn 05 năm, kể từ ngày phát hiện hành vi vi phạm nếu có nhu cầu cấp lại giấy phép lái xe phải học và sát hạch lại như trường hợp cấp giấy phép lái xe lần đầu.
+
+Chương IV
+CẤP, SỬ DỤNG GIẤY PHÉP LÁI XE QUỐC TẾ
+Điều 26. Mẫu giấy phép lái xe quốc tế
+1. IDP là một quyển sổ có kích thước A6 (148 mm x 105 mm), có ký hiệu bảo mật, bìa màu xám, những trang giấy bên trong màu trắng theo mẫu quy định tại Phụ lục XV ban hành kèm theo Thông tư này.
+
+2. Trang 1 (trang bìa) ghi thông tin cơ bản của IDP được in song ngữ tiếng Việt và tiếng Anh; trang 2 quy định về phạm vi sử dụng IDP in song ngữ tiếng Việt và tiếng Anh, trang 3 quy định phần khai về người lái xe và phân hạng IDP in bằng tiếng Việt, trang 4 để trống, trang 5 quy định phần khai về người lái xe và phân hạng IDP in bằng tiếng Anh, trang 6 quy định phần khai về người lái xe và phân hạng IDP in bằng tiếng Nga, trang 7 quy định phần khai về người lái xe và phân hạng IDP in bằng tiếng Tây Ban Nha, trang 8 quy định phần khai về người lái xe và phân hạng IDP in bằng tiếng Pháp, trang 9 quy định hạng xe được điều khiển in bằng tiếng Pháp.
+
+3. Số IDP gồm ký hiệu phân biệt quốc gia của Việt Nam đối với giao thông quốc tế là VN và 12 chữ số sau là số giấy phép lái xe quốc gia.
+
+Điều 27. Hạng xe điều khiển của giấy phép lái xe quốc tế
+Hạng xe được phép điều khiển của IDP tương ứng với các hạng xe của giấy phép lái xe quốc gia do Việt Nam cấp quy định tại Phụ lục XV ban hành kèm theo Thông tư này.
+
+Điều 28. Cấp giấy phép lái xe quốc tế
+1. Đối với người Việt Nam, người nước ngoài có thẻ thường trú hoặc thẻ tạm trú tại Việt Nam, có giấy phép lái xe quốc gia do Việt Nam cấp bằng vật liệu PET còn giá trị sử dụng, thực hiện như sau:
+
+a) Hồ sơ cấp IDP: đề nghị cấp IDP theo mẫu quy định tại Phụ lục XVI kèm theo Thông tư này và 01 ảnh kích thước 3 x 4 cm;
+
+b) Trình tự cấp IDP:
+
+Cá nhân gửi đề nghị trực tiếp tại Cục Cảnh sát giao thông hoặc Phòng Cảnh sát giao thông hoặc gửi qua hệ thống dịch vụ công trực tuyến.
+
+Trường hợp đề nghị trực tiếp, phải xuất trình bản chính giấy phép lái xe quốc gia do Việt Nam cấp, hộ chiếu, thẻ thường trú (đối với người nước ngoài) để thực hiện kiểm tra tính chính xác, hợp pháp của việc cấp IDP và phải hoàn thành nghĩa vụ nộp lệ phí khi được tiếp nhận hồ sơ theo quy định. Trường hợp gửi qua hệ thống dịch vụ công trực tuyến, cá nhân kê khai theo hướng dẫn và phải chịu trách nhiệm về tính chính xác, tính hợp pháp của nội dung đã kê khai, phải hoàn thành nghĩa vụ nộp lệ phí thông qua chức năng thanh toán lệ phí của hệ thống dịch vụ công trực tuyến và nộp phí sử dụng dịch vụ khác theo nhu cầu của cá nhân.
+
+Cơ quan tiếp nhận hồ sơ nhập thông tin điện tử; in phiếu hẹn trả kết quả sau 05 ngày làm việc kể từ ngày tiếp nhận hồ sơ hợp lệ hoặc gửi thông tin hẹn trả qua hệ thống dịch vụ công và có trách nhiệm thông báo trực tiếp hoặc bằng văn bản hoặc qua hệ thống dịch vụ công trực tuyến những nội dung cần bổ sung hoặc sửa đổi cho cá nhân trong thời hạn 02 ngày làm việc, kể từ ngày tiếp nhận hồ sơ;
+
+c) Trong thời hạn 01 ngày làm việc, kể từ ngày nhận đủ hồ sơ hợp lệ theo quy định (bao gồm xác thực tài khoản định danh điện tử qua hệ thống định danh và xác thực điện tử), Phòng Cảnh sát giao thông chuyển dữ liệu đến Cục Cảnh sát giao thông để quản lý tập trung và cấp giấy phép lái xe;
+
+d) In và trả giấy phép lái xe được thực hiện tại Cục Cảnh sát giao thông hoặc Phòng Cảnh sát giao thông hoặc thông qua dịch vụ bưu chính theo yêu cầu của cá nhân.
+
+2. Đối với người Việt Nam, người nước ngoài có thẻ thường trú hoặc thẻ tạm trú tại Việt Nam, có giấy phép lái xe quốc gia do các quốc gia là thành viên của điều ước quốc tế mà nước Cộng hòa xã hội chủ nghĩa Việt Nam là thành viên cấp, còn giá trị sử dụng, thực hiện như sau:
+
+a) Hồ sơ cấp IDP: đề nghị cấp IDP quốc tế theo mẫu quy định tại Phụ lục XVI ban hành kèm theo Thông tư này; bản dịch giấy phép lái xe nước ngoài ra tiếng Việt được bảo chứng chất lượng dịch thuật của cơ quan Công chứng hoặc Đại sứ quán, Lãnh sự quán tại Việt Nam mà người dịch làm việc, đóng dấu giáp lai với bản sao giấy phép lái xe; bản sao thẻ tạm trú hoặc thẻ thường trú hoặc chứng minh thư ngoại giao hoặc chứng minh thư công vụ đối với người nước ngoài; 01 ảnh kích thước 3 x 4 cm;
+
+b) Trình tự cấp IDP:
+
+Cá nhân nộp 01 bộ hồ sơ quy định tại điểm a khoản này trực tiếp tại Cục Cảnh sát giao thông hoặc Phòng Cảnh sát giao thông, xuất trình bản chính giấy phép lái xe quốc gia do các quốc gia là thành viên của điều ước quốc tế mà nước Cộng hòa xã hội chủ nghĩa Việt Nam là thành viên cấp, hộ chiếu, thẻ thường trú hoặc tạm trú (đối với người nước ngoài) để kiểm tra đối chiếu và phải hoàn thành nghĩa vụ nộp lệ phí khi được tiếp nhận hồ sơ theo quy định.
+
+Cơ quan tiếp nhận hồ sơ nhập thông tin điện tử; in phiếu hẹn trả kết quả sau 05 ngày làm việc kể từ ngày tiếp nhận hồ sơ hợp lệ và có trách nhiệm thông báo trực tiếp hoặc bằng văn bản những nội dung cần bổ sung hoặc sửa đổi cho cá nhân trong thời hạn 02 ngày làm việc, kể từ ngày tiếp nhận đề nghị;
+
+c) IDP được cấp trong thời hạn 05 ngày làm việc kể từ ngày nhận đủ hồ sơ hợp lệ. Dữ liệu được chuyển về Cục Cảnh sát giao thông để quản lý tập trung và cấp IDP;
+
+d) In và trả giấy phép lái xe được thực hiện tại Cục Cảnh sát giao thông hoặc Phòng Cảnh sát giao thông hoặc thông qua dịch vụ bưu chính theo yêu cầu của cá nhân.
+
+3. Không cấp IDP đối với các trường hợp sau đây:
+
+a) Giấy phép lái xe quốc gia bị tẩy xóa không còn đủ các thông tin cần thiết hoặc có sự khác biệt về nhận dạng;
+
+b) Giấy phép lái xe quốc gia không do cơ quan có thẩm quyền cấp theo quy định.
+
+Điều 29. Sử dụng IDP
+
+1. IDP do Việt Nam cấp theo Công ước về giao thông đường bộ năm 1968 không có giá trị sử dụng trong lãnh thổ Việt Nam.
+
+2. IDP được công nhận theo điều ước quốc tế mà nước Cộng hòa xã hội chủ nghĩa Việt Nam là thành viên sẽ được thực hiện theo điều ước quốc tế đó.
+
+CHƯƠNG V
+HỆ THỐNG THÔNG TIN VỀ SÁT HẠCH, CẤP GIẤY PHÉP LÁI XE
+Điều 30. Yêu cầu đối với hệ thống thông tin về sát hạch, cấp giấy phép lái xe
+1. Hệ thống thông tin sát hạch lái xe tại trung tâm sát hạch lái xe
+
+a) Quản lý tối thiểu các thông tin: kỳ sát hạch; thí sinh tham dự sát hạch; dữ liệu giám sát sát hạch; kết quả kỳ sát hạch;
+
+b) Tiếp nhận thông tin kỳ sát hạch, thí sinh đủ điều kiện dự sát hạch từ hệ thống thông tin sát hạch lái xe của Phòng Cảnh sát giao thông;
+
+c) Cung cấp kết quả sát hạch đến hệ thống thông tin của Phòng Cảnh sát giao thông và Cục Cảnh sát giao thông;
+
+d) Chia sẻ dữ liệu giám sát sát hạch về Phòng Cảnh sát giao thông và Cục Cảnh sát giao thông;
+
+đ) Có khả năng lưu trữ chính xác, đầy đủ các thông tin được quản lý; kết nối, chia sẻ dữ liệu với các hệ thống thông tin liên quan;
+
+e) Đảm bảo các quy định về an toàn, an ninh thông tin, an toàn thông tin mạng theo các quy định của pháp luật hiện hành.
+
+2. Hệ thống thông tin về sát hạch, cấp giấy phép lái xe tại Phòng Cảnh sát giao thông
+
+a) Quản lý tối thiểu các thông tin: Kết quả duyệt danh sách thí sinh đủ điều kiện tham dự kỳ sát hạch; kỳ sát hạch; thí sinh tham dự kỳ sát hạch; dữ liệu giám sát sát hạch; kết quả kỳ sát hạch; số giấy phép lái xe; xác nhận hoàn thành khóa đào tạo; họ, tên; số định danh cá nhân; ngày, tháng, năm sinh; quốc tịch; nơi cư trú; cơ sở đào tạo lái xe; hạng xe đào tạo; khoá đào tạo; ngày đạt kết quả sát hạch; cơ quan sát hạch; địa điểm tổ chức sát hạch (trung tâm sát hạch lái xe hoặc sân tập lái dùng để sát hạch); ngày cấp, đổi, cấp lại giấy phép lái xe; cơ quan cấp, đổi, cấp lại giấy phép lái xe; hạng giấy phép lái xe; ngày hết hạn; số phôi giấy phép lái xe;
+
+b) Tạo kỳ sát hạch, cập nhật thông tin kỳ sát hạch và danh sách thí sinh tham dự kỳ sát hạch đồng thời cung cấp các thông tin này đến hệ thống thông tin tại trung tâm sát hạch lái xe;
+
+c) Có khả năng tiếp nhận dữ liệu giám sát sát hạch từ hệ thống thông tin tại trung tâm sát hạch lái xe, truy cập từ xa để các cơ quan có thẩm quyền truy cập, khai thác; tiếp nhận thông tin thí sinh đạt kết quả sát hạch từ hệ thống thông tin sát hạch lái xe tại các Phòng Cảnh sát giao thông, tiếp nhận thông tin từ hệ thống thông tin giấy phép lái xe tại Công an cấp xã nơi bố trí điểm tiếp nhận;
+
+d) Có khả năng cung cấp các thông tin tại điểm a của khoản này đến hệ thống thông tin giấy phép lái xe tại Cục Cảnh sát giao thông;
+
+đ) Có chức năng cấp, đổi, cấp lại, thu hồi giấy phép lái xe; cấp, đổi giấy phép lái xe quân sự do Bộ Quốc phòng cấp, giấy phép lái xe trong Công an nhân dân; đổi giấy phép lái xe hoặc bằng lái xe của người nước ngoài hoặc người Việt Nam cư trú ở nước ngoài có nhu cầu lái xe ở Việt Nam;
+
+e) Có khả năng lưu trữ chính xác, đầy đủ các thông tin được quản lý, kết nối, chia sẻ dữ liệu với các hệ thống thông tin liên quan;
+
+g) Đảm bảo các quy định về an toàn, an ninh thông tin, an toàn thông tin mạng theo các quy định của pháp luật hiện hành.
+
+3. Hệ thống thông tin về sát hạch, cấp giấy phép lái xe tại Cục Cảnh sát giao thông
+
+a) Quản lý tối thiểu các thông tin: số giấy phép lái xe; xác nhận hoàn thành khóa đào tạo; họ, tên; số định danh cá nhân; ngày, tháng, năm sinh; quốc tịch; nơi cư trú; cơ sở đào tạo lái xe; hạng xe đào tạo; khoá đào tạo; ngày đạt kết quả sát hạch; cơ quan sát hạch; địa điểm tổ chức sát hạch (trung tâm sát hạch lái xe hoặc sân tập lái dùng để sát hạch); ngày cấp, đổi, cấp lại giấy phép lái xe; cơ quan cấp, đổi, cấp lại giấy phép lái xe; hạng giấy phép lái xe; ngày hết hạn; số phôi giấy phép lái xe;
+
+b) Có khả năng tiếp nhận các thông tin tại điểm a khoản này từ hệ thống thông tin giấy phép lái xe tại Phòng Cảnh sát giao thông; tra cứu thông tin giấy phép lái xe, thực hiện các nghiệp vụ về sát hạch cấp giấy phép lái xe trên trang thông tin điện tử; lưu trữ chính xác, đầy đủ các thông tin được quản lý;
+
+c) Có chức năng cấp giấy phép lái xe quốc tế theo quy định tại khoản 1 và khoản 2 Điều 28 Thông tư này; thu hồi giấy phép lái xe;
+
+d) Có khả năng kết nối, chia sẻ dữ liệu với cổng dịch vụ công quốc gia, cổng dịch vụ công của các tỉnh, thành phố trực thuộc Trung ương và các hệ thống thông tin liên quan khác để thực hiện các thủ tục hành chính liên quan đến quản lý giấy phép lái xe và giấy phép lái xe quốc tế;
+
+đ) Đảm bảo các quy định về an toàn, an ninh thông tin, an toàn thông tin mạng theo các quy định của pháp luật hiện hành.
+
+4. Hệ thống thông tin giấy phép lái xe tại Công an cấp xã nơi được bố trí điểm tiếp nhận
+
+a) Quản lý tối thiểu các thông tin: số giấy phép lái xe; họ, tên; số định danh cá nhân; ngày, tháng, năm sinh; quốc tịch; nơi cư trú; ngày cấp, đổi, cấp lại giấy phép lái xe; cơ quan cấp, đổi, cấp lại giấy phép lái xe; hạng giấy phép lái xe; ngày hết hạn; số phôi giấy phép lái xe;
+
+b) Có khả năng cung cấp các thông tin tại điểm a của khoản này đến hệ thống thông tin giấy phép lái xe tại Phòng Cảnh sát giao thông;
+
+c) Có khả năng tiếp nhận thông tin tại điểm a của khoản này từ người đổi giấy phép lái xe;
+
+d) Có khả năng lưu trữ chính xác, đầy đủ các thông tin được quản lý; kết nối, chia sẻ dữ liệu với các hệ thống thông tin liên quan;
+
+đ) Đảm bảo các quy định về an toàn, an ninh thông tin, an toàn thông tin mạng theo các quy định của pháp luật hiện hành.
+
+Điều 31. Nguyên tắc và hình thức khai thác dữ liệu trên hệ thống thông tin về sát hạch, cấp giấy phép lái xe
+1. Nguyên tắc khai thác
+
+a) Việc khai thác dữ liệu sát hạch, cấp giấy phép lái xe thực hiện theo quy định của pháp luật về công nghệ thông tin và an toàn thông tin mạng;
+
+b) Cơ quan quản lý hệ thống thông tin giấy phép lái xe quy định tại Điều 35, Điều 36 của Thông tư này và Công an cấp xã có trách nhiệm bảo vệ thông tin, dữ liệu cá nhân trong cơ sở dữ liệu giấy phép lái xe trên môi trường mạng theo quy định của pháp luật về công nghệ thông tin;
+
+c) Các dịch vụ khai thác thông tin dữ liệu giấy phép lái xe được cung cấp cho cơ quan, tổ chức, cá nhân trên môi trường mạng theo quy định của pháp luật về công nghệ thông tin và an toàn thông tin mạng.
+
+2. Hình thức khai thác
+
+a) Khai thác trực tiếp: Cơ quan, tổ chức, cá nhân được khai thác dữ liệu giấy phép lái xe trực tiếp từ trang thông tin điện tử giấy phép lái xe theo quy định về cấp độ bảo mật và phân quyền sử dụng, khai thác dữ liệu giấy phép lái xe;
+
+b) Khai thác gián tiếp: Cơ quan, tổ chức, cá nhân có nhu cầu khai thác dữ liệu giấy phép lái xe cung cấp thông tin lấy từ cơ sở dữ liệu giấy phép lái xe, bao gồm: các thông tin ghi trên giấy phép lái xe (trường hợp có yêu cầu của cơ quan có thẩm quyền, ngoài thông tin in trên giấy phép lái xe còn được cung cấp thêm thông tin về đào tạo, sát hạch, vi phạm pháp luật giao thông đường bộ).
+
+Điều 32. Thời gian lưu trữ dữ liệu trên hệ thống thông tin
+Người đứng đầu cơ quan, tổ chức có trách nhiệm chỉ đạo thực hiện việc quản lý tài liệu lưu trữ điện tử theo quy định sau đây:
+
+1. Thời gian lưu trữ dữ liệu về sát hạch lái xe tại trung tâm sát hạch lái xe tối thiểu là 05 năm.
+
+2. Thời gian lưu trữ dữ liệu về sát hạch, cấp, đổi, cấp lại, thu hồi giấy phép lái xe tại Phòng Cảnh sát giao thông tối thiểu là 50 năm.
+
+3. Thời gian lưu trữ dữ liệu về sát hạch, cấp, đổi, cấp lại, thu hồi giấy phép lái xe tại Cục Cảnh sát giao thông tối đa là 70 năm.
+
+Điều 33. Quy trình khai thác hệ thống thông tin về cấp giấy phép lái xe
+1. Đối với cấp mới giấy phép lái xe
+
+a) Phòng Cảnh sát giao thông: khai thác thông tin về dữ liệu đề nghị sát hạch lái xe trên hệ thống thông tin đào tạo lái xe để duyệt danh sách thí sinh đủ điều kiện sát hạch; căn cứ quyết định tổ chức kỳ sát hạch tạo lập danh sách học viên đủ điều kiện tham gia sát hạch gửi trung tâm sát hạch lái xe và sân tập lái dùng để sát hạch lái xe mô tô để phối hợp tổ chức kỳ sát hạch; tiếp nhận dữ liệu kết quả sát hạch do các trung tâm sát hạch lái xe và sân tập lái dùng để sát hạch lái xe mô tô trên hệ thống thông tin sát hạch lái xe để lập danh sách cấp giấy phép lái xe cho người đạt kết quả sát hạch;
+
+b) Trung tâm sát hạch lái xe và sân tập lái dùng để sát hạch lái xe đã trang bị hệ thống thông tin để sát hạch lái xe: tiếp nhận danh sách thí sinh dự sát hạch do Phòng Cảnh sát giao thông đồng bộ trên hệ thống thông tin và thực hiện quy trình sát hạch trên hệ thống thông tin sát hạch lái xe; đồng bộ dữ liệu kết quả kỳ sát hạch vào hệ thống thông tin sát hạch lái xe;
+
+c) Cục Cảnh sát giao thông: tiếp nhận dữ liệu giấy phép lái xe đã được Phòng Cảnh sát giao thông đồng bộ vào hệ thống thông tin giấy phép lái xe để tổ chức quản lý và sử dụng dữ liệu theo quy định.
+
+2. Đối với đổi giấy phép lái xe
+
+a) Công an cấp xã nơi được bố trí điểm tiếp nhận: tiếp nhận hồ sơ và kiểm tra, cập nhật, xác thực hồ sơ điện tử vào hệ thống thông tin giấy phép lái xe và đồng bộ dữ liệu vào hệ thống thông tin giấy phép lái xe tại Phòng Cảnh sát giao thông;
+
+b) Phòng Cảnh sát giao thông: tiếp nhận hồ sơ và thực hiện các quy trình đổi giấy phép lái xe trên hệ thống thông tin giấy phép lái xe; kiểm tra, cập nhật, xác thực hồ sơ điện tử vào hệ thống thông tin giấy phép lái xe và đồng bộ dữ liệu vào hệ thống thông tin giấy phép lái xe tại Cục Cảnh sát giao thông;
+
+c) Cục Cảnh sát giao thông tiếp nhận dữ liệu giấy phép lái xe đã được đồng bộ vào hệ thống thông tin giấy phép lái xe tại Cục Cảnh sát giao thông để tổ chức quản lý và sử dụng dữ liệu theo quy định.
+
+Điều 34. Quy trình khai thác hệ thống thông tin đối với cấp, quản lý giấy phép lái xe quốc tế
+1. Phòng Cảnh sát giao thông: tiếp nhận hồ sơ và thực hiện quy trình cấp IDP trên hệ thống thông tin giấy phép lái xe tại Phòng Cảnh sát giao thông; kiểm tra, cập nhật, xác thực hồ sơ điện tử vào hệ thống thông tin giấy phép lái xe tại Phòng Cảnh sát giao thông và thực hiện quy trình in IDP; kiểm tra chất lượng giấy phép lái xe sau khi in và đồng bộ dữ liệu vào hệ thống thông tin giấy phép lái xe tại Cục Cảnh sát giao thông.
+
+2. Cục Cảnh sát giao thông
+
+a) Tiếp nhận dữ liệu IDP đã được Phòng Cảnh sát giao thông đồng bộ vào hệ thống thông tin giấy phép lái xe tại Cục Cảnh sát giao thông để tổ chức quản lý và sử dụng dữ liệu theo quy định;
+
+b) Trường hợp tiếp nhận hồ sơ đề nghị cấp IDP của cá nhân thì thực hiện như quy trình tại khoản 1 Điều này.
+
+CHƯƠNG VI
+TỔ CHỨC THỰC HIỆN
+Điều 35. Trách nhiệm Cục Cảnh sát giao thông
+1. Công tác sát hạch lái xe
+
+a) Hướng dẫn chuyên môn, nghiệp vụ đối với công tác xây dựng trung tâm sát hạch lái xe, sát hạch lái xe để thực hiện thống nhất trong phạm vi cả nước;
+
+b) Xây dựng bộ câu hỏi; phần mềm hệ thống thông tin sát hạch, cấp giấy phép lái xe; phần mềm dùng cho sát hạch lý thuyết; phần mềm mô phỏng các tình huống giao thông để phục vụ công tác sát hạch lái xe, hướng dẫn thực hiện thống nhất trong cả nước và chuyển giao cho Phòng Cảnh sát giao thông, trung tâm sát hạch lái xe;
+
+c) Xây dựng chương trình, chỉ đạo, tổ chức tập huấn, cấp thẻ sát hạch viên cho đội ngũ sát hạch viên trong cả nước và lưu trữ hồ sơ sát hạch viên theo quy định;
+
+d) Công bố và cập nhật danh sách các trung tâm sát hạch lái xe được cấp hoặc bị thu hồi giấy phép sát hạch trên trang thông tin điện tử.
+
+2. Công tác cấp, đổi, cấp lại, thu hồi giấy phép lái xe
+
+a) Hướng dẫn chuyên môn, nghiệp vụ đối với công tác cấp, đổi, cấp lại, thu hồi giấy phép lái xe để thực hiện thống nhất trong phạm vi cả nước;
+
+b) Hướng dẫn và quản lý việc sử dụng phôi giấy phép lái xe;
+
+c) Quản lý dữ liệu tập trung, cấp giấy phép lái xe.
+
+3. Công tác cấp giấy phép lái xe quốc tế
+
+a) Hướng dẫn chuyên môn, nghiệp vụ đối với công tác cấp IDP để thực hiện thống nhất trong cả nước;
+
+b) Hướng dẫn và quản lý việc sử dụng phôi IDP theo thẩm quyền;
+
+c) Công bố, cập nhật danh sách các nước tham gia Công ước Viên hàng năm theo thông báo chính thức của Liên hợp quốc trên trang thông tin điện tử của Cục Cảnh sát giao thông;
+
+d) Triển khai thực hiện dịch vụ công về cấp IDP;
+
+đ) Quản lý dữ liệu tập trung, cấp giấy phép lái xe.
+
+4. Công tác quản lý hệ thống thông tin
+
+a) Xây dựng, nâng cấp và duy trì hoạt động của hệ thống thông tin về sát hạch, cấp giấy phép lái xe tại Cục Cảnh sát giao thông; hệ thống dịch vụ công trực tuyến toàn trình đổi giấy phép lái xe trên cổng dịch vụ công quốc gia; hệ thống dịch vụ công trực tuyến cấp giấy phép lái xe quốc tế; tích hợp, chia sẻ dữ liệu giấy phép lái xe theo yêu cầu của cơ quan có thẩm quyền; ứng dụng công nghệ chuyển đổi số trong sát hạch, cấp giấy phép lái xe;
+
+b) Cung cấp tài khoản để Công an cấp xã nơi được bố trí điểm tiếp nhận và Phòng Cảnh sát giao thông đăng nhập, truyền dữ liệu và khai thác dữ liệu trên hệ thống thông tin;
+
+c) Xây dựng, tập huấn chuyển giao phần mềm nghiệp vụ trong hệ thống thông tin sát hạch và hệ thống thông tin giấy phép lái xe tại trung tâm sát hạch lái xe và Phòng Cảnh sát giao thông.
+
+5. Đối với công tác kiểm tra
+
+a) Kiểm tra định kỳ hoặc đột xuất về công tác quản lý sát hạch, cấp, cấp đổi, cấp lại, thu hồi giấy phép lái xe và lưu trữ hồ sơ tại Công an địa phương;
+
+b) Kiểm tra định kỳ hoặc đột xuất công tác tổ chức các kỳ sát hạch tại trung tâm sát hạch lái xe, xử lý hoặc báo cáo cơ quan có thẩm quyền để xử lý các vi phạm theo quy định hiện hành.
+
+6. Cục Cảnh sát giao thông chủ trì, phối hợp với Cục Công nghiệp an ninh thiết kế, sản xuất, in thông tin chung trên phôi giấy phép lái xe, phôi giấy phép lái xe quốc tế cấp cho Công an các đơn vị, địa phương.
+
+Điều 36. Trách nhiệm Phòng Cảnh sát giao thông
+Công tác sát hạch lái xe
+
+a) Triển khai nối mạng với các trung tâm sát hạch lái xe tại địa phương và Cục Cảnh sát giao thông;
+
+b) Cung cấp tài khoản hệ thống thông tin giám sát sát hạch để Cục Cảnh sát giao thông, Phòng Cảnh sát giao thông đơn vị đưa học viên đến tổ chức sát hạch tại trung tâm sát hạch lái xe không nằm trên địa bàn, các trung tâm sát hạch lái xe đăng nhập, truyền và khai thác dữ liệu; dữ liệu kết quả sát hạch khai thác trên phần mềm của hệ thống thông tin giám sát được tổng hợp theo mẫu quy định tại Phụ lục XVII ban hành kèm theo Thông tư này;
+
+c) Công khai lịch, địa điểm dự kiến tổ chức các kỳ sát hạch lái xe của tháng sau trước ngày 20 của tháng trước trên Trang thông tin điện tử, Cổng dịch vụ công quốc gia;
+
+d) Tổ chức các kỳ sát hạch lái xe.
+
+2. Công tác cấp, cấp đổi, cấp lại, thu hồi giấy phép lái xe
+
+a) Thực hiện nhiệm vụ tiếp nhận hồ sơ cấp, đổi, cấp lại giấy phép lái xe, chuyển dữ liệu đến Cục Cảnh sát giao thông; in và trả giấy phép lái xe;
+
+b) Hướng dẫn Công an cấp xã tiếp nhận hồ sơ đổi, cấp lại giấy phép lái xe và chuyển dữ liệu về Phòng Cảnh sát giao thông;
+
+c) Thực hiện việc thu hồi và hủy bỏ giấy phép lái xe khi có quyết định thu hồi của Cục Cảnh sát giao thông.
+
+3. Thực hiện nhiệm vụ tiếp nhận hồ sơ cấp IDP, chuyển dữ liệu đến Cục Cảnh sát giao thông; in và trả IDP.
+
+4. Công tác quản lý hệ thống thông tin
+
+a) Đầu tư, bảo trì, nâng cấp trang thiết bị phần cứng, phần mềm hệ thống và mạng truyền số liệu của hệ thống thông tin về sát hạch, cấp giấy phép lái xe;
+
+b) Vận hành hệ thống thông tin về sát hạch, cấp giấy phép lái xe;
+
+c) Tiếp nhận, tổ chức thực hiện và chịu trách nhiệm đối với các phần mềm nghiệp vụ trong hệ thống thông tin sát hạch và hệ thống thông tin giấy phép lái xe;
+
+d) Sử dụng các phần mềm trong hệ thống thông tin sát hạch lái xe để thực hiện sát hạch lái xe, tổng hợp kết quả làm cơ sở cấp, cấp lại giấy phép lái xe theo quy định;
+
+đ) Sử dụng các phần mềm trong hệ thống thông tin giấy phép lái xe để cập nhật, xử lý, khai thác, xác thực và đồng bộ dữ liệu và quản lý giấy phép lái xe;
+
+e) Sử dụng dữ liệu trên hệ thống thông tin được cài đặt, chuyển giao tại Phòng Cảnh sát giao thông, trung tâm sát hạch lái xe để phục vụ công tác thanh tra, kiểm tra và cung cấp thông tin cho các đơn vị chức năng.
+
+5. Kiểm tra định kỳ hoặc đột xuất về công tác tiếp nhận hồ sơ đổi, cấp lại giấy phép lái xe tại Công an cấp xã nơi được bố trí điểm tiếp nhận.
+
+Điều 37. Trách nhiệm Trung tâm sát hạch lái xe
+1. Đối với công tác quản lý sát hạch
+
+a) Bảo đảm cơ sở vật chất, trang thiết bị kiểm tra, chấm điểm theo quy định để thực hiện các kỳ sát hạch đạt kết quả chính xác, khách quan; báo cáo về Phòng Cảnh sát giao thông, Cục Cảnh sát giao thông khi thiết bị, phương tiện dùng cho sát hạch hoạt động không chính xác, không ổn định hoặc khi thay đổi thiết bị, phương tiện dùng cho sát hạch để xử lý kịp thời;
+
+b) Phối hợp và tạo mọi điều kiện để học viên đến ôn luyện và các Hội đồng sát hạch tổ chức sát hạch thuận tiện, đúng kế hoạch;
+
+c) Chấp hành và phối hợp với cơ quan có thẩm quyền trong việc kiểm tra trung tâm sát hạch lái xe;
+
+d) Công khai mức thu phí sát hạch và giá các dịch vụ khác trên trang thông tin điện tử của trung tâm sát hạch lái xe;
+
+đ) Bảo đảm an toàn cho các kỳ sát hạch lái xe; phối hợp các đơn vị, cơ quan liên quan giải quyết khi có các vụ việc tai nạn, mất an toàn xảy ra;
+
+e) Công khai lịch sát hạch trên Trang thông tin điện tử của trung tâm sát hạch lái xe, lưu trữ hồ sơ kết quả sát hạch theo quy định tại khoản 3 Điều 17 Thông tư này;
+
+g) Truyền, chia sẻ dữ liệu giám sát sát hạch đến Phòng Cảnh sát giao thông, Cục Cảnh sát giao thông, lưu trữ và chịu trách nhiệm về tính chính xác, đầy đủ, trung thực dữ liệu giám sát sát hạch; bảo đảm an toàn dữ liệu; bảo mật tên đăng nhập, mật khẩu truy cập và phần mềm cho hệ thống thông tin giám sát sát hạch của Phòng Cảnh sát giao thông, Cục Cảnh sát giao thông; cung cấp kịp thời, chính xác các thông tin, dữ liệu giám sát sát hạch cho cơ quan quản lý nhà nước có thẩm quyền khi có yêu cầu;
+
+h) Tiếp nhận, sử dụng phần mềm sát hạch lý thuyết, phần mềm sát hạch mô phỏng các tình huống giao thông do Cục Cảnh sát giao thông chuyển giao để sát hạch lái xe và phần mềm quản lý nghiệp vụ do Cục Cảnh sát giao thông chuyển giao để phục vụ công tác tổ chức sát hạch lái xe.
+
+2. Công tác quản lý hệ thống thông tin
+
+a) Đầu tư, bảo trì, nâng cấp trang thiết bị phần cứng, phần mềm hệ thống và mạng truyền số liệu của hệ thống thông tin sát hạch lái xe đặt tại trung tâm sát hạch lái xe;
+
+b) Tiếp nhận và cài đặt, tổ chức thực hiện phần mềm do Cục Cảnh sát giao thông chuyển giao; không được can thiệp, lắp đặt các thiết bị, cài đặt các phần mềm làm ảnh hưởng quá trình sát hạch hoặc làm sai lệch kết quả sát hạch lái xe.
+
+Chương VII
+ĐIỀU KHOẢN THI HÀNH
+Điều 38. Hiệu lực thi hành và quy định chuyển tiếp
+
+1. Thông tư này có hiệu lực thi hành từ ngày 01 tháng 3 năm 2025.
+
+2. Công an các địa phương chưa có điều kiện về cơ sở hạ tầng thông tin để thực hiện theo quy định tại khoản 5 Điều 12 và khoản 2 Điều 16 Thông tư này thì khi thí sinh không đạt kỳ sát hạch trước phải đăng ký sát hạch lại với cùng một cơ quan sát hạch; hồ sơ đề nghị sát hạch của cá nhân phải do cơ sở đào tạo gửi đến Phòng Cảnh sát giao thông. Chậm nhất đến ngày 01 tháng 01 năm 2026 phải thực hiện thống nhất theo quy định tại khoản 5 Điều 12 và khoản 2 Điều 16 Thông tư này.
+
+3. Người vắng, trượt trong các kỳ sát hạch trước ngày Thông tư này có hiệu lực được bảo lưu kết quả những nội dung đã sát hạch đạt để đăng ký sát hạch lái xe sau ngày Thông tư này có hiệu lực và được cấp giấy phép lái xe theo hạng giấy phép lái xe đổi, cấp lại quy định tại khoản 3 Điều 89 Luật Trật tự, an toàn giao thông đường bộ.
+
+Điều 39. Trách nhiệm thi hành
+1. Cục trưởng Cục Cảnh sát giao thông có trách nhiệm theo dõi, đôn đốc, kiểm tra, hướng dẫn việc tổ chức thực hiện Thông tư này.
+
+2. Thủ trưởng các đơn vị thuộc cơ quan Bộ, Giám đốc Công an các tỉnh, thành phố trực thuộc Trung ương và các tổ chức, cá nhân có liên quan chịu trách nhiệm thi hành Thông tư này.
+
+Trong quá trình thực hiện Thông tư, nếu có khó khăn, vướng mắc, Công an các đơn vị, địa phương, tổ chức, cá nhân có liên quan báo cáo về Bộ Công an (qua Cục Cảnh sát giao thông) để kịp thời hướng dẫn./.
