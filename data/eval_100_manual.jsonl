@@ -1,0 +1,100 @@
+{"instruction": "Nghị định 168/2024/NĐ-CP quy định về vấn đề gì?", "output": "Nghị định 168/2024/NĐ-CP quy định xử phạt vi phạm hành chính về trật tự, an toàn giao thông trong lĩnh vực giao thông đường bộ; trừ điểm, phục hồi điểm giấy phép lái xe."}
+{"instruction": "Nghị định 168 về giao thông khi nào có hiệu lực?", "output": "Nghị định 168/2024/NĐ-CP bắt đầu có hiệu lực thi hành từ ngày 01/01/2025."}
+{"instruction": "Giấy phép lái xe có bao nhiêu điểm?", "output": "Theo Điều 45 Nghị định 168, mỗi giấy phép lái xe có tổng cộng 12 điểm."}
+{"instruction": "Bị trừ hết 12 điểm giấy phép lái xe thì bị xử lý như thế nào?", "output": "Khi bị trừ hết 12 điểm, giấy phép lái xe sẽ không còn hiệu lực sử dụng. Người điều khiển không được phép điều khiển loại phương tiện tương ứng với giấy phép lái xe đó."}
+{"instruction": "Làm sao để phục hồi điểm giấy phép lái xe khi đã bị trừ hết?", "output": "Người vi phạm phải tham gia khóa học và thi kiểm tra kiến thức pháp luật về trật tự, an toàn giao thông đường bộ. Nếu thi đạt yêu cầu sẽ được phục hồi đủ 12 điểm."}
+{"instruction": "Lái xe trong 1 năm không bị trừ hết điểm thì điểm giấy phép lái xe có tự phục hồi không?", "output": "Có. Nếu trong thời hạn 12 tháng liên tục người lái xe không bị trừ điểm nào và chưa bị trừ hết 12 điểm, hệ thống sẽ tự động phục hồi về đủ 12 điểm."}
+{"instruction": "Lái xe máy có nồng độ cồn dưới 0.25 mg/lít khí thở bị phạt như thế nào?", "output": "Hành vi này bị phạt tiền từ 2.000.000 đồng đến 3.000.000 đồng và bị trừ 4 điểm giấy phép lái xe."}
+{"instruction": "Uống 1 lon bia rồi lái xe máy bị phạt bao nhiêu tiền?", "output": "Với nồng độ cồn dưới 0.25 mg/lít khí thở (tương đương khoảng 1 lon bia), người đi xe máy bị phạt từ 2.000.000 đến 3.000.000 đồng và bị trừ 4 điểm giấy phép lái xe."}
+{"instruction": "Lái xe máy có nồng độ cồn từ 0.25 mg đến 0.4 mg/lít khí thở bị phạt bao nhiêu tiền?", "output": "Hành vi này bị phạt tiền từ 6.000.000 đến 8.000.000 đồng và bị trừ 10 điểm giấy phép lái xe."}
+{"instruction": "Lái xe máy có nồng độ cồn vượt quá 0.4 mg/lít khí thở bị phạt bao nhiêu tiền?", "output": "Mức phạt là từ 18.000.000 đồng đến 20.000.000 đồng và bị tước quyền sử dụng Giấy phép lái xe từ 22 - 24 tháng."}
+{"instruction": "Say rượu khi lái xe máy bị phạt như thế nào?", "output": "Trường hợp nồng độ cồn vượt quá 0.4 mg/lít khí thở, người lái xe máy bị phạt tiền từ 18.000.000 đồng đến 20.000.000 đồng và bị tước quyền sử dụng Giấy phép lái xe từ 22 - 24 tháng."}
+{"instruction": "Lái ô tô có nồng độ cồn dưới 0.25 mg/lít khí thở bị xử phạt như thế nào?", "output": "Hành vi này bị phạt tiền từ 6.000.000 đồng đến 8.000.000 đồng và bị trừ 4 điểm giấy phép lái xe."}
+{"instruction": "Lái ô tô có nồng độ cồn từ 0.25 mg đến 0.4 mg/lít khí thở bị phạt bao nhiêu tiền?", "output": "Mức phạt là từ 18.000.000 đồng đến 20.000.000 đồng và bị trừ 10 điểm giấy phép lái xe."}
+{"instruction": "Lái ô tô có nồng độ cồn vượt quá 0.4 mg/lít khí thở bị xử phạt như thế nào?", "output": "Hành vi này bị phạt tiền từ 30.000.000 đồng đến 40.000.000 đồng, bị tước giấy phép lái xe 22–24 tháng và bị trừ 12 điểm giấy phép lái xe."}
+{"instruction": "Không chấp hành yêu cầu kiểm tra nồng độ cồn của cảnh sát giao thông bị xử lý như thế nào?", "output": "Người điều khiển phương tiện bị phạt mức cao nhất (Ô tô: 30-40 triệu, Xe máy: 8-10 triệu) và bị tước giấy phép lái xe 22–24 tháng."}
+{"instruction": "Đi xe đạp sau khi uống rượu bia có bị phạt không?", "output": "Có. Người đi xe đạp vi phạm nồng độ cồn bị phạt tiền tùy mức độ: dưới 0.25 mg (80k-100k); từ 0.25-0.4 mg (200k-300k); trên 0.4 mg (400k-600k)."}
+{"instruction": "Uống rượu bia xong dắt bộ xe máy qua chốt kiểm tra có bị phạt không?", "output": "Nếu có căn cứ chứng minh người đó đã điều khiển phương tiện tham gia giao thông trước khi dắt bộ thì vẫn bị xử phạt nồng độ cồn theo quy định."}
+{"instruction": "Sử dụng ma túy rồi lái xe máy bị phạt bao nhiêu tiền?", "output": "Hành vi điều khiển xe trên đường mà trong cơ thể có chất ma túy đối với người đi xe máy bị phạt từ 6.000.000 đến 8.000.000 đồng và bị trừ 12 điểm giấy phép lái xe."}
+{"instruction": "Sử dụng ma túy rồi lái ô tô bị phạt bao nhiêu tiền?", "output": "Hành vi điều khiển xe ô tô mà trong cơ thể có chất ma túy bị phạt tiền từ 30.000.000 đến 40.000.000 đồng và bị trừ 12 điểm giấy phép lái xe."}
+{"instruction": "Lái xe máy chạy quá tốc độ từ 5 km/h đến dưới 10 km/h bị phạt bao nhiêu tiền?", "output": "Mức phạt là từ 400.000 đồng đến 600.000 đồng."}
+{"instruction": "Lái xe máy chạy quá tốc độ từ 10 km/h đến 20 km/h bị phạt bao nhiêu tiền?", "output": "Hành vi này bị phạt từ 800.000 đồng đến 1.000.000 đồng và bị trừ 2 điểm giấy phép lái xe."}
+{"instruction": "Lái xe máy chạy quá tốc độ trên 20 km/h bị phạt bao nhiêu tiền?", "output": "Phạt tiền từ 6.000.000 đồng đến 8.000.000 đồng và bị trừ 4 điểm giấy phép lái xe."}
+{"instruction": "Chạy xe máy vượt tốc độ tối đa 25km/h bị phạt bao nhiêu tiền?", "output": "Phạt tiền từ 6.000.000 đồng đến 8.000.000 đồng và bị trừ 4 điểm giấy phép lái xe."}
+{"instruction": "Lái ô tô chạy quá tốc độ từ 10 km/h đến 20 km/h bị xử phạt như thế nào?", "output": "Hành vi này bị phạt tiền từ 4.000.000 đến 6.000.000 đồng và bị trừ 2 điểm giấy phép lái xe."}
+{"instruction": "Lái ô tô chạy quá tốc độ trên 35 km/h bị xử phạt như thế nào?", "output": "Phạt tiền từ 12.000.000 đến 14.000.000 đồng và bị trừ 6 điểm giấy phép lái xe."}
+{"instruction": "Đi xe máy vào đường cao tốc bị xử phạt bao nhiêu tiền?", "output": "Hành vi đi vào đường cao tốc đối với xe máy bị phạt từ 4.000.000 đến 6.000.000 đồng và bị trừ 6 điểm giấy phép lái xe."}
+{"instruction": "Lái ô tô vượt đèn đỏ hoặc đèn vàng bị xử phạt bao nhiêu tiền?", "output": "Hành vi không chấp hành hiệu lệnh của đèn tín hiệu giao thông đối với ô tô bị phạt từ 18.000.000 đến 20.000.000 đồng và bị trừ 4 điểm giấy phép lái xe."}
+{"instruction": "Lỗi vượt đèn đỏ đối với xe máy bị phạt bao nhiêu tiền?", "output": "Hành vi không chấp hành hiệu lệnh của đèn tín hiệu giao thông đối với xe máy bị phạt tiền từ 4.000.000 đến 6.000.000 đồng và bị trừ 4 điểm giấy phép lái xe."}
+{"instruction": "Đi xe máy sai làn đường, phần đường bị phạt bao nhiêu tiền?", "output": "Hành vi đi không đúng phần đường hoặc làn đường quy định đối với xe máy bị phạt từ 400.000 đến 600.000 đồng."}
+{"instruction": "Lái ô tô đi ngược chiều của đường một chiều bị xử phạt như thế nào?", "output": "Hành vi đi ngược chiều của đường một chiều đối với ô tô bị phạt tiền từ 18.000.000 đến 20.000.000 đồng hoặc lên đến 40.000.000 đồng và bị trừ 10 - 12 điểm giấy phép lái xe."}
+{"instruction": "Đi xe máy ngược chiều bị phạt bao nhiêu tiền?", "output": "Hành vi đi ngược chiều của đường một chiều đối với xe máy bị phạt từ 4.000.000 đến 6.000.000 đồng và bị trừ 2-4 điểm giấy phép lái xe theo Điều 7."}
+{"instruction": "Lái ô tô đi ngược chiều trên cao tốc bị xử phạt như thế nào?", "output": "Phạt tiền từ 30.000.000 đến 40.000.000 đồng và bị trừ 10 điểm giấy phép lái xe."}
+{"instruction": "Chuyển hướng xe máy không có tín hiệu báo hướng rẽ bị phạt bao nhiêu tiền?", "output": "Hành vi chuyển hướng không có tín hiệu báo hướng rẽ (xi nhan) đối với xe máy bị phạt tiền từ 400.000 đồng đến 600.000 đồng."}
+{"instruction": "Không đội mũ bảo hiểm khi đi xe máy bị phạt bao nhiêu tiền?", "output": "Người điều khiển xe máy không đội mũ bảo hiểm hoặc cài quai mũ không đúng quy cách bị phạt tiền từ 400.000 đến 600.000 đồng."}
+{"instruction": "Chở người ngồi sau không đội mũ bảo hiểm bị xử phạt như thế nào?", "output": "Người điều khiển xe máy bị phạt tiền từ 400.000 đến 600.000 đồng nếu chở người ngồi trên xe không đội mũ bảo hiểm."}
+{"instruction": "Lái ô tô không thắt dây an toàn bị phạt bao nhiêu tiền?", "output": "Người điều khiển xe ô tô không thắt dây an toàn khi xe đang chạy bị phạt từ 800.000 đến 1.000.000 đồng."}
+{"instruction": "Đang điều khiển xe máy sử dụng điện thoại di động bị phạt bao nhiêu tiền?", "output": "Hành vi này bị phạt từ 800.000 đồng đến 1.000.000 đồng và bị trừ 2-4 điểm giấy phép lái xe."}
+{"instruction": "Tài xế xe công nghệ sử dụng điện thoại khi đang lái xe bị phạt bao nhiêu tiền?", "output": "Sử dụng điện thoại di động khi đang điều khiển xe máy sẽ bị phạt từ 800.000 đến 1.000.000 đồng và bị trừ 2-4 điểm giấy phép lái xe."}
+{"instruction": "Đeo tai nghe khi lái xe máy bị phạt bao nhiêu tiền?", "output": "Người điều khiển xe máy sử dụng thiết bị âm thanh (trừ trợ thính) khi đang chạy xe bị phạt từ 800.000 đến 1.000.000 đồng và bị trừ 2-4 điểm giấy phép lái xe."}
+{"instruction": "Lái ô tô dùng tay sử dụng điện thoại di động bị phạt bao nhiêu tiền?", "output": "Hành vi này bị phạt từ 4.000.000 đồng đến 6.000.000 đồng và bị trừ 4 điểm giấy phép lái xe."}
+{"instruction": "Buông cả hai tay khi điều khiển xe máy bị phạt bao nhiêu tiền?", "output": "Theo Điểm a Khoản 6 Điều 7, hành vi này bị phạt tiền từ 8.000.000 đến 10.000.000 đồng, bị tước giấy phép lái xe từ 22 đến 24 tháng và có thể bị tạm giữ phương tiện."}
+{"instruction": "Đỗ xe ô tô trên hè phố trái quy định bị phạt bao nhiêu tiền?", "output": "Phạt tiền từ 800.000 đồng đến 1.000.000 đồng đối với người lái ô tô đỗ xe trên vỉa hè."}
+{"instruction": "Mở cửa xe ô tô không bảo đảm an toàn gây tai nạn bị phạt bao nhiêu tiền?", "output": "Hành vi mở cửa xe không bảo đảm an toàn gây tai nạn đối với ô tô bị phạt tiền từ 10.000.000 đến 12.000.000 đồng."}
+{"instruction": "Quên mang theo đăng ký xe máy bị phạt bao nhiêu tiền?", "output": "Người lái xe có giấy đăng ký xe nhưng không mang theo bị phạt tiền từ 100.000 đến 200.000 đồng."}
+{"instruction": "Chưa có giấy phép lái xe phù hợp điều khiển xe máy dưới 175cm3 bị phạt bao nhiêu tiền?", "output": "Hành vi này bị phạt tiền từ 2.000.000 đến 8.000.000 đồng."}
+{"instruction": "Điều khiển xe máy độ pô (không có bộ phận giảm thanh) bị phạt bao nhiêu tiền?", "output": "Theo Khoản 4 Điều 14, hành vi này bị phạt tiền từ 8.000.000 đến 10.000.000 đồng."}
+{"instruction": "Xe máy không có gương chiếu hậu bên trái bị phạt bao nhiêu tiền?", "output": "Theo Điểm a Khoản 1 Điều 14, hành vi điều khiển xe không có gương chiếu hậu bên trái bị phạt từ 100.000 đến 200.000 đồng."}
+{"instruction": "Tự ý thay đổi màu sơn xe máy không đúng đăng ký xe bị phạt bao nhiêu tiền?", "output": "Chủ xe là cá nhân bị phạt tiền từ 200.000 đồng đến 300.000 đồng."}
+{"instruction": "Điều khiển xe máy gắn biển số bị che lấp bị phạt bao nhiêu tiền?", "output": "Theo Điểm b Khoản 3 Điều 14, hành vi gắn biển số bị che lấp đối với xe máy bị phạt tiền từ 4.000.000 đến 6.000.000 đồng và bị trừ 6 điểm giấy phép lái xe."}
+{"instruction": "Lái ô tô gắn biển số bị che lấp bị phạt bao nhiêu tiền?", "output": "Theo Điểm b Khoản 6 Điều 18, hành vi gắn biển số bị che lấp đối với xe ô tô bị phạt tiền từ 20.000.000 đến 26.000.000 đồng và bị trừ 6 điểm giấy phép lái xe."}
+{"instruction": "Tích hợp giấy tờ giao thông trên VNeID có giá trị khi kiểm tra không?", "output": "Có. Khi các thông tin giấy tờ đã được tích hợp, cập nhật trên VNeID thì có giá trị như kiểm tra trực tiếp giấy tờ bản giấy."}
+{"instruction": "Người đi bộ qua đường không đúng nơi quy định bị phạt bao nhiêu tiền?", "output": "Phạt tiền từ 60.000 đồng đến 100.000 đồng."}
+{"instruction": "Đi xe đạp vượt đèn đỏ bị phạt bao nhiêu tiền?", "output": "Người điều khiển xe đạp không chấp hành hiệu lệnh đèn tín hiệu bị phạt tiền từ 100.000 đến 200.000 đồng."}
+{"instruction": "Đi xe đạp điện không đội mũ bảo hiểm bị phạt bao nhiêu tiền?", "output": "Phạt tiền từ 400.000 đồng đến 600.000 đồng."}
+{"instruction": "Rú ga liên tục, nẹt pô trong khu dân cư bị xử phạt như thế nào?", "output": "Hành vi rú ga, nẹt pô đối với xe máy bị phạt tiền từ 8.000.000 – 10.000.000 đồng."}
+{"instruction": "Đưa tiền cho cảnh sát giao thông để trốn tránh xử phạt bị xử lý như thế nào?", "output": "Đây là hành vi đưa hối lộ, người vi phạm có thể bị truy cứu trách nhiệm hình sự theo quy định của Bộ luật Hình sự."}
+{"instruction": "Người mượn xe bị phạt nguội thì ai chịu trách nhiệm nộp phạt?", "output": "Chủ phương tiện có trách nhiệm phối hợp xác định người điều khiển. Nếu không chứng minh được thì chủ phương tiện phải nộp phạt."}
+{"instruction": "Tra cứu phạt nguội qua đâu là chính xác nhất?", "output": "Tra cứu trên Cổng thông tin điện tử của Cục Cảnh sát giao thông hoặc Cục Đăng kiểm Việt Nam."}
+{"instruction": "Nộp tiền phạt giao thông trực tuyến thực hiện ở đâu?", "output": "Thực hiện trên Cổng Dịch vụ công Quốc gia bằng mã số quyết định xử phạt."}
+{"instruction": "Không nhường đường cho người đi bộ tại vạch kẻ đường bị phạt bao nhiêu tiền?", "output": "Xe máy bị phạt từ 300.000-400.000 đồng; ô tô bị phạt từ 300.000-400.000 đồng."}
+{"instruction": "Sử dụng đèn chiếu xa trong khu đông dân cư bị phạt bao nhiêu tiền?", "output": "Xe máy bị phạt 400k-600k; ô tô bị phạt 800k-1 triệu đồng."}
+{"instruction": "Bấm còi từ 22h đêm đến 5h sáng trong khu dân cư bị phạt bao nhiêu tiền?", "output": "Xe máy bị phạt 100k-200k; ô tô bị phạt 300k-400k."}
+{"instruction": "Chở 2 người trên xe máy bị phạt bao nhiêu tiền?", "output": "Phạt từ 400.000-600.000 đồng (trừ trường hợp chở trẻ em dưới 12 tuổi, chở người cấp cứu, áp giải người vi phạm)."}
+{"instruction": "Dùng xe máy đẩy xe khác đang bị hỏng trên đường bị phạt bao nhiêu tiền?", "output": "Hành vi dùng xe máy đẩy xe khác bị phạt từ 600.000 đến 800.000 đồng."}
+{"instruction": "Chở hàng vượt quá giới hạn quy định trên xe máy bị phạt bao nhiêu tiền?", "output": "Phạt tiền từ 800.000 đến 1.000.000 đồng và bị trừ 2 điểm giấy phép lái xe."}
+{"instruction": "Không có bảo hiểm trách nhiệm dân sự bắt buộc cho xe máy bị phạt bao nhiêu tiền?", "output": "Phạt tiền từ 100.000 đồng đến 200.000 đồng."}
+{"instruction": "Lái ô tô không có bảo hiểm trách nhiệm dân sự bắt buộc bị phạt bao nhiêu tiền?", "output": "Phạt tiền từ 400.000 đồng đến 600.000 đồng."}
+{"instruction": "Giao xe máy cho người không đủ điều kiện điều khiển bị phạt bao nhiêu tiền?", "output": "Chủ phương tiện là cá nhân bị phạt từ 8.000.000 đến 10.000.000 đồng."}
+{"instruction": "Lái ô tô quá hạn đăng kiểm dưới 1 tháng bị phạt bao nhiêu tiền?", "output": "Phạt từ 2.000.000 đến 3.000.000 đồng và bị trừ 2 điểm giấy phép lái xe."}
+{"instruction": "Lái ô tô quá hạn đăng kiểm từ 1 tháng trở lên bị phạt bao nhiêu tiền?", "output": "Phạt từ 4.000.000 đến 6.000.000 đồng và bị trừ 4 điểm giấy phép lái xe."}
+{"instruction": "Gây tai nạn giao thông rồi bỏ trốn khỏi hiện trường bị phạt như thế nào?", "output": "Xe máy bị phạt 8.000.000 – 10.000.000 đồng; ô tô bị phạt 16.000.000 – 18.000.000 đồng. Cả hai đều bị trừ 6 điểm giấy phép lái xe."}
+{"instruction": "Không cứu giúp người bị tai nạn giao thông bị phạt bao nhiêu tiền?", "output": "Người không cứu giúp người bị nạn khi có điều kiện bị phạt từ 500.000 đến 1.000.000 đồng."}
+{"instruction": "Ô tô vượt xe khác bên phải tại nơi không được phép bị phạt bao nhiêu tiền?", "output": "Phạt tiền từ 4.000.000 đến 6.000.000 đồng và bị trừ 3 điểm giấy phép lái xe."}
+{"instruction": "Lùi xe trên đường một chiều bị xử phạt như thế nào?", "output": "Ô tô lùi xe trên đường một chiều bị phạt từ 2.000.000 đến 3.000.000 đồng."}
+{"instruction": "Không nhường đường cho xe ưu tiên đang làm nhiệm vụ bị phạt bao nhiêu tiền?", "output": "Xe máy phạt 4.000.000 – 6.000.000 đồng và trừ 4 điểm giấy phép lái xe; ô tô phạt 6.000.000 – 8.000.000 đồng và trừ 4 điểm giấy phép lái xe."}
+{"instruction": "Vượt rào chắn đường sắt khi đèn đỏ đã bật bị phạt bao nhiêu tiền?", "output": "Hành vi này đối với xe máy bị phạt từ 4.000.000 đến 6.000.000 đồng, đối với ô tô bị phạt từ 18.000.000 đến 20.000.000 đồng."}
+{"instruction": "Điều khiển xe máy đi trên hè phố bị phạt bao nhiêu tiền?", "output": "Phạt tiền từ 4.000.000 đồng đến 6.000.000 đồng."}
+{"instruction": "Dừng xe, đỗ xe trên cầu đối với xe máy bị phạt bao nhiêu tiền?", "output": "Phạt tiền từ 600.000 đồng đến 800.000 đồng."}
+{"instruction": "Dừng xe, đỗ xe trên cao tốc không đúng nơi quy định bị phạt bao nhiêu tiền?", "output": "Ô tô bị phạt từ 12.000.000 đến 14.000.000 đồng và bị trừ 6 điểm giấy phép lái xe."}
+{"instruction": "Thả rông gia súc trên đường bộ gây cản trở giao thông bị phạt bao nhiêu tiền?", "output": "Phạt tiền từ 60.000 đồng đến 100.000 đồng."}
+{"instruction": "Trượt patin dưới lòng đường giao thông bị phạt bao nhiêu tiền?", "output": "Phạt tiền từ 100.000 đến 200.000 đồng."}
+{"instruction": "Sử dụng ô (dù) khi đang điều khiển xe máy bị phạt bao nhiêu tiền?", "output": "Phạt tiền từ 800.000 đồng đến 1.000.000 đồng và bị trừ 4 điểm giấy phép lái xe."}
+{"instruction": "Đi xe máy kéo theo xe khác bị phạt bao nhiêu tiền?", "output": "Phạt tiền từ 800.000 đồng đến 1.000.000 đồng."}
+{"instruction": "Xe đạp đi dàn hàng ngang từ 3 xe trở lên bị phạt bao nhiêu tiền?", "output": "Phạt tiền từ 100.000 đồng đến 200.000 đồng."}
+{"instruction": "Điều khiển xe đạp buông cả hai tay bị phạt bao nhiêu tiền?", "output": "Phạt tiền từ 250.000 đồng đến 250.000 đồng."}
+{"instruction": "Quay đầu xe bỏ chạy khi thấy cảnh sát giao thông bị xử lý như thế nào?", "output": "Bị xử phạt hành vi không chấp hành hiệu lệnh (800k-1 triệu, -2 điểm) cộng gộp các lỗi khác."}
+{"instruction": "Đi vào làn thu phí ETC khi không đủ điều kiện bị phạt bao nhiêu tiền?", "output": "Ô tô bị phạt tiền từ 2.000.000 đến 3.000.000 đồng."}
+{"instruction": "Không bật đèn chiếu sáng khi chạy xe từ 18h đến 6h sáng bị phạt bao nhiêu tiền?", "output": "Xe máy bị phạt 100.000-200.000 đồng; ô tô bị phạt 800.000-1 triệu đồng."}
+{"instruction": "Ô tô chưa nộp phạt nguội có được đăng kiểm không?", "output": "Sẽ bị tạm dừng đăng kiểm cho đến khi hoàn thành nghĩa vụ nộp phạt vi phạm giao thông."}
+{"instruction": "Đỗ xe máy dưới lòng đường đô thị gây cản trở giao thông bị phạt bao nhiêu tiền?", "output": "Phạt tiền từ 400.000 đồng đến 600.000 đồng."}
+{"instruction": "Dừng xe ô tô tại nơi có biển cấm dừng đỗ bị phạt bao nhiêu tiền?", "output": "Phạt tiền từ 800.000 đồng đến 1.000.000 đồng."}
+{"instruction": "Người đi bộ trèo qua dải phân cách bị phạt bao nhiêu tiền?", "output": "Phạt tiền từ 150.000 đồng đến 250.000 đồng."}
+{"instruction": "Người đi bộ đi vào đường cao tốc bị phạt bao nhiêu tiền?", "output": "Phạt tiền từ 400.000 đồng đến 600.000 đồng."}
+{"instruction": "Quên mang giấy phép lái xe ô tô bị phạt bao nhiêu tiền?", "output": "Phạt tiền từ 300.000 đồng đến 400.000 đồng."}
+{"instruction": "Quên mang đăng ký xe ô tô bị phạt bao nhiêu tiền?", "output": "Phạt tiền từ 200.000 đồng đến 400.000 đồng."}
+{"instruction": "Gắn biển số giả cho xe máy bị xử phạt như thế nào?", "output": "Phạt tiền từ 4.000.000 đến 6.000.000 đồng và bị trừ 6 điểm giấy phép lái xem, ngoài ra có thể bị tạm giữ phương tiện."}
+{"instruction": "Ô tô không chấp hành hướng dẫn của người kiểm soát giao thông bị phạt bao nhiêu?", "output": "Phạt tiền từ 18.000.000 đến 20.000.000 đồng và bị trừ 4 điểm giấy phép lái xe theo."}
+{"instruction": "Lái xe ô tô lùi trên cao tốc bị phạt bao nhiêu tiền?", "output": "Hành vi lùi xe trên đường cao tốc bị phạt từ 30.000.000 đến 40.000.000 đồng và bị trừ 10 điểm giấy phép lái xe."}
+{"instruction": "Xe máy đi dàn hàng ngang từ 3 xe trở lên bị phạt bao nhiêu?", "output": "Hành vi điều khiển xe máy dàn hàng ngang từ 03 xe trở lên bị phạt tiền từ 600.000 đồng đến 800.000 đồng."}
+{"instruction": "Lái xe ô tô chạy quá tốc độ từ 20 km/h đến 35 km/h bị phạt bao nhiêu?", "output": "Mức phạt là từ 6.000.000 đến 8.000.000 đồng và bị trừ 4 điểm giấy phép lái xe."}

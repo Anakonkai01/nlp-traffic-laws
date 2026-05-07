@@ -1,0 +1,37 @@
+{
+  "seed": 42,
+  "ratios": [
+    0.8,
+    0.1,
+    0.1
+  ],
+  "source": "data/qa_pairs_traffic_filtered.jsonl",
+  "n_total_rows": 2202,
+  "n_unique_groups": 451,
+  "group_key": "(doc_id, article_number)",
+  "splits": {
+    "train": {
+      "path": "data/splits_filtered/qa_train.jsonl",
+      "n_rows": 1762,
+      "n_groups": 252,
+      "sha256": "5f2fbfbb775b9af766a015a689bc277cde218e4adeb0118d1c9730f84f9e3552"
+    },
+    "dev": {
+      "path": "data/splits_filtered/qa_dev.jsonl",
+      "n_rows": 220,
+      "n_groups": 100,
+      "sha256": "3a32f0f0b713b0c47f0e0750c4f6dbe716f63df078afcb881e1116b117b95e7d"
+    },
+    "test": {
+      "path": "data/splits_filtered/qa_test.jsonl",
+      "n_rows": 220,
+      "n_groups": 99,
+      "sha256": "c6741f5a6071677612ea296315bb499f0acc184406462155df6d1854d9a20ea1"
+    }
+  },
+  "leak_check": {
+    "train_dev_groups": 0,
+    "train_test_groups": 0,
+    "dev_test_groups": 0
+  }
+}
