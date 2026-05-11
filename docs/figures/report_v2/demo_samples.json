@@ -1,0 +1,20 @@
+[
+  {
+    "question": "Không đội mũ bảo hiểm khi đi xe máy bị phạt bao nhiêu?",
+    "config": "D",
+    "answer": "Phạt tiền từ 400.000 đồng đến 600.000 đồng đối với người điều khiển xe thực hiện một trong các hành vi vi phạm sau đây: Không đội “mũ bảo hiểm cho người đi mô tô, xe máy” hoặc đội “mũ bảo hiểm cho người đi mô tô, xe máy” không cài quai đúng quy cách khi điều khiển xe tham gia giao thông trên đường bộ; Phạt tiền từ 400.000 đồng đến 600.000 đồng đối với người được chở trên xe mô tô, xe gắn máy, các loại xe tương tự xe mô tô, các loại xe tương tự xe gắn máy thực hiện một trong các hành vi vi phạm sau đây: Không đội “mũ bảo hiểm cho người đi mô tô, xe máy” hoặc đội “mũ bảo hiểm cho người đi mô tô, xe máy” không cài quai đúng quy cách khi tham gia giao thông trên đường bộ.",
+    "rag_preview": "**[Nguồn 1 | nd_168_2024_nd_cp | Điều 12. Xử phạt, trừ điểm giấy phép lái xe các hành vi vi phạm khác về quy tắc giao thông đường bộ; sử dụng lòng đường, vỉa hè vào mục đích khác]\nTiêu đề: Nghị định 168/2024/NĐ-CP quy định xử phạt vi phạm hành chính về trật tự, an toàn giao thông trong lĩnh vực giao thông đường bộ; trừ điểm, phục hồi điểm giấy phép lái xe\nFile: docs/docs_giaothong/text/nd_168_2024"
+  },
+  {
+    "question": "Lái ô tô có nồng độ cồn dưới 0.25 mg/lít khí thở bị xử phạt như thế nào?",
+    "config": "D",
+    "answer": "Phạt tiền từ 2.000.000 đồng đến 3.000.000 đồng đối với người điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn nhưng chưa vượt quá 0,25 miligam/1 lít khí thở.",
+    "rag_preview": "**[Nguồn 1 | nd_168_2024_nd_cp | Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ]\nTiêu đề: Nghị định 168/2024/NĐ-CP quy định xử phạt vi phạm hành chính về trật tự, an toàn giao thông trong lĩnh vực giao thông đường bộ; trừ điểm, phục"
+  },
+  {
+    "question": "Nghị định 168 có hiệu lực khi nào?",
+    "config": "D",
+    "answer": "Quy định tại điểm m khoản 3 Điều 6, điểm e khoản 4 Điều 26, điểm b khoản 1 Điều 27 của Nghị định này có hiệu lực thi hành từ ngày 01 tháng 01 năm 2026; quy định tại điểm b khoản 1 Điều 32 của Nghị định này có hiệu lực thi hành theo quy định của pháp luật bảo vệ môi trường về kiểm định khí thải xe mô tô, xe gắn máy.",
+    "rag_preview": "**[Nguồn 1 | nd_168_2024_nd_cp]\nTiêu đề: Nghị định 168/2024/NĐ-CP quy định xử phạt vi phạm hành chính về trật tự, an toàn giao thông trong lĩnh vực giao thông đường bộ; trừ điểm, phục hồi điểm giấy phép lái xe\nFile: docs/docs_giaothong/text/nd_168_2024_nd_cp.txt**\n\naCHÍNH PHỦ\n-------\n \n\nCỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM\nĐộc lập - Tự do - Hạnh phúc\n---------------\n\nSố: 168/2024/NĐ-CP\n \n\nHà Nội, ng"
+  }
+]
