@@ -1,3 +1,5 @@
+import os
+import re
 from pathlib import Path
 
 # Chunking must stay consistent across KB build, QA generation, and eval.
@@ -6,6 +8,11 @@ CHUNK_OVERLAP = 180
 MIN_CHUNK_CHARS = 150
 MAX_CHUNK_CHARS = 2000
 SEPARATORS = ["Điều ", "Khoản ", "Điểm ", "\n\n", "\n", " "]
+
+# Canonical legal structure regexes (line-anchored, used by chunking/build_kb/legal_units).
+STRUCT_ARTICLE_RE = re.compile(r"(?m)^Điều\s+(\d+[a-zA-Z]?)\.\s*[^\n]+")
+STRUCT_CLAUSE_RE = re.compile(r"(?m)^(\d+)\.\s+")
+STRUCT_POINT_RE = re.compile(r"(?m)^([a-zđ])\)\s+")
 
 PROJECT_ROOT = Path(__file__).parent.parent
 
@@ -18,7 +25,15 @@ TRAFFIC_DOCS_DIR = DOCS_DIR / "docs_giaothong"
 TRAFFIC_TEXT_DIR = TRAFFIC_DOCS_DIR / "text"
 SOURCE_MANIFEST_PATH = TRAFFIC_DOCS_DIR / "manifest.json"
 
-QA_DATA_PATH = DATA_DIR / "qa_pairs_traffic.jsonl"
+QA_SPLIT_DIR = Path(os.environ.get("QA_SPLIT_DIR", DATA_DIR / "splits_filtered"))
+if not QA_SPLIT_DIR.is_absolute():
+    QA_SPLIT_DIR = PROJECT_ROOT / QA_SPLIT_DIR
+SPLITS_FILTERED_DIR = QA_SPLIT_DIR
+QA_DATA_PATH = QA_SPLIT_DIR / "qa_train.jsonl"
+QA_DEV_PATH = QA_SPLIT_DIR / "qa_dev.jsonl"
+QA_TEST_PATH = QA_SPLIT_DIR / "qa_test.jsonl"
+QA_LEGACY_DATA_PATH = DATA_DIR / "qa_pairs_traffic.jsonl"
+
 EVAL_DATA_PATH = DATA_DIR / "eval_manual.jsonl"
 EVAL_MC_DATA_PATH = DATA_DIR / "eval_mc_manual.jsonl"
 KB_PATH = PROJECT_ROOT / "vector_db_traffic"
@@ -26,8 +41,9 @@ KB_META_PATH = KB_PATH / "build_meta.json"
 
 MODEL_ID = "Qwen/Qwen3.5-9B"
 OLLAMA_MODEL = "qwen3.5:9b"
-MODEL_DIR = PROJECT_ROOT / "models" / "qwen3.5-9b-lora-traffic"
-MODEL_DIR_V2 = PROJECT_ROOT / "models" / "qwen3.5-9b-lora-traffic-v2"
+MODEL_DIR = PROJECT_ROOT / "models" / "qwen3.5-9b-lora-traffic-v2"
+MODEL_DIR_V2 = MODEL_DIR  # backward-compatible alias
+RERANKER_FT_DIR = PROJECT_ROOT / "models" / "bge-reranker-v2-m3-traffic-ft"
 REPORTS_DIR = PROJECT_ROOT / "reports" / DOMAIN_SLUG
 
 TRAFFIC_TITLE_KEYWORDS = [
@@ -122,9 +138,18 @@ TRAFFIC_QA_SYSTEM_PROMPT_NO_CONTEXT = (
 # For configs B/D (RAG): prioritize context, fall back to general knowledge
 TRAFFIC_QA_SYSTEM_PROMPT_WITH_CONTEXT = (
     "Bạn là chuyên gia pháp luật giao thông đường bộ Việt Nam. "
-    "Ưu tiên trả lời dựa trên đoạn văn bản luật được cung cấp và nêu rõ căn cứ. "
-    "Nếu văn bản không đủ thông tin, hãy trả lời từ kiến thức pháp luật giao thông của bạn "
-    "và ghi rõ '(Kiến thức chung)' ở cuối câu trả lời. "
+    "Đoạn văn bản luật có thể gồm các nguồn riêng biệt; chỉ dùng nội dung nằm trong cùng một nguồn/căn cứ, không chép danh sách điểm từ nguồn khác. "
+    "Trả lời trực tiếp kết quả cuối cùng, không trích nguyên văn đoạn dài. "
+    "Trả lời chủ yếu dựa trên đoạn văn bản luật được cung cấp và nêu rõ căn cứ văn bản/điều khoản nếu có. "
+    "Nếu đoạn trích có cùng hành vi, phương tiện, mức phạt, thủ tục hoặc cùng điều luật liên quan, hãy trả lời phần có căn cứ thay vì từ chối. "
+    "Nếu câu hỏi thuộc lĩnh vực giao thông nhưng đoạn trích chưa đủ chi tiết, hãy trả lời ngắn gọn từ kiến thức pháp luật giao thông hiện hành và ghi rõ 'Cần kiểm tra lại căn cứ'. "
+    "Chỉ từ chối khi câu hỏi không thuộc lĩnh vực giao thông hoặc hoàn toàn không liên quan đến các văn bản được cung cấp; khi đó hãy trả lời đúng câu sau: "
+    f"'{REFUSAL_ANSWER}' "
+    "Không viện dẫn văn bản cũ đã hết hiệu lực. "
+    "Các thẻ thông tin phía dưới (có nhãn Căn cứ/Mức phạt/Trừ điểm/Hành vi) là dữ liệu pháp lý có thẩm quyền — "
+    "nếu thẻ có Mức phạt hoặc câu hỏi hỏi về tiền phạt, hãy trả lời ngay mức phạt trong thẻ, không từ chối. "
+    "Khi nêu căn cứ, hãy ghi đầy đủ Điều, khoản và điểm nếu có (định dạng 'Điều X khoản Y điểm Z') "
+    "và nêu cụ thể số tiền, số điểm trừ hoặc thời hạn tước giấy phép nếu có trong đoạn trích. "
     "Trả lời ngắn gọn, chính xác, bằng tiếng Việt."
 )
 

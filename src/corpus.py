@@ -1,4 +1,5 @@
 import json
+import os
 import random
 import re
 from pathlib import Path
@@ -7,6 +8,7 @@ from typing import Iterator
 from langchain_core.documents import Document
 
 from config import (
+    DATA_DIR,
     KB_SOURCE_POLICY,
     PROJECT_ROOT,
     SOURCE_MANIFEST_PATH,
@@ -19,6 +21,10 @@ from config import (
 
 MIN_LOCAL_DOC_CHARS = 500
 ARTICLE_RE = re.compile(r"(Điều\s+\d+[a-zA-Z]?\.\s*[^\n]{0,180})")
+CENTROID_PATH = DATA_DIR / "traffic_centroid.npy"
+
+_centroid_cache = None  # np.ndarray or False (sentinel for "not built")
+_embed_model_cache = None
 
 
 def normalize_text(text: str) -> str:
@@ -50,6 +56,57 @@ def is_traffic_mc_item(item: dict) -> bool:
     choices = item.get("choices") or []
     joined = " ".join([item.get("question", ""), *choices])
     return contains_keyword(joined, TRAFFIC_MC_KEYWORDS)
+
+
+def _load_traffic_centroid():
+    """Lazily load the pre-computed BGE-M3 centroid embedding. Returns None if not built."""
+    global _centroid_cache
+    if _centroid_cache is None:
+        if CENTROID_PATH.exists():
+            import numpy as np
+            _centroid_cache = np.load(CENTROID_PATH)
+        else:
+            _centroid_cache = False
+    if _centroid_cache is False:
+        return None
+    return _centroid_cache
+
+
+def _get_embed_model():
+    """Lazily load BGE-M3 for document gating."""
+    global _embed_model_cache
+    if _embed_model_cache is None:
+        os.environ.setdefault("HF_HUB_OFFLINE", "1")
+        os.environ.setdefault("TRANSFORMERS_OFFLINE", "1")
+        from sentence_transformers import SentenceTransformer
+        _embed_model_cache = SentenceTransformer(
+            os.environ.get("EMBED_MODEL", "BAAI/bge-m3"),
+        )
+        _embed_model_cache.eval()
+    return _embed_model_cache
+
+
+def is_traffic_document(title: str, body_sample: str) -> bool:
+    """Check traffic relevance: embedding similarity first, keyword fallback."""
+    # Always run keyword check first as a fast path (no model loading needed)
+    if is_traffic_title(title) or is_traffic_text(body_sample):
+        return True
+
+    # Try embedding-based check with pre-computed centroid
+    centroid = _load_traffic_centroid()
+    if centroid is not None:
+        threshold = float(os.environ.get("TRAFFIC_RELEVANCE_THRESHOLD", "0.6"))
+        doc_text = f"{title}\n{body_sample[:2000]}"
+        try:
+            import numpy as np
+            model = _get_embed_model()
+            emb = model.encode([doc_text], normalize_embeddings=True, show_progress_bar=False)
+            score = float((emb @ centroid).item())
+            return score >= threshold
+        except Exception:
+            pass  # fall through to False
+
+    return False
 
 
 def infer_article(text: str) -> str:
@@ -138,7 +195,7 @@ def iter_local_traffic_records(shuffle_seed: int | None = None) -> Iterator[dict
             )
 
         title = str(item.get("title") or path.stem)
-        if not is_traffic_title(title) and not is_traffic_text(text):
+        if not is_traffic_document(title, text):
             raise ValueError(
                 f"Enabled manifest document does not look traffic-related: {item['doc_id']}"
             )

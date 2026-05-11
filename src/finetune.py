@@ -35,9 +35,10 @@ from unsloth import FastLanguageModel, train_on_responses_only
 
 from config import (
     KB_SOURCE_POLICY,
-    MODEL_DIR_V2 as MODEL_DIR,
+    MODEL_DIR,
     MODEL_ID,
     QA_DATA_PATH,
+    QA_DEV_PATH,
     TRAFFIC_QA_SYSTEM_PROMPT_NO_CONTEXT,
     TRAFFIC_QA_SYSTEM_PROMPT_WITH_CONTEXT,
 )
@@ -46,7 +47,7 @@ from config import (
 # Constants
 # ---------------------------------------------------------------------------
 
-DATA_PATH   = QA_DATA_PATH.parent / "qa_pairs_traffic_v3.jsonl"
+DATA_PATH   = QA_DATA_PATH
 OUTPUT_DIR  = MODEL_DIR  # where to save LoRA adapter
 
 MAX_SEQ_LEN = 2048
@@ -56,9 +57,8 @@ TRAIN_EPOCHS = 2
 BATCH_SIZE   = 2
 GRAD_ACCUM   = 8
 LR           = 5e-5
-VAL_RATIO    = 0.1
 SEED         = 42
-CONTEXT_KEEP_PROB = 0.9
+CONTEXT_KEEP_PROB = 0.7
 
 # System prompts differentiated by context presence (matches inference behavior)
 
@@ -67,19 +67,9 @@ CONTEXT_KEEP_PROB = 0.9
 # Data
 # ---------------------------------------------------------------------------
 
-def load_data() -> tuple[Dataset, Dataset]:
-    """Read local-text-only qa_pairs_traffic.jsonl and return train/val datasets.
-
-    Each line in the file is one JSON object:
-      {"question": "...", "answer": "...", "context": "..."}
-    """
-    if not DATA_PATH.exists():
-        raise FileNotFoundError(
-            f"Training data not found: {DATA_PATH}. Run python src/generate_qa.py first."
-        )
-
+def _read_jsonl_checked(path) -> list[dict]:
     samples = []
-    with open(DATA_PATH, "r", encoding="utf-8") as f:
+    with open(path, "r", encoding="utf-8") as f:
         for line_no, line in enumerate(f, start=1):
             line = line.strip()
             if not line:
@@ -87,28 +77,25 @@ def load_data() -> tuple[Dataset, Dataset]:
             sample = json.loads(line)
             corpus = sample.get("corpus")
             if corpus not in {"local_text", "negative", "hard_context"}:
-                raise ValueError(
-                    f"Unsupported corpus={corpus!r} at {DATA_PATH}:{line_no}. "
-                    "Regenerate QA with python src/generate_qa.py --force."
-                )
+                raise ValueError(f"Unsupported corpus={corpus!r} at {path}:{line_no}.")
             if sample.get("source_policy") != KB_SOURCE_POLICY:
-                raise ValueError(
-                    f"Missing/invalid source_policy at {DATA_PATH}:{line_no}. "
-                    "Regenerate QA with python src/generate_qa.py --force."
-                )
+                raise ValueError(f"Missing/invalid source_policy at {path}:{line_no}.")
             if not sample.get("question") or not sample.get("answer") or not sample.get("context"):
-                raise ValueError(f"Invalid QA sample at {DATA_PATH}:{line_no}.")
+                raise ValueError(f"Invalid QA sample at {path}:{line_no}.")
             samples.append(sample)
+    return samples
 
-    if len(samples) < 10:
-        raise ValueError(f"Not enough QA samples for fine-tuning: {len(samples)}")
 
-    # Shuffle before splitting so validation set is representative
-    random.seed(SEED)
-    random.shuffle(samples)
-
-    split = int(len(samples) * (1 - VAL_RATIO))
-    return Dataset.from_list(samples[:split]), Dataset.from_list(samples[split:])
+def load_data() -> tuple[Dataset, Dataset]:
+    """Read frozen train/dev splits instead of reshuffling a monolithic QA file."""
+    if not DATA_PATH.exists() or not QA_DEV_PATH.exists():
+        raise FileNotFoundError(f"Missing split files: train={DATA_PATH}, dev={QA_DEV_PATH}")
+    train_samples = _read_jsonl_checked(DATA_PATH)
+    dev_samples = _read_jsonl_checked(QA_DEV_PATH)
+    if len(train_samples) < 10 or len(dev_samples) < 5:
+        raise ValueError(f"Not enough QA samples: train={len(train_samples)} dev={len(dev_samples)}")
+    print(f"Training data: train={len(train_samples)} from {DATA_PATH}; dev={len(dev_samples)} from {QA_DEV_PATH}")
+    return Dataset.from_list(train_samples), Dataset.from_list(dev_samples)
 
 
 def format_sample(sample: dict, tokenizer) -> dict:
@@ -120,8 +107,8 @@ def format_sample(sample: dict, tokenizer) -> dict:
       assistant → answer  ← ONLY these tokens contribute to the loss
 
     Context dropout (CONTEXT_KEEP_PROB):
-      70% of samples include the legal chunk → trains model for RAG mode (Config D).
-      30% of samples omit the chunk → trains model for no-context mode (Config C).
+      90% of samples include the legal chunk → trains model for RAG mode (Config D).
+      10% of samples omit the chunk → trains model for no-context mode (Config C).
       Without dropout, Config C runs out-of-distribution at inference time.
 
     apply_chat_template() inserts the special tokens the model expects:

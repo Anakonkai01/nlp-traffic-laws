@@ -21,7 +21,7 @@ from unsloth import FastLanguageModel
 
 from config import (
     KB_PATH,
-    MODEL_DIR,
+    MODEL_DIR_V2 as MODEL_DIR,
     MODEL_ID,
     TRAFFIC_QA_SYSTEM_PROMPT_NO_CONTEXT,
     TRAFFIC_QA_SYSTEM_PROMPT_WITH_CONTEXT,

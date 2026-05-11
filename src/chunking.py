@@ -3,11 +3,8 @@ import re
 from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-from config import CHUNK_OVERLAP, CHUNK_SIZE, MAX_CHUNK_CHARS, SEPARATORS
+from config import CHUNK_OVERLAP, CHUNK_SIZE, MAX_CHUNK_CHARS, SEPARATORS, STRUCT_ARTICLE_RE, STRUCT_CLAUSE_RE
 from corpus import infer_article
-
-ARTICLE_RE = re.compile(r"(?m)^Điều\s+(\d+[a-zA-Z]?)\.\s*[^\n]+")
-CLAUSE_RE = re.compile(r"(?m)^(\d+)\.\s+")
 
 
 def _compact(text: str) -> str:
@@ -45,7 +42,7 @@ def _split_long_chunk(chunk: Document) -> list[Document]:
 def article_clause_chunks(doc: Document) -> list[Document]:
     """Split a Document into article/clause-level chunks for QA generation and KB indexing."""
     text = doc.page_content
-    article_matches = list(ARTICLE_RE.finditer(text))
+    article_matches = list(STRUCT_ARTICLE_RE.finditer(text))
     if not article_matches:
         return _fallback_splitter().split_documents([doc])
 
@@ -68,7 +65,7 @@ def article_clause_chunks(doc: Document) -> list[Document]:
             else len(text)
         )
         article_text = text[article_start:article_end].strip()
-        clause_matches = list(CLAUSE_RE.finditer(article_text))
+        clause_matches = list(STRUCT_CLAUSE_RE.finditer(article_text))
         article_metadata = {
             **base_metadata,
             "article": article_title,

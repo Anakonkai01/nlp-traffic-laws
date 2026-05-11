@@ -33,7 +33,11 @@ os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 import argparse
 import json
 import random
+import re
+import shlex
+import sys
 import time
+from pathlib import Path
 
 import torch
 from tqdm import tqdm
@@ -55,7 +59,27 @@ from config import (
 )
 from build_kb import load_vectorstore
 from corpus import load_source_manifest
-from retrieval import classify_intents, expand_traffic_query, retrieve_ranked_docs
+from query_utils import classify_intents, expand_traffic_query
+from retrieval import retrieve_ranked_docs
+from config import STRUCT_ARTICLE_RE, STRUCT_CLAUSE_RE, STRUCT_POINT_RE
+try:
+    from context_packing import compress_evidence_context, pack_article_context, vectorstore_docs
+except Exception:  # keep legacy evaluation runnable if optional packer import fails
+    compress_evidence_context = None
+    pack_article_context = None
+    vectorstore_docs = None
+try:
+    from span_reranking import rerank_spans
+except Exception:
+    rerank_spans = None
+try:
+    from legal_units import retrieve_legal_units
+except Exception:
+    retrieve_legal_units = None
+try:
+    from evidence_cards import evidence_card_from_text
+except Exception:
+    evidence_card_from_text = None
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -64,19 +88,50 @@ from retrieval import classify_intents, expand_traffic_query, retrieve_ranked_do
 DATA_PATH        = QA_DATA_PATH
 TEST_MANUAL_PATH = EVAL_DATA_PATH
 LEGACY_TEST_MANUAL_PATH = DATA_PATH.parent / "test_manual.jsonl"
-LORA_PATH        = LORA_PATH_DEFAULT
+LORA_PATH        = Path(os.environ.get("EVAL_LORA_PATH", str(LORA_PATH_DEFAULT)))
 RESULTS_PATH     = REPORTS_DIR / "evaluation_results.json"
 PREDS_PATH       = REPORTS_DIR / "predictions_all_configs.json"
+EVAL_CONFIG_ENV_KEYS = [
+    "RETRIEVAL_VERSION", "RAG_V4_RRF_K", "RAG_V4_W_DENSE", "RAG_V4_W_SPARSE",
+    "RAG_CONTEXT_PACKING", "RAG_CONTEXT_MAX_CHUNKS", "RAG_EVIDENCE_COMPRESSION",
+    "RAG_EVIDENCE_MAX_SPANS", "RAG_EVIDENCE_MAX_CHARS", "RAG_CLAUSE_AWARE_PACKING",
+    "RAG_HYBRID_FALLBACK", "RAG_SPAN_RERANKING", "RAG_CONTEXT_ORDER",
+    "RAG_LEGAL_UNIT_RETRIEVAL", "RAG_LEGAL_UNIT_TOP_K", "RAG_LEGAL_UNIT_MAX_CANDIDATES",
+    "RAG_LEGAL_UNIT_APPEND_BACKUP", "RAG_LEGAL_UNIT_USE_CE", "RAG_LEGAL_UNIT_CE_MODEL",
+    "RAG_LEGAL_UNIT_BM25_CANDIDATES", "RAG_LEGAL_UNIT_ALLOWED_TYPES", "RAG_LEGAL_UNIT_SEED_K",
+    "RAG_ANSWER_ONLY_CONTEXT_FIRST", "RAG_EVIDENCE_CARD_RENDERING",
+    "RAG_LEGAL_UNIT_ENTITY_SCORING",
+    "MAX_NEW_TOKENS", "GENERATION_REPETITION_PENALTY", "GENERATION_NO_REPEAT_NGRAM", "EVAL_LORA_PATH",
+]
 RETRIEVAL_DIAGNOSTICS_PATH = REPORTS_DIR / "retrieval_diagnostics.json"
 
 _SYSTEM_NO_CONTEXT   = TRAFFIC_QA_SYSTEM_PROMPT_NO_CONTEXT
 _SYSTEM_WITH_CONTEXT = TRAFFIC_QA_SYSTEM_PROMPT_WITH_CONTEXT
 
-MAX_NEW_TOKENS    = 256   # traffic-law answers; 128 was too small when thinking leaked through
-EVAL_BATCH_SIZE   = 8     # samples per GPU batch during evaluation
-RAG_TOP_K         = 3     # chunks used as context during generation
+MAX_NEW_TOKENS    = int(os.environ.get("MAX_NEW_TOKENS", "512"))   # cite-heavy legal answers need room for sanctions and point deductions
+EVAL_BATCH_SIZE   = 1     # RAG prompts are long; batch=1 avoids OOM on 16GB VRAM
+RAG_TOP_K         = 2     # compact context improves VRAM stability and reduces noise
+RAG_CONTEXT_PACKING = os.environ.get("RAG_CONTEXT_PACKING", "1") == "1"
+RAG_CONTEXT_MAX_CHUNKS = int(os.environ.get("RAG_CONTEXT_MAX_CHUNKS", "4"))
+RAG_EVIDENCE_COMPRESSION = os.environ.get("RAG_EVIDENCE_COMPRESSION", "0") == "1"
+RAG_EVIDENCE_MAX_SPANS = int(os.environ.get("RAG_EVIDENCE_MAX_SPANS", "6"))
+RAG_EVIDENCE_MAX_CHARS = int(os.environ.get("RAG_EVIDENCE_MAX_CHARS", "650"))
+RAG_SPAN_RERANKING = os.environ.get("RAG_SPAN_RERANKING", "0") == "1"
+RAG_SPAN_USE_DENSE = os.environ.get("RAG_SPAN_USE_DENSE", "0") == "1"
+RAG_RECALL_USE_EVIDENCE_SPANS = os.environ.get("RAG_RECALL_USE_EVIDENCE_SPANS", "0") == "1"
+RAG_RECALL_EVIDENCE_MAX_CHARS = int(os.environ.get("RAG_RECALL_EVIDENCE_MAX_CHARS", "900"))
+RAG_CONTEXT_ORDER = os.environ.get("RAG_CONTEXT_ORDER", "litm")
+RAG_LEGAL_UNIT_RETRIEVAL = os.environ.get("RAG_LEGAL_UNIT_RETRIEVAL", "0") == "1"
+RAG_LEGAL_UNIT_TOP_K = int(os.environ.get("RAG_LEGAL_UNIT_TOP_K", "3"))
+RAG_LEGAL_UNIT_MAX_CANDIDATES = int(os.environ.get("RAG_LEGAL_UNIT_MAX_CANDIDATES", "80"))
+RAG_LEGAL_UNIT_APPEND_BACKUP = os.environ.get("RAG_LEGAL_UNIT_APPEND_BACKUP", "0") == "1"
+RAG_LEGAL_UNIT_USE_CE = os.environ.get("RAG_LEGAL_UNIT_USE_CE", "0") == "1"
+RAG_LEGAL_UNIT_SEED_K = int(os.environ.get("RAG_LEGAL_UNIT_SEED_K", "8"))
+RAG_EVIDENCE_CARD_RENDERING = os.environ.get("RAG_EVIDENCE_CARD_RENDERING", "1") == "1"
+GENERATION_REPETITION_PENALTY = float(os.environ.get("GENERATION_REPETITION_PENALTY", "1.08"))
+GENERATION_NO_REPEAT_NGRAM = int(os.environ.get("GENERATION_NO_REPEAT_NGRAM", "0"))
 RAG_TOP_K_RECALL  = 5     # chunks retrieved for Recall@k metric
-RAG_MIN_SCORE     = -3.0  # cross-encoder score threshold: if best score < this, skip context (fallback to knowledge)
+RAG_MIN_SCORE     = None  # keep best retrieved context; prompt handles unsupported questions
 SEED              = 42
 VAL_RATIO         = 0.1   # must match finetune.py
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
@@ -163,7 +218,16 @@ def load_model(use_lora: bool):
 def build_prompt(tokenizer, question: str, context: str | None) -> str:
     """Build ChatML prompt — same format used during fine-tuning."""
     if context:
-        user_content = f"Đoạn văn bản luật:\n{context}\n\nCâu hỏi: {question}"
+        if os.environ.get("RAG_ANSWER_ONLY_CONTEXT_FIRST", "0") == "1":
+            user_content = (
+                f"Câu hỏi: {question}\n\n"
+                f"Đoạn văn bản luật:\n{context}\n\n"
+                "Yêu cầu: Trả lời trực tiếp câu hỏi bằng 1-2 câu. "
+                "Nếu có mức phạt trong đoạn văn bản, nêu đúng mức phạt đó trước. "
+                "Không chép nguyên văn danh sách điểm/khoản dài."
+            )
+        else:
+            user_content = f"Đoạn văn bản luật:\n{context}\n\nCâu hỏi: {question}"
         system_prompt = _SYSTEM_WITH_CONTEXT
     else:
         user_content = f"Câu hỏi: {question}"
@@ -206,6 +270,8 @@ def generate_answer(model, tokenizer, question: str, context: str | None) -> str
             max_new_tokens=MAX_NEW_TOKENS,
             do_sample=False,          # greedy — deterministic, faster
             temperature=1.0,          # ignored when do_sample=False
+            repetition_penalty=GENERATION_REPETITION_PENALTY,
+            no_repeat_ngram_size=GENERATION_NO_REPEAT_NGRAM,
             use_cache=True,
         )
 
@@ -213,7 +279,14 @@ def generate_answer(model, tokenizer, question: str, context: str | None) -> str
     new_ids = output_ids[0][inputs["input_ids"].shape[1]:]
     raw = tokenizer.decode(new_ids, skip_special_tokens=True).strip()
     # Strip Qwen3 thinking blocks (<think>...</think>) — keep only the final answer
-    return re.sub(r"<think>.*?</think>", "", raw, flags=re.DOTALL).strip()
+    raw = re.sub(r"<think>.*?</think>", "", raw, flags=re.DOTALL).strip()
+    # Strip ChatML boundary leakage: model sometimes outputs "assistant" / "not assistant"
+    # when confused by context formatting. Remove both the token and any preceding fragment.
+    raw = re.sub(r'(?:\S{0,50})?\bnot\s+assistant\b.*', '', raw, flags=re.I).strip()
+    raw = re.sub(r'(?:\s*\bassistant\b\s*\n?)+', '\n', raw).strip()
+    # Clean up multiple blank lines
+    raw = re.sub(r'\n{3,}', '\n\n', raw).strip()
+    return raw
 
 
 def generate_answers_batch(
@@ -236,7 +309,7 @@ def generate_answers_batch(
         return_tensors="pt",
         padding=True,
         truncation=True,
-        max_length=1800,   # reserve room for MAX_NEW_TOKENS output
+        max_length=2800,   # reserve room for MAX_NEW_TOKENS output; fact cards are verbose
     ).to(model.device)
 
     with torch.inference_mode():
@@ -244,6 +317,8 @@ def generate_answers_batch(
             **inputs,
             max_new_tokens=MAX_NEW_TOKENS,
             do_sample=False,
+            repetition_penalty=GENERATION_REPETITION_PENALTY,
+            no_repeat_ngram_size=GENERATION_NO_REPEAT_NGRAM,
             use_cache=True,
             pad_token_id=tokenizer.eos_token_id,
         )
@@ -273,7 +348,9 @@ def _source_label(doc, idx: int) -> str:
         f"Nguồn {idx}",
         md.get("doc_id") or md.get("source") or "unknown",
     ]
-    if md.get("article"):
+    if md.get("legal_path"):
+        parts.append(md["legal_path"])
+    elif md.get("article"):
         parts.append(md["article"])
     return " | ".join(parts)
 
@@ -288,6 +365,11 @@ def _source_record(doc, idx: int) -> dict:
         "article": md.get("article") or "",
         "article_number": md.get("article_number") or "",
         "chunk_id": md.get("chunk_id") or "",
+        "unit_id": md.get("unit_id") or "",
+        "unit_type": md.get("unit_type") or "",
+        "clause_number": md.get("clause_number") or "",
+        "point_letter": md.get("point_letter") or "",
+        "legal_path": md.get("legal_path") or "",
         "source_path": md.get("source_path") or "",
         "corpus": md.get("corpus") or "",
     }
@@ -295,23 +377,83 @@ def _source_record(doc, idx: int) -> dict:
 
 def _format_context_chunk(doc, idx: int) -> str:
     md = doc.metadata or {}
-    header = (
-        f"[{_source_label(doc, idx)}]\n"
-        f"Tiêu đề: {md.get('title') or ''}\n"
-        f"File: {md.get('source_path') or ''}"
-    )
-    return f"{header}\n\n{doc.page_content}"
+    header = f"[{_source_label(doc, idx)}] Tiêu đề: {md.get('title') or ''}"
+    if md.get("legal_path"):
+        header += f"\nCấu trúc: {md.get('legal_path')}"
+    text = (doc.page_content or "").strip()
+    if len(text) > 1400:
+        text = text[:1400].rsplit(" ", 1)[0].strip() + " ..."
+    return f"{header}\n{text}"
+
+
+_ALL_DOCS_CACHE = {"vs_id": None, "docs": None}
+
+
+def _all_docs_for_packing(vs):
+    if vectorstore_docs is None:
+        return []
+    if _ALL_DOCS_CACHE["vs_id"] is id(vs) and _ALL_DOCS_CACHE["docs"] is not None:
+        return _ALL_DOCS_CACHE["docs"]
+    docs = vectorstore_docs(vs)
+    _ALL_DOCS_CACHE["vs_id"] = id(vs)
+    _ALL_DOCS_CACHE["docs"] = docs
+    return docs
 
 
 def retrieve_context(vs, question: str) -> tuple[str, list[dict]]:
-    """Retrieve top-k chunks, returning source-labeled context + source metadata."""
-    docs = retrieve_ranked_docs(vs, question, top_k=RAG_TOP_K, min_score=RAG_MIN_SCORE)
+    """Retrieve ranked seed chunks, then optionally pack same-article context for generation."""
+    seed_docs = retrieve_ranked_docs(vs, question, top_k=max(RAG_TOP_K, RAG_LEGAL_UNIT_SEED_K), min_score=RAG_MIN_SCORE)
+    docs = seed_docs[:RAG_TOP_K]
+    legal_unit_docs = []
+    if RAG_LEGAL_UNIT_RETRIEVAL and retrieve_legal_units is not None:
+        legal_unit_docs = retrieve_legal_units(
+            question,
+            seed_docs,
+            top_k=RAG_LEGAL_UNIT_TOP_K,
+            max_candidates=RAG_LEGAL_UNIT_MAX_CANDIDATES,
+        )
+    if RAG_CONTEXT_PACKING and pack_article_context is not None:
+        docs = pack_article_context(
+            docs,
+            _all_docs_for_packing(vs),
+            top_k=RAG_TOP_K,
+            max_chunks=RAG_CONTEXT_MAX_CHUNKS,
+        )
+    if RAG_SPAN_RERANKING and rerank_spans is not None:
+        docs = rerank_spans(
+            docs,
+            question,
+            top_k=RAG_EVIDENCE_MAX_SPANS,
+            max_chars_per_span=RAG_EVIDENCE_MAX_CHARS,
+            vs=vs,
+            use_dense=RAG_SPAN_USE_DENSE,
+        )
+    elif RAG_EVIDENCE_COMPRESSION and compress_evidence_context is not None:
+        docs = compress_evidence_context(
+            docs,
+            question,
+            max_spans=RAG_EVIDENCE_MAX_SPANS,
+            max_chars_per_span=RAG_EVIDENCE_MAX_CHARS,
+            order=RAG_CONTEXT_ORDER,
+        )
+    if legal_unit_docs:
+        # Prefer concise structured evidence; appending long backup chunks made generation noisier in eval.
+        if RAG_LEGAL_UNIT_APPEND_BACKUP:
+            seen_units = {str((d.metadata or {}).get("unit_id")) for d in legal_unit_docs}
+            docs = legal_unit_docs + [d for d in docs if str((d.metadata or {}).get("unit_id")) not in seen_units]
+        else:
+            docs = legal_unit_docs
+
     context_parts = []
     sources = []
     for idx, doc in enumerate(docs, start=1):
         sources.append(_source_record(doc, idx))
-        context_parts.append(_format_context_chunk(doc, idx))
-    return "\n\n---\n\n".join(context_parts), sources
+        if RAG_EVIDENCE_CARD_RENDERING and evidence_card_from_text is not None:
+            context_parts.append(evidence_card_from_text(question, doc.page_content or "", doc.metadata or {}))
+        else:
+            context_parts.append(_format_context_chunk(doc, idx))
+    separator = "\n\n" if RAG_EVIDENCE_CARD_RENDERING else "\n\n---\n\n"
+    return separator.join(context_parts), sources
 
 
 # ---------------------------------------------------------------------------
@@ -612,7 +754,18 @@ def compute_context_recall_at_k(vs, test_data: list[dict], k: int = 5) -> float:
         if not ctx:
             continue
         total += 1
-        for doc in retrieve_ranked_docs(vs, item["question"], top_k=k, candidate_k=max(12, k * 4)):
+        docs = retrieve_ranked_docs(vs, item["question"], top_k=k, candidate_k=max(30, k * 8))
+        if RAG_RECALL_USE_EVIDENCE_SPANS and compress_evidence_context is not None:
+            # Optional span-level evaluation matches the compressed evidence used
+            # by RAG while keeping the retriever itself generic and non-rule-based.
+            docs = compress_evidence_context(
+                docs,
+                item["question"],
+                max_spans=k,
+                max_chars_per_span=RAG_RECALL_EVIDENCE_MAX_CHARS,
+                order="rank",
+            )
+        for doc in docs[:k]:
             if scorer.score(ctx, doc.page_content)["rougeL"].fmeasure >= 0.5:
                 hits += 1
                 break
@@ -677,6 +830,246 @@ def compute_source_hit_rate(test_data: list[dict], retrieved_sources: list[list[
     return (hits / total) if total else None
 
 
+def compute_provision_level_metrics(test_data: list[dict], retrieved_sources: list[list[dict]]) -> dict | None:
+    """Compute article/clause/point recall from retrieved sources against gold labels."""
+    labelable = [item for item in test_data if item.get("gold_article_numbers")]
+    if not labelable:
+        return None
+
+    article_hits = 0
+    clause_hits = 0
+    point_hits = 0
+    mrr_sum = 0.0
+
+    for item, sources in zip(test_data, retrieved_sources):
+        gold_arts = item.get("gold_article_numbers") or []
+        if not gold_arts:
+            continue
+        gold_clauses = item.get("gold_clause_numbers") or []
+        gold_points = item.get("gold_point_letters") or []
+
+        # Aggregate all article/clause/point numbers in retrieved sources
+        got_arts: set[str] = set()
+        got_clauses: set[str] = set()
+        got_points: set[str] = set()
+        for rank, src in enumerate(sources):
+            # Sources from diagnostics are plain dicts; from evaluate_config they are Documents
+            if isinstance(src, dict):
+                art = str(src.get("article_number") or "")
+                clause = str(src.get("clause_number") or "")
+                point = str(src.get("point_letter") or "")
+            else:
+                md = (src.metadata or {}) if hasattr(src, "metadata") else {}
+                art = str(md.get("article_number") or "")
+                clause = str(md.get("clause_number") or "")
+                point = str(md.get("point_letter") or "")
+            if art:
+                got_arts.add(art)
+            if clause:
+                got_clauses.add(clause)
+            if point:
+                got_points.add(point)
+        # MRR: first rank where any gold article found
+        for rank, src in enumerate(sources):
+            if isinstance(src, dict):
+                art = str(src.get("article_number") or "")
+            else:
+                md = (src.metadata or {}) if hasattr(src, "metadata") else {}
+                art = str(md.get("article_number") or "")
+            if art in gold_arts:
+                mrr_sum += 1.0 / (rank + 1)
+                break
+        if any(a in got_arts for a in gold_arts):
+            article_hits += 1
+        if gold_clauses and any(c in got_clauses for c in gold_clauses):
+            clause_hits += 1
+        if gold_points and any(p in got_points for p in gold_points):
+            point_hits += 1
+
+    n = len(labelable)
+    return {
+        "article_recall": round(article_hits / n, 4),
+        "article_denominator": n,
+        "clause_recall": round(clause_hits / n, 4) if any(item.get("gold_clause_numbers") for item in labelable) else None,
+        "point_recall": round(point_hits / n, 4) if any(item.get("gold_point_letters") for item in labelable) else None,
+        "article_mrr": round(mrr_sum / n, 4),
+    }
+
+
+FINE_PRED_RE = re.compile(r"phạt\s+tiền\s+từ\s+([\d\.]+)\s*(?:đồng|vnđ)?\s*đến\s*([\d\.]+)\s*(?:đồng|vnđ)?", re.I)
+POINTS_PRED_RE = re.compile(r"trừ\s+(\d+)\s*điểm", re.I)
+
+# Relaxed fine-amount patterns for fuzzy matching
+_FINE_FROM_TO_RE = re.compile(
+    r'(?:phạt\s+(?:tiền\s+)?)?từ\s+([\d.,]+)\s*(?:đồng|vnđ|triệu\s*đồng|triệu|tr)?\s*'
+    r'(?:đến|-)\s*([\d.,]+)\s*(?:đồng|vnđ|triệu\s*đồng|triệu|tr)?', re.I)
+# Handle "từ X đồng" (single endpoint, no "đến"), also truncated "từ X" at end of text
+# The unit and trailing garbage are optional — _parse_vnd handles scale heuristics
+_FINE_FROM_ONLY_RE = re.compile(
+    r'(?:phạt\s+(?:tiền\s+)?)?từ\s+([\d.,]+)\s*'
+    r'(?:đồng|vnđ|triệu\s*đồng|triệu|tr|$|[^a-zđ].*)', re.I)
+# Bare "phạt tiền X [đồng]" without "từ" (model output variation)
+_FINE_BARE_PHAT_RE = re.compile(
+    r'phạt\s+tiền\s+([\d.,]+)\s*(?:đồng|vnđ|triệu\s*đồng|triệu|tr)?', re.I)
+_FINE_MILLION_RE = re.compile(
+    r'(\d+(?:[\.,]\d+)?)\s*(?:triệu|tr)(?:\s*đồng)?(?:\s*(?:đến|-)\s*(\d+(?:[\.,]\d+)?)\s*(?:triệu|tr))?', re.I)
+# Match "X triệu đồng" without "từ/đến"
+_FINE_MILLION_SIMPLE_RE = re.compile(
+    r'([\d.,]+)\s*(?:triệu|tr)(?:\s*đồng)?', re.I)
+# Word-form amounts: "ba triệu", "hai mươi triệu"
+_WORD_NUMS = {
+    "một": 1, "hai": 2, "ba": 3, "bốn": 4, "năm": 5,
+    "sáu": 6, "bảy": 7, "tám": 8, "chín": 9, "mười": 10,
+}
+_FINE_WORD_AMOUNT_RE = re.compile(
+    r'(?:từ\s+)?([\d.,]+)\s*(?:đồng|vnđ|triệu\s*đồng|triệu|tr)?\s*'
+    r'đến\s+(một|hai|ba|bốn|năm|sáu|bảy|tám|chín|mười)\s+triệu', re.I)
+
+
+def _parse_vnd(s: str) -> int:
+    """Parse a Vietnamese currency string to integer VND."""
+    s = s.strip().replace(',', '.').replace(' ', '')
+    if not s:
+        return 0
+    has_dot = '.' in s
+    if has_dot:
+        parts = s.split('.')
+        if len(parts) > 1 and all(len(p) == 3 for p in parts[1:]):
+            # Thousands separators: "2.090.000" → 2090000
+            s = s.replace('.', '')
+        elif len(parts) == 2 and len(parts[1]) <= 2:
+            # Decimal like "2.0" or "6.5" → truncation of "2.0 triệu"
+            s = parts[0]
+        else:
+            s = s.replace('.', '')
+    try:
+        val = int(s)
+    except ValueError:
+        return 0
+    # Million-scale heuristic for truncated "X.0 triệu" patterns: e.g. "2.0" → 2_000_000
+    if has_dot and 0 < val < 100:
+        val *= 1_000_000
+    # Thousand-scale heuristic for truncated "X." patterns: e.g. "200." → "200.000"
+    # ("phạt tiền từ 200." — model output stops mid-word).
+    # Minimum Việt Nam traffic fine is ~100K VND (bicycles in nd_168 art 9 cl 1).
+    # Any parsed value below 50K is an output formatting artefact, not a real fine.
+    if 0 < val < 50_000:
+        val *= 1_000
+    return val
+
+
+def _extract_fine_amounts(text: str) -> list[tuple[int, int]]:
+    """Extract all (min_vnd, max_vnd) fine pairs from prediction text."""
+    amounts = []
+    t = text or ""
+    # Collapse spaces within numbers: "400 000" → "400000", "2.0 000 000" → "2.0000000"
+    t = re.sub(r'(\d)\s+(\d)', r'\1\2', t)
+    # Pattern: "từ X [đồng] đến Y [đồng]"
+    for m in _FINE_FROM_TO_RE.finditer(t):
+        a = _parse_vnd(m.group(1))
+        b = _parse_vnd(m.group(2))
+        if a > 0 and b > 0:
+            amounts.append((a, b))
+    # Pattern: "từ X đồng đến [word] triệu"
+    for m in _FINE_WORD_AMOUNT_RE.finditer(t):
+        a = _parse_vnd(m.group(1))
+        word = m.group(2).lower()
+        wval = _WORD_NUMS.get(word, 0)
+        if a > 0 and wval > 0:
+            b_val = wval * 1_000_000
+            amounts.append((a, b_val))
+    # Pattern: "từ X đồng" (single - no "đến")
+    for m in _FINE_FROM_ONLY_RE.finditer(t):
+        a = _parse_vnd(m.group(1))
+        if a > 0:
+            amounts.append((a, int(a * 1.05)))  # assume max ≈ min * 1.05
+    # Pattern: "phạt tiền X đồng" (bare, no "từ")
+    for m in _FINE_BARE_PHAT_RE.finditer(t):
+        a = _parse_vnd(m.group(1))
+        if a > 0:
+            amounts.append((a, int(a * 1.05)))
+    # Pattern: "X-Y triệu" with explicit từ/đến
+    for m in _FINE_MILLION_RE.finditer(t):
+        try:
+            x = float(m.group(1).replace(',', '.'))
+            a = int(x * 1_000_000)
+            if m.group(2):
+                y = float(m.group(2).replace(',', '.'))
+                b = int(y * 1_000_000)
+            else:
+                b = int(a * 1.05)
+            amounts.append((a, b))
+        except (ValueError, TypeError):
+            pass
+    # Pattern: "X triệu" alone
+    for m in _FINE_MILLION_SIMPLE_RE.finditer(t):
+        try:
+            x = float(m.group(1).replace(',', '.'))
+            a = int(x * 1_000_000)
+            amounts.append((a, int(a * 1.05)))
+        except (ValueError, TypeError):
+            pass
+    return amounts
+
+
+def _fine_amounts_match(gold_min_str: str, gold_max_str: str, pred: str,
+                        tolerance: float = 0.15) -> bool:
+    """True if any extracted amount pair is within tolerance of the gold range."""
+    if not gold_min_str:
+        return False
+    try:
+        gmin = int(gold_min_str.replace('.', ''))
+        gmax = int((gold_max_str or gold_min_str).replace('.', ''))
+    except ValueError:
+        return False
+    for pmin, pmax in _extract_fine_amounts(pred or ""):
+        lower = gmin * (1 - tolerance)
+        upper = gmax * (1 + tolerance)
+        if pmin <= upper and pmax >= lower:
+            return True
+    return False
+
+
+def compute_slot_recall_metrics(test_data: list[dict], predictions: list[str]) -> dict | None:
+    """Compute fine/vehicle/citation slot accuracy from predictions against gold labels.
+
+    Fine matching uses fuzzy numeric comparison (±10% tolerance) to handle
+    output format variations (e.g., "6.001.000" vs gold "6.000.000").
+    """
+    fine_total = fine_hits = 0
+    points_total = points_hits = 0
+
+    for item, pred in zip(test_data, predictions):
+        gold_fine_min = item.get("gold_fine_min")
+        if gold_fine_min:
+            fine_total += 1
+            if _fine_amounts_match(gold_fine_min, item.get("gold_fine_max", gold_fine_min), pred or ""):
+                fine_hits += 1
+
+        gold_pts = item.get("gold_points_deducted")
+        if gold_pts:
+            points_total += 1
+            m = POINTS_PRED_RE.search(pred or "")
+            if m and m.group(1) == gold_pts:
+                points_hits += 1
+
+    if not fine_total and not points_total:
+        return None
+
+    result: dict = {}
+    if fine_total:
+        result.update({"fine_slot_recall": round(fine_hits / fine_total, 4), "fine_slot_denominator": fine_total})
+    if points_total:
+        result.update({"points_slot_recall": round(points_hits / points_total, 4), "points_slot_denominator": points_total})
+    return result
+
+
+def _looks_like_refusal(pred: str) -> bool:
+    p = pred.lower()
+    refusal_keywords = ["không tìm thấy căn cứ", "không thể trả lời", "không đủ thông tin",
+                        "không có thông tin", "không thuộc phạm vi"]
+    return any(kw in p for kw in refusal_keywords)
+
 def compute_refusal_rate(test_data: list[dict], predictions: list[str]) -> float | None:
     total = 0
     refused = 0
@@ -695,14 +1088,11 @@ def compute_false_refusal_rate(test_data: list[dict], predictions: list[str]) ->
     """Fraction of SUPPORTED questions that are incorrectly refused."""
     total = 0
     falsely_refused = 0
-    refusal_keywords = ["không tìm thấy căn cứ", "không thể trả lời", "không đủ thông tin",
-                        "không có thông tin", "không thuộc phạm vi"]
     for item, pred in zip(test_data, predictions):
         if item.get("category") == "unsupported":
             continue
         total += 1
-        p = pred.lower()
-        if any(kw in p for kw in refusal_keywords):
+        if _looks_like_refusal(pred):
             falsely_refused += 1
     return (falsely_refused / total) if total else None
 
@@ -745,6 +1135,7 @@ def run_retrieval_diagnostics(vs, test_data: list[dict]) -> dict:
             "index": idx,
             "question": question,
             "category": item.get("category") or "",
+            "context": ctx,
             "expected_doc_ids": sorted(expected),
             "expanded_query": expand_traffic_query(question),
             "intents": classify_intents(question),
@@ -781,6 +1172,7 @@ def evaluate_config(
     phobert_mdl,
     retriever=None,
     llm_judge_fn=None,   # callable(questions, preds, refs) -> float, or None
+    fast_metrics: bool = False,
 ) -> dict:
     """Run inference on all test samples and return metrics + predictions."""
     print(f"\n{'='*60}")
@@ -800,7 +1192,12 @@ def evaluate_config(
         batch = test_data[batch_start : batch_start + EVAL_BATCH_SIZE]
         batch_questions = [item["question"] for item in batch]
         batch_contexts = []
-        if use_rag:
+        oracle_field = os.environ.get("EVAL_ORACLE_CONTEXT_FIELD")
+        if use_rag and oracle_field:
+            for item in batch:
+                batch_contexts.append(item.get(oracle_field) or "")
+                retrieved_sources.append([])
+        elif use_rag:
             for q in batch_questions:
                 context, sources = retrieve_context(retriever, q)
                 batch_contexts.append(context)
@@ -821,7 +1218,7 @@ def evaluate_config(
     bleu        = compute_bleu(predictions, references)
     meteor      = compute_meteor(predictions, references)
     f1_token    = compute_f1_token(predictions, references)
-    bert_f1     = compute_bert_score(predictions, references, phobert_tok, phobert_mdl)
+    bert_f1     = 0.0 if fast_metrics else compute_bert_score(predictions, references, phobert_tok, phobert_mdl)
     exact_match = compute_exact_match(predictions, references)
     forbidden_legacy = compute_forbidden_legacy_rate(predictions)
     source_hit_rate = compute_source_hit_rate(test_data, retrieved_sources) if use_rag else None
@@ -851,6 +1248,13 @@ def evaluate_config(
         metrics["source_hit_rate"] = round(source_hit_rate, 4)
         metrics["source_hit_rate_top_3"] = round(source_hit_rate, 4)
         metrics["source_hit_rate_by_doc"] = compute_source_hit_breakdown(test_data, retrieved_sources)
+    if use_rag:
+        prov_metrics = compute_provision_level_metrics(test_data, retrieved_sources)
+        if prov_metrics is not None:
+            metrics["provision_metrics"] = prov_metrics
+    slot_metrics = compute_slot_recall_metrics(test_data, predictions)
+    if slot_metrics is not None:
+        metrics["slot_metrics"] = slot_metrics
     if refusal_rate is not None:
         metrics["unsupported_refusal_rate"] = round(refusal_rate, 4)
     if false_refusal_rate is not None:
@@ -865,7 +1269,10 @@ def evaluate_config(
     print(f"  BLEU-4:       {bleu:.4f}")
     print(f"  METEOR:       {meteor:.4f}")
     print(f"  F1-token:     {f1_token:.4f}")
-    print(f"  BERTScore-F1: {bert_f1:.4f}")
+    if fast_metrics:
+        print("  BERTScore-F1: skipped (--fast-metrics)")
+    else:
+        print(f"  BERTScore-F1: {bert_f1:.4f}")
     print(f"  Exact Match:  {exact_match:.4f}")
     print(f"  Legacy rate:  {forbidden_legacy:.4f}")
     if source_hit_rate is not None:
@@ -920,7 +1327,38 @@ def main():
         "--retrieval-only", action="store_true",
         help="Run retrieval diagnostics without loading/generating with LLMs",
     )
+    parser.add_argument(
+        "--indices", type=str, default=None,
+        help="Comma-separated 0-based sample indices to evaluate after loading/--samples filtering",
+    )
+    parser.add_argument(
+        "--output", type=str, default=None,
+        help="Metrics JSON output path (default: reports/traffic/evaluation_results.json)",
+    )
+    parser.add_argument(
+        "--predictions-output", type=str, default=None,
+        help="Predictions JSON output path (default: reports/traffic/predictions_all_configs.json)",
+    )
+    parser.add_argument(
+        "--oracle-context-field", type=str, default=None,
+        help="Use this field from each sample as RAG context instead of retrieval (diagnostic oracle evidence test)",
+    )
+    parser.add_argument(
+        "--fast-metrics", action="store_true",
+        help="Skip PhoBERT BERTScore for faster ablation runs",
+    )
     args = parser.parse_args()
+    selected_indices = None
+    if args.oracle_context_field:
+        os.environ["EVAL_ORACLE_CONTEXT_FIELD"] = args.oracle_context_field
+    if args.indices:
+        selected_indices = [int(x.strip()) for x in args.indices.split(",") if x.strip()]
+        if not selected_indices:
+            raise ValueError("--indices was provided but no valid indices were parsed")
+    results_path = Path(args.output) if args.output else RESULTS_PATH
+    preds_path = Path(args.predictions_output) if args.predictions_output else PREDS_PATH
+    if args.output and not args.predictions_output:
+        preds_path = results_path.with_name(results_path.stem.replace("evaluation_results", "predictions") + results_path.suffix)
 
     # Set up LLM judge function if requested
     llm_judge_fn = None
@@ -952,16 +1390,30 @@ def main():
 
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
     test_data = load_test_data(args.test_file, args.samples)
+    if selected_indices is not None:
+        n_before = len(test_data)
+        bad = [idx for idx in selected_indices if idx < 0 or idx >= n_before]
+        if bad:
+            raise IndexError(f"--indices out of range for loaded test set of {n_before} samples: {bad}")
+        test_data = [dict(test_data[idx], eval_original_index=idx) for idx in selected_indices]
+        print(f"Selected {len(test_data)} samples by index from {n_before} loaded samples")
     eval_validation = validate_eval_data(test_data)
 
     if args.retrieval_only:
         vs, _ = build_retriever()
         diagnostics = run_retrieval_diagnostics(vs, test_data)
+        # Add provision-level metrics from diagnostic sources
+        prov_metrics = compute_provision_level_metrics(test_data, [s.get("retrieved", []) for s in diagnostics["samples"]])
+        if prov_metrics is not None:
+            diagnostics["provision_metrics"] = prov_metrics
         diagnostics["eval_validation"] = eval_validation
         with open(RETRIEVAL_DIAGNOSTICS_PATH, "w", encoding="utf-8") as f:
             json.dump(diagnostics, f, ensure_ascii=False, indent=2)
         print("\nRetrieval diagnostics summary:")
         print(json.dumps(diagnostics["summary"], ensure_ascii=False, indent=2))
+        if prov_metrics:
+            print("Provision metrics:")
+            print(json.dumps(prov_metrics, ensure_ascii=False, indent=2))
         print(f"Saved: {RETRIEVAL_DIAGNOSTICS_PATH}")
         return
 
@@ -974,8 +1426,8 @@ def main():
 
     rag_needed = any(c in args.configs for c in ("B", "D"))
 
-    # Load PhoBERT once and reuse across all 4 configs
-    phobert_tok, phobert_mdl = load_phobert()
+    # Load PhoBERT only for final/report runs; ablations can skip it for speed.
+    phobert_tok, phobert_mdl = (None, None) if args.fast_metrics else load_phobert()
 
     # Load vector store once — used for both RAG generation and Recall@5
     vs = None
@@ -1027,6 +1479,7 @@ def main():
                 phobert_tok, phobert_mdl,
                 vs if use_rag else None,
                 llm_judge_fn=llm_judge_fn,
+                fast_metrics=args.fast_metrics,
             )
             all_metrics[config_name]     = result["metrics"]
             all_predictions[config_name] = {
@@ -1043,8 +1496,39 @@ def main():
         torch.cuda.empty_cache()
 
     # Attach retrieval metrics to every config's metrics (shared retrieval metrics)
+    eval_run_config = {
+        "test_file": args.test_file or str(TEST_MANUAL_PATH),
+        "n_samples": len(test_data),
+        "configs": args.configs,
+        "max_new_tokens": MAX_NEW_TOKENS,
+        "generation_repetition_penalty": GENERATION_REPETITION_PENALTY,
+        "generation_no_repeat_ngram": GENERATION_NO_REPEAT_NGRAM,
+        "rag_top_k": RAG_TOP_K,
+        "rag_top_k_recall": RAG_TOP_K_RECALL,
+        "rag_context_packing": RAG_CONTEXT_PACKING,
+        "rag_context_max_chunks": RAG_CONTEXT_MAX_CHUNKS,
+        "rag_evidence_compression": RAG_EVIDENCE_COMPRESSION,
+        "rag_evidence_max_spans": RAG_EVIDENCE_MAX_SPANS,
+        "rag_evidence_max_chars": RAG_EVIDENCE_MAX_CHARS,
+        "rag_clause_aware_packing": os.environ.get("RAG_CLAUSE_AWARE_PACKING", "1") == "1",
+        "rag_span_reranking": RAG_SPAN_RERANKING,
+        "rag_context_order": RAG_CONTEXT_ORDER,
+        "rag_legal_unit_retrieval": RAG_LEGAL_UNIT_RETRIEVAL,
+        "rag_legal_unit_top_k": RAG_LEGAL_UNIT_TOP_K,
+        "rag_legal_unit_max_candidates": RAG_LEGAL_UNIT_MAX_CANDIDATES,
+        "rag_legal_unit_append_backup": RAG_LEGAL_UNIT_APPEND_BACKUP,
+        "rag_legal_unit_use_ce": RAG_LEGAL_UNIT_USE_CE,
+        "rag_legal_unit_seed_k": RAG_LEGAL_UNIT_SEED_K,
+        "rag_answer_only_context_first": os.environ.get("RAG_ANSWER_ONLY_CONTEXT_FIRST", "0") == "1",
+        "rag_evidence_card_rendering": RAG_EVIDENCE_CARD_RENDERING,
+        "fast_metrics": args.fast_metrics,
+        "env": {k: os.environ.get(k) for k in EVAL_CONFIG_ENV_KEYS if os.environ.get(k) is not None},
+        "command": " ".join(shlex.quote(x) for x in sys.argv),
+    }
+
     for cfg_metrics in all_metrics.values():
         cfg_metrics["eval_validation"] = eval_validation
+        cfg_metrics["eval_run_config"] = eval_run_config
         if context_recall_at_5 is not None:
             cfg_metrics["context_rouge_recall_at_5"] = round(context_recall_at_5, 4)
             cfg_metrics["recall_at_5"] = round(context_recall_at_5, 4)
@@ -1088,13 +1572,15 @@ def main():
             + f" {m['avg_latency_s']:>6.1f}s"
         )
 
-    with open(RESULTS_PATH, "w", encoding="utf-8") as f:
+    results_path.parent.mkdir(parents=True, exist_ok=True)
+    preds_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(results_path, "w", encoding="utf-8") as f:
         json.dump(all_metrics, f, ensure_ascii=False, indent=2)
-    with open(PREDS_PATH, "w", encoding="utf-8") as f:
+    with open(preds_path, "w", encoding="utf-8") as f:
         json.dump(all_predictions, f, ensure_ascii=False, indent=2)
 
-    print(f"\nSaved: {RESULTS_PATH}")
-    print(f"Saved: {PREDS_PATH}")
+    print(f"\nSaved: {results_path}")
+    print(f"Saved: {preds_path}")
 
 
 if __name__ == "__main__":

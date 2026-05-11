@@ -28,19 +28,18 @@ from config import (
     MAX_CHUNK_CHARS,
     MIN_CHUNK_CHARS,
     SEPARATORS,
+    STRUCT_ARTICLE_RE,
 )
 from corpus import infer_article, iter_manifest_documents, iter_traffic_documents
+from chunking import article_clause_chunks
 
 
-EMBED_MODEL = "BAAI/bge-m3"
+EMBED_MODEL = os.environ.get("EMBED_MODEL", "BAAI/bge-m3")
 EMBED_BATCH = 128
 EMBED_MAX_SEQ = 1024
 
 FORBIDDEN_LEGACY_TERMS_LOWER = [term.lower() for term in FORBIDDEN_LEGACY_TERMS]
-LEGAL_CHUNKING_POLICY = "legal_article_clause_v1"
-
-ARTICLE_RE = re.compile(r"(?m)^Điều\s+(\d+[a-zA-Z]?)\.\s*[^\n]+")
-CLAUSE_RE = re.compile(r"(?m)^(\d+)\.\s+")
+LEGAL_CHUNKING_POLICY = "article_clause_v3"
 
 
 def _read_build_meta() -> dict:
@@ -142,59 +141,13 @@ def _split_long_legal_chunk(chunk: Document) -> list[Document]:
 
 
 def _article_documents(doc: Document) -> list[Document]:
-    text = doc.page_content
-    article_matches = list(ARTICLE_RE.finditer(text))
-    if not article_matches:
-        return _fallback_splitter().split_documents([doc])
-
-    chunks: list[Document] = []
-    base_metadata = dict(doc.metadata)
-
-    preamble = text[: article_matches[0].start()].strip()
-    if preamble:
-        chunks.append(Document(page_content=preamble, metadata={**base_metadata, "legal_section": "preamble"}))
-
-    for article_idx, match in enumerate(article_matches):
-        article_no = match.group(1)
-        article_title = _compact(match.group(0))
-        article_start = match.start()
-        article_end = article_matches[article_idx + 1].start() if article_idx + 1 < len(article_matches) else len(text)
-        article_text = text[article_start:article_end].strip()
-        clause_matches = list(CLAUSE_RE.finditer(article_text))
-        article_metadata = {
-            **base_metadata,
-            "article": article_title,
-            "article_number": article_no,
-            "legal_section": "article",
-            "chunking_policy": LEGAL_CHUNKING_POLICY,
-        }
-
-        if not clause_matches:
-            chunks.extend(_split_long_legal_chunk(Document(page_content=article_text, metadata=article_metadata)))
-            continue
-
-        lead = article_text[: clause_matches[0].start()].strip()
-        if lead and _compact(lead) != article_title:
-            lead_doc = Document(page_content=lead, metadata={**article_metadata, "legal_block": "article_lead"})
-            chunks.extend(_split_long_legal_chunk(lead_doc))
-
-        for clause_idx, clause_match in enumerate(clause_matches):
-            clause_no = clause_match.group(1)
-            clause_start = clause_match.start()
-            clause_end = clause_matches[clause_idx + 1].start() if clause_idx + 1 < len(clause_matches) else len(article_text)
-            clause_text = article_text[clause_start:clause_end].strip()
-            content = f"{article_title}\n\n{clause_text}"
-            clause_doc = Document(
-                page_content=content,
-                metadata={
-                    **article_metadata,
-                    "clause_number": clause_no,
-                    "legal_block": "clause",
-                },
-            )
-            chunks.extend(_split_long_legal_chunk(clause_doc))
-
-    return chunks
+    """Delegate to shared clause-level chunker and stamp the current policy."""
+    out: list[Document] = []
+    for chunk in article_clause_chunks(doc):
+        md = dict(chunk.metadata)
+        md["chunking_policy"] = LEGAL_CHUNKING_POLICY
+        out.extend(_split_long_legal_chunk(Document(page_content=chunk.page_content, metadata=md)))
+    return out
 
 
 def _enrich_chunk(chunk: Document, ordinal: int) -> Document:
