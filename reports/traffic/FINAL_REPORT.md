@@ -119,5 +119,26 @@ python scripts/llm_judge.py
 
 1. **Point-level chunking** — `point_recall` hiện vẫn 0. Chunk thêm cấp `point` (3558 points trong `legal_units.jsonl`) cho article dày clause. Kỳ vọng +0.02–0.05 ROUGE-L.
 2. **Retrain CE reranker** trên label clause-level từ `eval_manual_labeled_v5` với hard negative cùng article khác clause. Dev set cần lớn hơn 69-sample hiện tại. Kỳ vọng +0.02 R-L, +0.05 fine_slot_recall.
-3. **RAG-SFT LoRA** — retrain LoRA với data `question + evidence_card → short_answer`. Tập dữ liệu `data/splits_filtered/qa_train.jsonl` đã có context, chỉ cần wrap qua evidence_card renderer rồi finetune 1 epoch. Kỳ vọng +0.10 Judge (0.69 → ~0.80).
-4. **Question rewriting** cho truy vấn ngắn, modelling-light (non-rule). Dùng LoRA chính để rewrite "Say xỉn lái xe máy?" → "Điều khiển xe mô tô có nồng độ cồn trong máu hoặc khí thở phạt tiền bao nhiêu?".
+3. **Question rewriting** cho truy vấn ngắn. Dùng LoRA chính rewrite "Say xỉn lái xe máy?" → "Điều khiển xe mô tô có nồng độ cồn trong máu hoặc khí thở phạt tiền bao nhiêu?".
+
+## Negative result — Config E (RAG-SFT LoRA)
+
+**Đã thử, không thành công.** Ý tưởng: train LoRA mới riêng với format `(question + evidence_card) → answer` để thích nghi distribution shift giữa training (raw context) và inference (card).
+
+Thử nghiệm:
+
+- v1 (90% card / 10% no-context, 1 epoch, lr 3e-5): smoke 30 → R-L **0.379** vs D 0.414, FRef **0.200** vs D 0.033. Over-specialized.
+- v2 (50% card / 40% raw / 10% no-context): smoke 30 → R-L **0.405**, FRef **0.233**. Vẫn kém D.
+
+Lý do:
+
+- LoRA v2 hiện tại (`qwen3.5-9b-lora-traffic-v2`) đã được train với `CONTEXT_KEEP_PROB=0.9` — tức 90% samples có raw context. Distribution shift C↔D không nghiêm trọng như mô tả ban đầu.
+- Bước SFT riêng trên card format khiến model học pattern: "nếu card không có đúng field → refuse". Khi retrieval miss clause đúng (ví dụ câu "say rượu" không match clause nồng độ cồn về surface form), card vẫn hình thành nhưng với violation_text sai → E refuse, D thì copy số từ card gần đúng và tình cờ đúng.
+- Bottleneck thật không phải generator, mà là retrieval: một số intent (say rượu, nồng độ cồn) vẫn match nhầm clause tốc độ / lạng lách.
+
+Kết luận: **giữ D là cấu hình deliverable chính**. Code E (`src/finetune_rag_sft.py` + 2 checkpoint ở `models/qwen3.5-9b-lora-traffic-rag-sft-v{1,2}`) để lại như ablation evidence trong báo cáo.
+
+Hướng đi đúng tiếp theo cho retrieval bottleneck (đã đánh giá):
+
+- **Question rewriting trước retrieval**: dùng LoRA v2 rewrite "say xỉn" → "nồng độ cồn trong máu hoặc hơi thở" trước khi đi vào BM25/CE. Dự kiến +0.05 R-L, fix luôn vấn đề retrieval.
+- **Retrain CE reranker clause-level** bằng label v5 (hard negative cùng article khác clause). Cần tăng dev size trên 200.
