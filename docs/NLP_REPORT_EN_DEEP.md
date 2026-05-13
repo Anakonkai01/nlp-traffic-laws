@@ -531,6 +531,28 @@ $$L = -\log \frac{\exp\left(\text{sim}(q_i, p_i)/\tau\right)}{\displaystyle\sum_
 
 When the model gives $n_i$ a high score (confuses khoản 1 with khoản 9), the denominator grows sharply → loss spikes → large gradient → the model is forced to separate them. This targeted signal is why 220 penalty pairs produce a measurable recall improvement despite being a small fraction of the 1,762-pair dataset.
 
+#### Training step mechanics
+
+The final dataset has three columns: `anchor` (question), `positive` (correct chunk), `negative` (hard negative or empty). Each training step processes a batch of 4 rows:
+
+```
+Batch of 4:
+  (Q0, P0, N0)  "Vượt đèn đỏ?"     → khoản 9   hard_neg: khoản 1
+  (Q1, P1,  -)  "Đăng ký xe?"      → Điều 10   no hard neg
+  (Q2, P2,  -)  "Uống rượu lái?"   → khoản 8   no hard neg
+  (Q3, P3, N3)  "Không có gương?"  → Điều 14k1 hard_neg: Điều 14k3
+```
+
+Model encodes all texts → computes a **4×4 cosine similarity matrix** between anchors and positives. Each row is a 4-class classification problem: pick the diagonal. Hard negatives for rows 0 and 3 are appended to those rows' denominators.
+
+**Gradient accumulation.** bge-m3 (570M params) fills ~15 GB VRAM at batch 4 — increasing batch size is not feasible. Instead, gradients from 8 consecutive steps are summed before a single weight update, giving the same gradient direction as a batch of 32 while keeping per-step memory at batch 4. Note: the similarity matrix remains 4×4 per step; the "effective batch 32" benefits gradient stability, not in-batch negative diversity.
+
+```
+steps 1–8: forward(batch=4) → accumulate gradient
+step 8:    optimizer.step() → weights updated once
+           ≈ 330 total weight updates across 3 epochs
+```
+
 | Hyperparameter | Value |
 |---|---|
 | Epochs | 3, early-stop on `recall@3` |
