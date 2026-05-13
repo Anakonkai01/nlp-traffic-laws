@@ -471,50 +471,22 @@ flowchart LR
 
 #### Training data construction
 
-Two sources are combined, shuffled, and capped at 8,000 pairs:
+~3,762 pairs total (shuffled, cap 8,000):
 
-| Source | Pairs | Positive | Hard negative |
-|---|---|---|---|
-| `qa_train.jsonl` · `corpus=local_text` | **1,249** | The source chunk the LLM read to write the question | None |
-| `qa_train.jsonl` · `corpus=negative` | **513** | A related chunk that does not fully answer the question (soft positive) | None |
-| `legal_sanction_facts.jsonl` via templates | **~2,000** | Structured context: citation + violation text + fine amount + points deducted | Yes — same article, different clause |
-| **Total** | **~3,762** | | **955 / 956 penalty facts** have at least one hard negative |
+| Source | Pairs | Hard negative |
+|---|---|---|
+| `qa_train.jsonl` · `corpus=local_text` | 1,249 | — |
+| `qa_train.jsonl` · `corpus=negative` | 513 | — |
+| `legal_sanction_facts.jsonl` → templates | ~2,000 | same article, different clause (955/956 facts) |
 
-**Procedure pairs** (`qa_train.jsonl`) come directly from the QA generation pipeline. The `local_text` rows are clean positives; the `negative` rows are questions that cannot be answered from the provided context — used here as soft positives for general domain adaptation. The `finetune_embedder.py` loader does not filter by corpus type.
-
-**Penalty pairs** are built from scratch because the QA dataset has no fine-amount examples. The pipeline:
+Penalty pairs are synthetic: 956 answer-ready sanction facts → 3–5 template questions each → positive = `citation + violation_text + fine_text + points`. Hard negative = another clause in the same article with a different fine bracket.
 
 ```
-NĐ 168 .txt
-  └─ parse every sanction clause → legal_sanction_facts.jsonl (2,966 facts)
-       fields: citation, violation_text, fine_text,
-               points_deducted, suspension_text, vehicle_scope
-  └─ filter: answer_ready=True AND fine_text present → 956 facts
-  └─ for each fact:
-       ├─ generate 3–5 question variants via templates
-       │    "Điều khiển {vehicle} {violation} bị phạt bao nhiêu?"
-       ├─ build positive: citation + violation_text + fine_text + points
-       └─ find hard negatives: same article_number, different clause_number
-            → 955 / 956 facts have ≥ 1 hard negative available
+anchor:    "Điều khiển ô tô vượt đèn đỏ bị phạt bao nhiêu?"
+positive:  Điều 6 khoản 9 — 18–20M đồng, b) không chấp hành đèn tín hiệu
+hard neg:  Điều 6 khoản 1 — 400K–600K, a) không chấp hành biển báo
+           ↑ same article header, only fine bracket differs
 ```
-
-**Concrete triplet example:**
-
-```
-anchor:
-  "Điều khiển ô tô vượt đèn đỏ bị phạt bao nhiêu tiền?"
-
-positive  (khoản 9):
-  Điều 6 khoản 9 — Phạt tiền từ 18.000.000 đến 20.000.000 đồng
-  b) Không chấp hành hiệu lệnh của đèn tín hiệu giao thông
-  Trừ điểm: 02 điểm
-
-hard negative  (khoản 1 — same article, different fine bracket):
-  Điều 6 khoản 1 — Phạt tiền từ 400.000 đến 600.000 đồng
-  a) Không chấp hành hiệu lệnh, chỉ dẫn của biển báo hiệu...
-```
-
-Both chunks share the identical Điều 6 article header. The only discriminating signal is the fine bracket and violation list — exactly what the model must learn.
 
 #### MultipleNegativesRankingLoss
 
