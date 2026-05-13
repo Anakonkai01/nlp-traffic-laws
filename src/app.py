@@ -50,48 +50,126 @@ LOADING_BASE   = "⏳ Đang tải base model..."
 LOADING_LORA   = "⏳ Đang tải LoRA model..."
 GENERATING     = "⏳ Đang sinh đáp án..."
 
+# Optional: reuse the precomputed rewrite cache produced by
+# scripts/build_rewrite_cache.py. If the user already ran it for their eval set,
+# known questions get the Phase-9 legal-style rewrite for free; unknown ones
+# fall through to the raw question.
+_REWRITE_CACHE_PATH = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+    "data", "query_rewrite_cache.json",
+)
+_REWRITE_CACHE: dict[str, str] = {}
+try:
+    if os.path.exists(_REWRITE_CACHE_PATH):
+        import json as _json
+        with open(_REWRITE_CACHE_PATH, "r", encoding="utf-8") as _f:
+            _REWRITE_CACHE = _json.load(_f)
+        print(f"Loaded {_REWRITE_CACHE_PATH} ({len(_REWRITE_CACHE)} cached rewrites)")
+except Exception as _exc:
+    print(f"  (rewrite cache not loaded: {_exc})")
+
+_REWRITE_CLIENT = None
+_REWRITE_MODEL  = "google/gemini-2.0-flash-001"
+
+
+def _live_rewrite(question: str) -> str:
+    """Live legal-style rewrite via OpenRouter, with persistent cache.
+
+    Returns the rewritten question on success; falls back to the original on
+    any error or if OPENROUTER_API_KEY is not set.
+    """
+    global _REWRITE_CLIENT
+    api_key = os.environ.get("OPENROUTER_API_KEY")
+    if not api_key:
+        return question
+    try:
+        if _REWRITE_CLIENT is None:
+            from openai import OpenAI
+            _REWRITE_CLIENT = OpenAI(api_key=api_key, base_url="https://openrouter.ai/api/v1")
+        system_prompt = (
+            "Bạn là chuyên gia luật giao thông đường bộ Việt Nam. "
+            "Hãy viết lại câu hỏi sau bằng văn phong pháp lý chuẩn của Nghị định 168/2024/NĐ-CP, "
+            "Luật 35/2024/QH15 (Luật Đường bộ), và Luật 36/2024/QH15 (Luật Trật tự ATGT). "
+            "Mục đích là để dùng câu viết lại làm truy vấn cho hệ thống tra cứu văn bản pháp luật.\n\n"
+            "Quy tắc:\n"
+            "1. GIỮ NGUYÊN ý nghĩa, đối tượng (xe gì), tình huống, và mọi con số cụ thể trong câu gốc.\n"
+            "2. Thay thuật ngữ khẩu ngữ bằng thuật ngữ pháp lý:\n"
+            "   - 'vượt đèn đỏ'/'vượt đèn vàng' -> 'không chấp hành hiệu lệnh của đèn tín hiệu giao thông'\n"
+            "   - 'say rượu'/'uống bia'/'uống rượu' -> 'điều khiển xe trong khi trong máu hoặc hơi thở có nồng độ cồn'\n"
+            "   - 'xe máy' (đứng một mình) -> 'xe mô tô, xe gắn máy'\n"
+            "   - 'ô tô' (đứng một mình) -> 'xe ô tô'\n"
+            "   - 'bằng lái' -> 'giấy phép lái xe'\n"
+            "3. Nếu câu hỏi đã ở văn phong pháp lý thì giữ NGUYÊN VĂN.\n"
+            "4. KHÔNG trả lời câu hỏi. KHÔNG thêm giải thích. Chỉ một câu hỏi viết lại trên một dòng."
+        )
+        resp = _REWRITE_CLIENT.chat.completions.create(
+            model=_REWRITE_MODEL,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user",   "content": f"Câu hỏi gốc: {question}\n\nCâu hỏi pháp lý:"},
+            ],
+            max_tokens=160,
+            temperature=0.0,
+        )
+        text = (resp.choices[0].message.content or "").strip()
+        text = re.sub(r"^[\"'`*\-•\s]+", "", text)
+        text = re.sub(r"^Câu hỏi pháp lý[:\-]*\s*", "", text)
+        text = text.splitlines()[0].strip() if text else ""
+        if text and len(text) > 5:
+            _REWRITE_CACHE[question] = text
+            try:
+                import json as _json
+                with open(_REWRITE_CACHE_PATH, "w", encoding="utf-8") as _f:
+                    _json.dump(_REWRITE_CACHE, _f, ensure_ascii=False, indent=2)
+            except Exception:
+                pass
+            return text
+    except Exception as exc:
+        print(f"  [rewrite] live call failed: {exc}")
+    return question
+
+
 _SYSTEM_NO_CONTEXT   = TRAFFIC_QA_SYSTEM_PROMPT_NO_CONTEXT
 _SYSTEM_WITH_CONTEXT = TRAFFIC_QA_SYSTEM_PROMPT_WITH_CONTEXT
 
 # ---------------------------------------------------------------------------
-# Lazy model loader — keeps only ONE model in VRAM at a time (16GB GPU)
+# Combined model loader — load LoRA-attached model ONCE.
+# Toggle the LoRA adapter on/off via PEFT to switch between configs A/B (base
+# behaviour) and C/D (fine-tuned) without reloading anything. This avoids the
+# swap-OOM problem that hit `_load_model(use_lora=True)` on a 16 GB GPU after
+# the base model had been resident.
 # ---------------------------------------------------------------------------
 
-_current_model     = None
-_current_tokenizer = None
-_current_type      = None   # "base" | "lora"
+_combined_model     = None
+_combined_tokenizer = None
 
 
-def _load_model(use_lora: bool):
-    global _current_model, _current_tokenizer, _current_type
-
-    model_type = "lora" if use_lora else "base"
-    if _current_type == model_type:
-        return _current_model, _current_tokenizer
-
-    if _current_model is not None:
-        print(f"  Unloading {_current_type} model...")
-        del _current_model, _current_tokenizer
-        _current_model = _current_tokenizer = None
-        gc.collect()
-        torch.cuda.empty_cache()
-
-    path  = str(MODEL_DIR) if use_lora else MODEL_ID
-    label = "fine-tuned (LoRA)" if use_lora else "base"
-    print(f"  Loading {label} model...")
+def _load_combined():
+    global _combined_model, _combined_tokenizer
+    if _combined_model is not None:
+        return _combined_model, _combined_tokenizer
+    print(f"  Loading LoRA-attached model from {MODEL_DIR}...")
     model, tokenizer = FastLanguageModel.from_pretrained(
-        model_name=path,
+        model_name=str(MODEL_DIR),
         max_seq_length=2048,
         dtype=None,
         load_in_4bit=True,
     )
     FastLanguageModel.for_inference(model)
-
-    _current_model     = model
-    _current_tokenizer = tokenizer
-    _current_type      = model_type
-    print(f"  {label} model ready.")
+    _combined_model     = model
+    _combined_tokenizer = tokenizer
+    print("  combined model ready.")
     return model, tokenizer
+
+
+def _generate_for(use_lora: bool, question: str, context: str | None) -> str:
+    """Generate with the LoRA adapter toggled on/off for the same loaded model."""
+    model, tokenizer = _load_combined()
+    if use_lora:
+        return _generate(model, tokenizer, question, context)
+    # Configs A and B: temporarily disable the LoRA adapter so we get base behaviour.
+    with model.disable_adapter():
+        return _generate(model, tokenizer, question, context)
 
 
 # ---------------------------------------------------------------------------
@@ -123,12 +201,23 @@ def _source_label(doc, idx: int) -> str:
 
 
 def _retrieve(question: str) -> tuple[str, str]:
-    """Return (context_for_prompt, markdown_for_display)."""
-    docs = retrieve_ranked_docs(_vs, question, top_k=RAG_TOP_K)
+    """Return (context_for_prompt, markdown_for_display).
+
+    Uses the Phase-9 query rewrite (colloquial -> legal style) for retrieval
+    when available in the cache. Generation still sees the original question.
+    """
+    rewritten = _REWRITE_CACHE.get(question)
+    if rewritten is None:
+        rewritten = _live_rewrite(question)
+    if rewritten != question:
+        print(f"  [rewrite] {question!r} -> {rewritten!r}")
+    docs = retrieve_ranked_docs(_vs, rewritten, top_k=RAG_TOP_K)
     if not docs:
         return "", "_Không tìm thấy đoạn luật phù hợp._"
     context_parts = []
     display_parts = []
+    if rewritten != question:
+        display_parts.append(f"_Truy vấn pháp lý đã dùng_: **{rewritten}**")
     for idx, doc in enumerate(docs, start=1):
         md = doc.metadata or {}
         label = _source_label(doc, idx)
@@ -188,27 +277,26 @@ def answer_all(question: str):
     context, rag_md = _retrieve(question)
 
     # Initial display: all four pending
-    yield WAITING, WAITING, WAITING, WAITING, rag_md, LOADING_BASE
+    yield WAITING, WAITING, WAITING, WAITING, rag_md, "⏳ Đang tải model (lần đầu ~30s)..."
 
-    # Step 2: load base model -> A, B
-    base_model, base_tok = _load_model(use_lora=False)
+    # Step 2: load once (LoRA-attached); subsequent runs reuse it.
+    _load_combined()
 
+    # A: adapter disabled -> base behaviour, no RAG
     yield GENERATING, WAITING, WAITING, WAITING, rag_md, "🤖 A (base, no RAG)..."
-    a_ans = _generate(base_model, base_tok, question, None)
+    a_ans = _generate_for(use_lora=False, question=question, context=None)
 
+    # B: adapter disabled -> base behaviour, with RAG
     yield a_ans, GENERATING, WAITING, WAITING, rag_md, "🤖 B (base + RAG)..."
-    b_ans = _generate(base_model, base_tok, question, context)
+    b_ans = _generate_for(use_lora=False, question=question, context=context)
 
-    yield a_ans, b_ans, WAITING, WAITING, rag_md, LOADING_LORA
-
-    # Step 3: swap to LoRA -> C, D
-    lora_model, lora_tok = _load_model(use_lora=True)
-
+    # C: adapter on -> LoRA, no RAG
     yield a_ans, b_ans, GENERATING, WAITING, rag_md, "🤖 C (LoRA, no RAG)..."
-    c_ans = _generate(lora_model, lora_tok, question, None)
+    c_ans = _generate_for(use_lora=True, question=question, context=None)
 
+    # D: adapter on -> LoRA, with RAG
     yield a_ans, b_ans, c_ans, GENERATING, rag_md, "🤖 D (LoRA + RAG)..."
-    d_ans = _generate(lora_model, lora_tok, question, context)
+    d_ans = _generate_for(use_lora=True, question=question, context=context)
 
     elapsed = time.time() - t_start
     yield a_ans, b_ans, c_ans, d_ans, rag_md, f"✅ Hoàn tất ({elapsed:.0f}s)"
@@ -223,11 +311,11 @@ def answer_d_only(question: str):
     t_start = time.time()
     context, rag_md = _retrieve(question)
 
-    yield "—", "—", "—", WAITING, rag_md, LOADING_LORA
-    lora_model, lora_tok = _load_model(use_lora=True)
+    yield "—", "—", "—", WAITING, rag_md, "⏳ Đang tải model (lần đầu ~30s)..."
+    _load_combined()
 
     yield "—", "—", "—", GENERATING, rag_md, "🤖 D (LoRA + RAG)..."
-    d_ans = _generate(lora_model, lora_tok, question, context)
+    d_ans = _generate_for(use_lora=True, question=question, context=context)
 
     elapsed = time.time() - t_start
     yield "—", "—", "—", d_ans, rag_md, f"✅ D hoàn tất ({elapsed:.0f}s)"
