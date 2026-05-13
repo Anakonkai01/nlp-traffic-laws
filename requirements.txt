@@ -1,0 +1,35 @@
+# Core ML / fine-tuning
+torch
+transformers>=4.45.0
+datasets
+accelerate
+peft
+trl
+bitsandbytes
+unsloth
+
+# Retrieval / RAG
+sentence-transformers>=3.0.0
+faiss-cpu
+langchain
+langchain-community
+langchain-huggingface
+langchain-text-splitters
+pyvi
+rank-bm25>=0.2.2
+numpy
+tqdm
+
+# Evaluation
+rouge-score
+sacrebleu
+bert-score
+nltk
+scikit-learn
+
+# App / utilities
+gradio
+pandas
+python-dotenv
+requests
+pymupdf

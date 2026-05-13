@@ -22,7 +22,7 @@ Không dùng corpus VLSP, không fallback sang PDF, không tự crawl dữ liệ
 - Manual MC eval: `nlp/data/eval_mc_manual.jsonl`
 - Vector DB: `nlp/vector_db_traffic/`
 - KB metadata guardrail: `nlp/vector_db_traffic/build_meta.json`
-- LoRA adapter: `nlp/models/qwen3.5-9b-lora-traffic/`
+- LoRA adapter: `nlp/models/qwen3.5-9b-lora-traffic-v2/`
 - Reports: `nlp/reports/traffic/`
 
 `load_vectorstore()` sẽ từ chối KB thiếu `build_meta.json` hoặc không có `source_policy=local_text_only`, để tránh demo load nhầm artifact cũ.
@@ -58,7 +58,7 @@ python src/generate_qa.py --phases penalties --phase-size 50 --max-workers 1 --m
 
 ### Production Notes
 
-- Demo mặc định ưu tiên Config D: fine-tuned model + local-text-only RAG.
-- Prompt yêu cầu chỉ trả lời dựa trên context truy xuất và từ chối khi thiếu căn cứ.
+- Demo mặc định ưu tiên Config D: fine-tuned model + hybrid local-text-only RAG.
+- Config D dùng context truy xuất khi hữu ích; nếu RAG tạo từ chối sai cho câu hỏi giao thông hợp lệ thì fallback sang nhánh fine-tuned no-context.
 - RAG context có metadata nguồn: `doc_id`, tiêu đề, file text, điều khoản nếu tách được.
 - Eval báo thêm `forbidden_legacy_rate` để bắt câu trả lời viện dẫn nguồn cũ như Luật Giao thông đường bộ 2008, NĐ 100/2019, NĐ 46/2016 hoặc dự thảo.

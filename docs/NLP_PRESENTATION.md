@@ -14,8 +14,8 @@ size: 16:9
 **Repo:** [`github.com/Anakonkai01/nlp-traffic-laws`](https://github.com/Anakonkai01/nlp-traffic-laws)
 
 <!--
-Lời người thuyết trình (VN):
-Xin chào thầy cô và các bạn. Hôm nay tôi trình bày đề tài 1 môn NLP: xây dựng hệ thống Hỏi đáp Luật Giao thông đường bộ Việt Nam sử dụng kiến trúc Retrieval-Augmented Generation kết hợp LoRA fine-tune trên Qwen3.5-9B. Bài trình bày sẽ đi từ bài toán, dữ liệu, kiến trúc, đào sâu vào hệ thống RAG, đến kết quả và demo.
+Loi nguoi trinh bay (VN):
+Xin chao thay co va cac ban. Hom nay toi trinh bay de tai 1 mon NLP: xay dung he thong Hoi dap Luat Giao thong duong bo Viet Nam su dung kien truc Retrieval-Augmented Generation ket hop LoRA fine-tune tren Qwen3.5-9B. Bai trinh bay se di tu bai toan, du lieu, kien truc, dao sau vao he thong RAG, den ket qua va demo.
 -->
 
 ---
@@ -25,64 +25,55 @@ Xin chào thầy cô và các bạn. Hôm nay tôi trình bày đề tài 1 môn
 **What:** Build a Vietnamese QA system that answers traffic-law questions using RAG + LoRA.
 
 **Constraints** (from the course):
-- LLM 1B–7B params, LoRA/QLoRA, runnable on 16 GB VRAM.
-- Full RAG: chunking → embedding → vector store → retriever → prompt.
+- LLM 1B-7B params, LoRA/QLoRA, runnable on 16 GB VRAM.
+- Full RAG: chunking, embedding, vector store, retriever, prompt.
 - 4 configurations: A (base, no RAG), B (base + RAG), C (LoRA, no RAG), D (LoRA + RAG).
-- Manual test set ≥ 50 questions. Demo GUI.
+- Manual test set >= 50 questions. Demo GUI.
 
-**Domain:** 12 Vietnamese road-traffic law documents (2024–2025), **2.17 MB**, `local_text_only` policy.
-
-<!--
-Lời người thuyết trình:
-Đề bài yêu cầu xây dựng pipeline RAG đầy đủ với 4 cấu hình A/B/C/D, fine-tune LoRA trên model 1-7B tham số chạy được trên Colab Free, và có demo GUI. Tôi chọn domain luật giao thông đường bộ Việt Nam với 12 văn bản chính đang có hiệu lực 2024-2025, tổng 2.17 MB văn bản thuần chữ, chính sách local_text_only — không dùng PDF, không crawl.
--->
+**Domain:** 12 Vietnamese road-traffic law documents (2024-2025), **local_text_only** policy.
 
 ---
 
-# Data — Source Corpus
+# Data - Source Corpus
 
-| # | Document | Size | Role |
-|---|---|---|---|
-| 1 | NĐ 168/2024 (xử phạt VPHC) ★ | 340 KB | central — 73% of eval |
-| 2 | NĐ 165/2024 (quy định chi tiết) | 376 KB | |
-| 3 | NĐ 158/2024 (vận tải đường bộ) | 291 KB | |
-| 4 | Luật 36/2024 (trật tự ATGT) | 218 KB | |
-| 5 | Luật 35/2024 (Luật Đường bộ) | 199 KB | |
-| 6–12 | 7 phụ lục (TT, QCVN, NĐ) | 886 KB | |
+| # | Document | Est. tokens | Articles | Clauses | Points | Role |
+|---|---|---|---|---|---|---|
+| 1 | NĐ 168/2024 (xử phạt VPHC) | 113K | 55 | 21 | 910 | Central - 73% of eval |
+| 2 | NĐ 165/2024 (quy định chi tiết) | 125K | 70 | 17 | 496 | |
+| 3 | NĐ 158/2024 (vận tải đường bộ) | 97K | 78 | 15 | 484 | |
+| 4 | Luật 36/2024 (trật tự ATGT) | 73K | 89 | 28 | 443 | |
+| 5 | Luật 35/2024 (Luật Đường bộ) | 66K | 86 | 14 | 382 | |
+| 6-12 | 7 phụ lục (TT, QCVN, NĐ) | 283K | 243 | 91 | 843 | |
 
-![w:750](figures/report_v2/fig6_corpus.png)
-
-<!--
-Lời người thuyết trình:
-Corpus gồm 12 văn bản text thuần chữ convert từ PDF công báo. NĐ 168/2024 là văn bản trung tâm — quy định xử phạt giao thông — chiếm 340 KB và xuất hiện trong 73% câu hỏi eval.
--->
+```mermaid
+xychart-beta
+    title "Estimated tokens per document (thousands)"
+    x-axis ["ND168", "ND165", "ND158", "L36", "L35", "Others"]
+    y-axis "Tokens (K)" 0 --> 160
+    bar [113, 125, 97, 73, 66, 283]
+```
 
 ---
 
-# Data — QA Generation Pipeline
+# Data - QA Generation Pipeline
 
-| step | tool | output |
+| Step | Tool | Output |
 |---|---|---|
-| Generate | `generate_qa.py` (Qwen3.5, Ollama) | 2,885 raw QA pairs |
+| Generate | `generate_qa.py` (Gemini 2.0 Flash) | 2,885 raw QA pairs |
 | Filter | `filter_qa.py` (dedup, length, quality) | 2,202 filtered |
 | Split | `make_splits.py` (seed=42, 80/10/10) | train 1,762 / dev 220 / test 220 |
 
 **Each QA row:** `{question, answer, context, article, doc_id, source_policy, corpus}`
 
-**Corpus types:** `local_text` (normal), `hard_context` (wrong-clause distractor), `negative` (no-context dropout).
-
-<!--
-Lời người thuyết trình:
-QA pairs được sinh tự động bằng Qwen3.5 bản gốc chạy trên Ollama local, sau đó lọc trùng lặp, lọc độ dài, và chia train/dev/test theo seed cố định. Mỗi sample có context là đoạn luật gốc, corpus type có 3 loại: local_text là context đúng, hard_context là context sai clause để dạy model không tin context mù quáng, và negative để dropout context hoàn toàn.
--->
+**Corpus types:** `local_text` (correct doc), `hard_context` (wrong clause), `negative` (teaches refusal).
 
 ---
 
-# Data — Manual Evaluation Set
+# Data - Manual Evaluation Set
 
-**`eval_manual_labeled_v5.jsonl`** — 145 hand-written questions
+**`eval_manual_labeled_v5.jsonl`** - 145 hand-written questions
 
-| label | count | % |
+| Label | Count | % |
 |---|---|---|
 | Gold article numbers | 129 | 89% |
 | Gold clause numbers | 126 | 87% |
@@ -91,182 +82,174 @@ QA pairs được sinh tự động bằng Qwen3.5 bản gốc chạy trên Olla
 | Gold vehicle mentions | 97 | 67% |
 
 **Categories:** 105 general, 15 penalty, 15 procedure, 5 definition, 5 unsupported.
-**Mean answer length:** 131 chars (median 114).
-
-<!--
-Lời người thuyết trình:
-Bộ test thủ công có 145 câu được label tay đầy đủ Điều, khoản, điểm, và mức phạt. Chúng tôi không chỉ đo ROUGE/BLEU mà còn đo recall ở cấp điều khoản và mức phạt, để biết chính xác retrieval có đưa đúng clause không.
--->
 
 ---
 
 # Data Pipeline Overview
 
-![w:1050](figures/report_v2/fig7_data_pipeline.png)
-
-<!--
-Lời người thuyết trình:
-Tổng quan toàn bộ data pipeline — từ 12 file text luật, qua chunking, xây KB, sinh QA, lọc, split, fine-tune, và đánh giá 4 config. Đây là flow end-to-end reproducible.
--->
+```mermaid
+flowchart LR
+    A["12 legal .txt files"] --> B["corpus.py: load"]
+    B --> C["chunking.py: article_clause_chunks"]
+    C --> D["build_kb.py: FAISS + BM25"]
+    C --> E["generate_qa.py: Gemini 2.0 Flash (OpenRouter)"]
+    E --> F["2,885 raw QA"]
+    F --> G["filter_qa.py: dedup + length"]
+    G --> H["2,202 filtered"]
+    H --> I["make_splits.py: 80/10/10"]
+    I --> J["train 1,762"]
+    I --> K["dev 220"]
+    I --> L["test 220"]
+    D -.-> M["RAG (B/D)"]
+    J --> N["finetune.py: LoRA adapter"]
+    N -.-> O["LoRA (C/D)"]
+```
 
 ---
 
 # Overall Architecture
 
-```
-┌──────────────────────────────────────────────┐
-│                Retrieval                      │
-│  KB (FAISS 5,931 × 1024 + BM25) + CE rerank  │
-│  4 rank lists → RRF fusion → top-4 context    │
-└──────────────────┬───────────────────────────┘
-                   │
-                   ▼
-┌──────────────────────────────────────────────┐
-│           Context Formatting                  │
-│  evidence_card_from_text                      │
-│  (structure parse: Căn cứ / Mức phạt / Hành vi)│
-└──────────────────┬───────────────────────────┘
-                   │
-                   ▼
-┌──────────────────────────────────────────────┐
-│              Generation                       │
-│  Qwen3.5-9B + LoRA adapter (r=32)            │
-│  max 320 tokens, greedy decode                │
-└──────────────────────────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph RET["Retrieval Layer"]
+        R1["FAISS dense top-50, BM25 sparse, doc alias, article mention"]
+        R1 --> RRF["RRF fusion k=60"]
+        RRF --> CE["CE rerank top-12"]
+        CE --> PACK["Article-neighbour packing, max 4 chunks"]
+    end
+    subgraph FMT["Context Formatting"]
+        F1["evidence_card_from_text (structure parse)"]
+    end
+    subgraph GEN["Generation"]
+        G1["Qwen3.5-9B + LoRA, greedy decode, max 320 tokens"]
+    end
+    RET --> FMT --> GEN --> A["Answer"]
 ```
 
-| Config | A | B | C | **D ★** |
+| Config | A | B | C | **D** |
 |---|---|---|---|---|
-| Retrieval | ✗ | ✓ | ✗ | **✓** |
-| LoRA | ✗ | ✗ | ✓ | **✓** |
-
-<!--
-Lời người thuyết trình:
-Kiến trúc tổng quát 3 tầng: Retrieval → Format → Generate. Ba tầng này có thể đo riêng biệt. 4 cấu hình là tổ hợp 2 biến: retrieval on/off và LoRA on/off.
--->
+| Retrieval | no | yes | no | yes |
+| LoRA | no | no | yes | yes |
 
 ---
 
-# Deep Dive: RAG Pipeline (Phase 9)
+# Deep Dive: RAG Pipeline (Default)
 
-![w:1100](figures/report_v2/fig9_rag_deep.png)
-
-<!--
-Lời người thuyết trình:
-Đây là slide quan trọng nhất — pipeline RAG đầy đủ với 7 stage. Mỗi stage đều được ablation riêng trong quá trình làm.
--->
-
----
-
-# RAG Stage 1–2: Query Processing
-
-### Stage 1 — Lexical expansion (always on)
-```python
-"gplx" → "giấy phép lái xe"
-"xe máy" → "xe mô tô xe gắn máy"
-"ô tô" → "xe hơi xe ô tô"
+```mermaid
+flowchart LR
+    Q["Question"] --> E["1. Query expansion"]
+    E --> H["2. Hybrid: FAISS + BM25"]
+    H --> F["3. RRF fusion k=60"]
+    F --> C["4. CE rerank top-12"]
+    C --> P["5. Context packing"]
+    P --> S["6. Evidence card"]
+    S --> G["Generation: LoRA Qwen3.5-9B"]
 ```
-- Used for ALL downstream stages: dense, sparse, alias, article, **and CE**.
 
-### Stage 2 — Query rewriting (Phase 9, cache-first)
+*Optional: query rewriting (Gemini) can be inserted before step 2 for demo/live eval.*
+
+---
+
+# RAG Stage 1-2: Query Processing
+
+### Stage 1 - Lexical expansion (always on)
+
+`gplx -> giay phep lai xe`, `xe may -> xe mo to xe gan may`, `o to -> xe hoi xe o to`
+
+- Used for ALL downstream stages: dense, sparse, alias, article, and CE.
+
+### (Optional) Interjection - Query rewriting (cache-first, demo only)
 
 | User asks | Rewritten for retrieval |
 |---|---|
-| "Lái ô tô vượt đèn đỏ bị phạt bao nhiêu?" | "...điều khiển xe ô tô **không chấp hành hiệu lệnh của đèn tín hiệu giao thông**..." |
-| "Say rượu khi lái xe máy bị phạt?" | "...điều khiển xe mô tô, xe gắn máy **trong khi trong máu hoặc hơi thở có nồng độ cồn**..." |
+| "Lai o to vuot den do bi phat bao nhieu?" | "...khong chap hanh hieu lenh cua den tin hieu giao thong..." |
+| "Say ruou khi lai xe may bi phat?" | "...dieu khien xe mo to co nong do con trong mau..." |
 
 - Gemini 2.0 Flash (~$0.005 / 145 queries). Retrieval sees rewrite; generation sees original.
 
-<!--
-Lời người thuyết trình:
-Stage 1 là lexical normalization thuần — không map phrase sang article. Expanded query dùng cho CẢ hybrid retrieval VÀ cross-encoder. Stage 2 là external rewriter dùng Gemini — chi phí cực rẻ. Chỉ retrieval thấy rewrite; generation vẫn dùng original question để LoRA nhận được phrasing đã train.
--->
-
 ---
 
-# RAG Stage 3: Hybrid Retrieval (4 Lists + RRF)
+# RAG Stage 2: Hybrid Retrieval (4 Lists + RRF)
 
 | Source | Method | Top-K | Weight |
 |---|---|---|---|
 | **Dense** | FAISS cosine, `bge-m3-traffic-ft` (1024-dim) | 50 | 0.60 |
 | **BM25** | `rank_bm25` + `pyvi` VN tokenizer | 50 | 0.40 |
-| **Doc alias** | surface match: "nghị định 168", "168/2024" | all | 0.03 |
-| **Article** | regex `Điều \d+` → `article_number` metadata | all | 0.07 |
+| **Doc alias** | surface match: "nghi dinh 168", "168/2024" | all | 0.03 |
+| **Article** | regex `Đieu d+` -> `article_number` metadata | all | 0.07 |
 
 ### Reciprocal Rank Fusion
 
-$$score_c = \sum_{s} \frac{w_s}{k + rank_c^{(s)}}, \quad k=60$$
+$$score_c = sum_{s} w_s / (k + rank_c(s)), k=60$$
 
-→ **fused top-40** enter the Cross-Encoder.
-
-<!--
-Lời người thuyết trình:
-4 rank-list chạy song song, không phụ thuộc lẫn nhau. RRF fusion có trọng số — cho phép chunk top cả 2 trong 4 list vẫn lên top tổng dù kém ở list còn lại.
--->
+Fused top-40 enter the Cross-Encoder.
 
 ---
 
-# RAG Stage 4–6: Rerank, Pack, Format
+# RAG Stage 3-5: Rerank, Pack, Format
 
-### Stage 4 — Cross-Encoder rerank
+### Stage 3 - Cross-Encoder rerank
 - `BAAI/bge-reranker-v2-m3` (568M, pretrained).
-- Query + passage **joint input** (cross-attention) → score.
-- Top-40 → **top-12**. Critical for clause discrimination.
+- Query + passage joint input (cross-attention) -> score.
+- Top-40 -> top-12. Critical for clause discrimination.
 
-### Stage 5 — Article-neighbour packing
-- Add sibling chunks from the same `(doc_id, article_number)`.
-- Total: ≤ 4 chunks per answer.
+### Stage 4 - Article-neighbour packing
+- Add sibling chunks from same (doc_id, article_number). Max 4 chunks.
 
-### Stage 6 — Evidence card (structure parse from text only)
+### Stage 5 - Evidence card (structure parse from text only)
+
 ```
 EVIDENCE_CARD
-Căn cứ: nd_168_2024_nd_cp Điều 6 khoản 9
-Mức phạt: phạt tiền từ 18.000.000 đồng đến 20.000.000 đồng
+Can cu: nd_168_2024_nd_cp Đieu 6 khoan 9
+Muc phat: phat tien tu 18.000.000 dong den 20.000.000 dong
 ```
-
-<!--
-Lời người thuyết trình:
-CE rerank nhận query + passage JOINTLY — cross-attention giữa từng từ của query với từng từ của passage. Cực kỳ quan trọng trong legal domain vì "ô tô" vs "mô tô" khác một từ nhưng mức phạt khác hẳn. Article packing bổ sung sibling chunk cùng article. Evidence card parse từ text, không map từ câu hỏi.
--->
 
 ---
 
-# Chunking — The Single Biggest Lever
-
-![w:700](figures/report_v2/fig8_chunking_hierarchy.png)
+# Chunking - The Single Biggest Lever
 
 | Policy | Chunks | clause_recall | context_recall@5 | D ROUGE-L |
 |---|---|---|---|---|
-| `article_v2` | 1,597 | **0.00** | 0.525 | 0.327 |
+| `article_v2` | 1,597 | 0.00 | 0.525 | 0.327 |
 | `article_clause_v3` | 2,853 | **0.81** | **0.975** | **0.515** |
 | `article_clause_point_v4` | 5,931 | 0.81 | 0.975 | 0.510 |
 
-**Clause-level chunking = +57% ROUGE-L, clause_recall 0 → 0.81.**
+**Clause-level chunking = +57% ROUGE-L, clause_recall 0 to 0.81.**
 
-<!--
-Lời người thuyết trình:
-Phát hiện quan trọng nhất. Article_v2: 1 article = 1 chunk → embedding bị dominate bởi title → clause recall = 0.00. Clause_v3: mỗi clause có vector riêng → recall 0.81, context recall 0.975. Đây là bài học: trong legal RAG, granularity của chunking quyết định mọi thứ.
--->
+```mermaid
+flowchart TD
+    subgraph Legal["Document hierarchy"]
+        D["ND 168/2024"] --> A2["Đieu 6"]
+        A2 --> C1["Khoan 5: Phat tien 4-6M"]
+        A2 --> C2["Khoan 9: ..."]
+        C1 --> P1["điem a"]
+        C1 --> P2["điem b"]
+    end
+    A2 -.-> AV["article_v2: 1 chunk/article"]
+    A2 -.-> ACV["article_clause_v3: 1 chunk/clause"]
+    C1 -.-> ACPV["article_clause_point_v4: +points"]
+```
 
 ---
 
 # Source Recall Per Document
 
-![w:900](figures/report_v2/fig10_source_recall.png)
+```mermaid
+xychart-beta
+    title "Source hit rate by document (top-5)"
+    x-axis ["ND168", "ND165", "L35", "L36", "TT65", "TT05", "ND39", "ND158", "TT79"]
+    y-axis "Hit rate" 0 --> 1
+    bar [0.962, 0.833, 0.688, 0.667, 0.571, 0.455, 0.333, 0.125, 0.000]
+```
 
-- NĐ 168/2024: **0.962** (gold standard).
-- Retrieval bottleneck: NĐ 168 has near-perfect hit rate.
-
-<!--
-Lời người thuyết trình:
-NĐ 168 đạt gần 1.0 source hit. Các thông tư nhỏ hơn có recall thấp hơn vì eval set ít câu tham chiếu. Đây không phải retrieval lỗi mà do phân phối eval.
--->
+- ND 168/2024: 0.962 (gold standard).
+- Recall bottleneck: ND 168 has near-perfect hit rate.
 
 ---
 
 # Fine-Tuning Setup
 
-| parameter | value |
+| Parameter | Value |
 |---|---|
 | Base model | `Qwen/Qwen3.5-9B` (4-bit NF4, unsloth) |
 | LoRA rank / alpha | 32 / 64 |
@@ -276,33 +259,27 @@ NĐ 168 đạt gần 1.0 source hit. Các thông tư nhỏ hơn có recall thấ
 | **Context keep prob** | **0.9** |
 | Train / dev | 1,762 / 220 rows |
 
-**Key:** CONTEXT_KEEP_PROB=0.9 → C and D share the same adapter → no distribution shift.
-
-<!--
-Lời người thuyết trình:
-CONTEXT_KEEP_PROB=0.9 là then chốt — model thấy context 90% thời gian khi train, nên cả C và D dùng chung một adapter. Đây là lý do RAG-SFT thất bại ở Phase 8.
--->
+**Key:** CONTEXT_KEEP_PROB=0.9 -> C and D share the same adapter, no distribution shift.
 
 ---
 
-# Results — All Configs
+# Results - All Configs
 
-![w:1100](figures/report_v2/fig1_metric_comparison.png)
+```mermaid
+xychart-beta
+    title "Metric comparison across 4 configs"
+    x-axis ["ROUGE-L", "BLEU-4", "BERTScore", "Judge"]
+    y-axis "Score" 0 --> 1
+    bar [0.146, 0.019, 0.548, 0.349]
+    bar [0.348, 0.079, 0.607, 0.563]
+    bar [0.389, 0.146, 0.638, 0.392]
+    bar [0.511, 0.364, 0.690, 0.739]
+```
 
-| Config | R-L | BLEU | METEOR | BERTSc | **Judge** |
-|---|---|---|---|---|---|
-| A | 0.146 | 0.019 | 0.257 | 0.548 | 0.349 |
-| B | 0.348 | 0.079 | 0.420 | 0.607 | 0.563 |
-| C | 0.389 | 0.146 | 0.410 | 0.638 | 0.392 |
-| **D ★** | **0.511** | **0.364** | **0.471** | **0.690** | **0.739** |
+*Bars: A (base) | B (base+RAG) | C (LoRA) | D (LoRA+RAG)*
 
 - A < B < C < D on nearly every metric.
-- **Judge insight:** C ≤ A on factual accuracy — LoRA alone is dangerous.
-
-<!--
-Lời người thuyết trình:
-D thắng toàn bộ metric. Insight quan trọng: C < B về Judge vì C tự bịa số tiền dù format đẹp. RAG mới là thành phần quan trọng nhất cho factual QA.
--->
+- Judge insight: C <= A on factual accuracy - LoRA alone is dangerous.
 
 ---
 
@@ -312,50 +289,30 @@ D thắng toàn bộ metric. Insight quan trọng: C < B về Judge vì C tự b
 |---|---|---|
 | A | 1.75 | mostly wrong or hallucinated |
 | B | 2.81 | right facts, rough style |
-| C | 1.96 | looks legal — wrong numbers |
+| C | 1.96 | looks legal - wrong numbers |
 | **D** | **3.70** | right facts + clean style |
 
 Judge confirms: **LoRA without RAG looks authoritative but is factually unsafe.**
 
-<!--
-Lời người thuyết trình:
-Điểm judge xác nhận: C 1.96/5 — chỉ hơn A chút, dù surface metrics cao hơn B. RAG mới là ingredient quyết định factual correctness.
--->
-
 ---
 
-# Phase Evolution
+# Demo - 4 Answers Side by Side
 
-![w:1000](figures/report_v2/fig2_phase_progression.png)
+```mermaid
+flowchart LR
+    Q["User question"] --> S["Compare all: A|B / C|D"]
+    Q --> F["Fast D only"]
+    S --> A_out["A: base, no RAG"]
+    S --> B_out["B: base + RAG"]
+    S --> C_out["C: LoRA, no RAG"]
+    S --> D_out["D: LoRA + RAG"]
+    F --> D_out
+```
 
-| phase | change | D ROUGE-L |
-|---|---|---|
-| 0 | rule-base (starting) | 0.327 |
-| 1–6 | remove hacks + CE + ft embedder | 0.458 |
-| **7** | **clause-level chunking** | **0.515** (+57%) |
-| 8 | RAG-SFT LoRA (E) | fail (0.40) |
-| 9 | point chunks + query rewriter | 0.511 · **Judge 0.74** |
-
-<!--
-Lời người thuyết trình:
-Tiến trình qua 6 mốc. Phase 7 là breakthrough lớn nhất. Phase 8 là negative result có giá trị khoa học. Phase 9 đẩy Judge lên 0.74.
--->
-
----
-
-# Demo — 4 Answers Side by Side
-
-![w:1000](figures/report_v2/fig5_demo_samples.png)
-
-- **One question → 4 answers (A|B / C|D)** for direct comparison.
+- One question -> 4 answers (A|B / C|D) for direct comparison.
 - "Fast D" button: LoRA + RAG only, ~30s cold start.
-- Adapter toggle (no VRAM swap) — safe on 16 GB.
+- Adapter toggle (no VRAM swap) - safe on 16 GB.
 - Live rewrite status + RAG context accordion.
-
-<!--
-Lời người thuyết trình:
-Demo so sánh trực quan 4 cấu hình. Adapter toggle thay vì reload model để tránh OOM. Có nút Fast D. Mỗi câu trả lời có RAG citation. Tôi có thể bật demo live sau trình bày.
--->
 
 ---
 
@@ -380,16 +337,11 @@ python scripts/build_rewrite_cache.py
 RAG_QUERY_REWRITE=1 python src/evaluate.py --configs D --samples 145
 
 # 5. Demo
-python src/app.py   # → http://localhost:7860
+python src/app.py   # -> http://localhost:7860
 ```
 
-**HF:** `Anakonkai/qwen3.5-9b-lora-traffic-v2` · `bge-m3-traffic-ft` · `nlp-traffic-qa`
+**HF:** `Anakonkai/qwen3.5-9b-lora-traffic-v2`
 **GitHub:** `Anakonkai01/nlp-traffic-laws`
-
-<!--
-Lời người thuyết trình:
-5 lệnh reproduce toàn bộ pipeline. Model và dataset public trên HF + GitHub.
--->
 
 ---
 
@@ -397,12 +349,12 @@ Lời người thuyết trình:
 
 1. **Clause-level chunking** = +57% ROUGE-L. Granularity matters most in legal RAG.
 2. **RAG > Fine-tune alone for factual QA.** C has high surface scores but fails on facts.
-3. **Query rewriting** closes the colloquial→legal gap: Judge +0.05 for ~$0.005.
-4. **No rule-base anywhere.** No phrase→article lookup, no regex severity, no LLM bypass. Pure embedding, BM25, CE, chunking, prompt.
+3. **Query rewriting** closes the colloquial-legal gap: Judge +0.05 for ~$0.005.
+4. **No rule-base anywhere.** Pure embedding, BM25, CE, chunking, prompt.
 
 <!--
-Lời người thuyết trình:
-4 kết luận. Clause chunking là cải thiện lớn nhất. RAG quan trọng hơn fine-tune cho factual QA. Rewriter rẻ và hiệu quả. Toàn bộ pipeline là khoa học, không rule-base. Xin cảm ơn. Em sẵn sàng trả lời câu hỏi.
+Loi nguoi trinh bay:
+4 ket luan. Clause chunking la cai thien lon nhat. RAG quan trong hon fine-tune cho factual QA. Toan bo pipeline la khoa hoc, khong rule-base. Xin cam on. Em san sang tra loi cau hoi.
 -->
 
 ---
@@ -414,6 +366,5 @@ Lời người thuyết trình:
 **HF** [`Anakonkai`](https://huggingface.co/Anakonkai)
 
 <!--
-Lời người thuyết trình:
-Xin cảm ơn. Code, model, dataset đều public. Em sẵn sàng demo live.
+Xin cam on. Code, model, dataset deu public. Em san sang demo live.
 -->
