@@ -493,13 +493,12 @@ When the model gives $n_i$ a high score (confuses khoản 1 with khoản 9), the
 
 The final dataset has three columns: `anchor` (question), `positive` (correct chunk), `negative` (hard negative or empty). Each training step processes a batch of 4 rows:
 
-```
-Batch of 4:
-  (Q0, P0, N0)  "Vượt đèn đỏ?"     → khoản 9   hard_neg: khoản 1
-  (Q1, P1,  -)  "Đăng ký xe?"      → Điều 10   no hard neg
-  (Q2, P2,  -)  "Uống rượu lái?"   → khoản 8   no hard neg
-  (Q3, P3, N3)  "Không có gương?"  → Điều 14k1 hard_neg: Điều 14k3
-```
+| # | Anchor (question) | Positive | Hard negative |
+|---|---|---|---|
+| 0 | "Vượt đèn đỏ bị phạt?" | khoản 9 — 18–20M | khoản 1 — 400K |
+| 1 | "Đăng ký xe cần giấy tờ?" | Điều 10 — hồ sơ đăng ký | — |
+| 2 | "Uống rượu lái xe bị sao?" | khoản 8 — nồng độ cồn | — |
+| 3 | "Không có gương bị phạt?" | Điều 14k1 — 400K | Điều 14k3 — 800K |
 
 Model encodes all texts → computes a **4×4 cosine similarity matrix** between anchors and positives. Each row is a 4-class classification problem: pick the diagonal. Hard negatives for rows 0 and 3 are appended to those rows' denominators.
 
