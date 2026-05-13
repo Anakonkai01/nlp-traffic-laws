@@ -513,13 +513,13 @@ Both the positive and the hard negative share the same article title. The only d
 
 For a batch of $B$ pairs, the model embeds all anchors and all positives in one forward pass. For each anchor $q_i$, every other positive in the batch acts as a free in-batch negative. The loss is InfoNCE-style:
 
-$$L = -\log \frac{\exp\!\left(\\text{sim}(q_i,\, p_i)/\tau\right)}{\displaystyle\sum_{j=1}^{B} \exp\!\left(\\text{sim}(q_i,\, p_j)/\tau\right)}$$
+$$L = -\log \frac{\exp\left(\text{sim}(q_i, p_i)/\tau\right)}{\displaystyle\sum_{j=1}^{B} \exp\left(\text{sim}(q_i, p_j)/\tau\right)}$$
 
-where $\tau$ is a learned temperature and $\\text{sim}$ is cosine similarity. Intuitively: the loss pushes $q_i$ closer to its paired $p_i$ and simultaneously further from all other $p_j$ in the batch. No manual labeling is needed — the pairing itself provides the supervision signal.
+where $\tau$ is a learned temperature and $\text{sim}$ is cosine similarity. Intuitively: the loss pushes $q_i$ closer to its paired $p_i$ and simultaneously further from all other $p_j$ in the batch. No manual labeling is needed — the pairing itself provides the supervision signal.
 
 For penalty pairs, the explicit hard negative is appended to the denominator alongside the in-batch negatives:
 
-$$\sum_{j=1}^{B} \exp(\cdot) \;\longrightarrow\; \sum_{j=1}^{B} \exp(\cdot) + \exp\!\left(\\text{sim}(q_i,\, n_i)/\tau\right)$$
+$$\sum_{j=1}^{B} \exp(\cdot) \;\longrightarrow\; \sum_{j=1}^{B} \exp(\cdot) + \exp\left(\text{sim}(q_i, n_i)/\tau\right)$$
 
 This increases the penalty specifically when the model confuses the correct clause with the same-article confusable one, forcing it to attend to fine amount differences.
 
