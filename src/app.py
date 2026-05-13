@@ -1,11 +1,20 @@
-"""
-Gradio demo: Vietnamese Traffic Law Q&A System
-4 configs: A (base, no RAG), B (base + RAG), C (fine-tuned, no RAG), D (fine-tuned + RAG)
+"""Gradio demo: Vietnamese Traffic Law Q&A System.
 
-Models are lazy-loaded and swapped on demand to avoid OOM with 16GB VRAM.
+One question -> four model answers (A/B/C/D) shown side by side for direct comparison.
+
+Configs:
+  A — Base Qwen3.5-9B, no RAG
+  B — Base Qwen3.5-9B + RAG
+  C — LoRA fine-tuned Qwen3.5-9B, no RAG
+  D — LoRA fine-tuned Qwen3.5-9B + RAG     ★ recommended
+
+Models are lazy-loaded; one model is in VRAM at a time. The compare flow loads
+the base model once for A & B, then swaps to LoRA for C & D. Initial run takes
+~2 minutes; subsequent runs that don't change model order are fast.
 
 Run:
   cd nlp && conda activate ai && python src/app.py
+  # then open http://localhost:7860
 """
 
 import os
@@ -13,6 +22,7 @@ os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 
 import re
 import gc
+import time
 import torch
 import gradio as gr
 
@@ -33,21 +43,18 @@ from retrieval import retrieve_ranked_docs
 # Constants
 # ---------------------------------------------------------------------------
 
-MAX_NEW_TOKENS = 300
+MAX_NEW_TOKENS = 320
 RAG_TOP_K      = 3
+WAITING        = "⏳ Đang chờ..."
+LOADING_BASE   = "⏳ Đang tải base model..."
+LOADING_LORA   = "⏳ Đang tải LoRA model..."
+GENERATING     = "⏳ Đang sinh đáp án..."
 
 _SYSTEM_NO_CONTEXT   = TRAFFIC_QA_SYSTEM_PROMPT_NO_CONTEXT
 _SYSTEM_WITH_CONTEXT = TRAFFIC_QA_SYSTEM_PROMPT_WITH_CONTEXT
 
-CONFIG_LABELS = {
-    "A": "A — Base model, No RAG",
-    "B": "B — Base model + RAG",
-    "C": "C — Fine-tuned, No RAG",
-    "D": "D — Fine-tuned + RAG  ✓ (recommended)",
-}
-
 # ---------------------------------------------------------------------------
-# Lazy model loader — keeps only ONE model in VRAM at a time
+# Lazy model loader — keeps only ONE model in VRAM at a time (16GB GPU)
 # ---------------------------------------------------------------------------
 
 _current_model     = None
@@ -62,9 +69,8 @@ def _load_model(use_lora: bool):
     if _current_type == model_type:
         return _current_model, _current_tokenizer
 
-    # Unload previous model to free VRAM
     if _current_model is not None:
-        print(f"Unloading {_current_type} model...")
+        print(f"  Unloading {_current_type} model...")
         del _current_model, _current_tokenizer
         _current_model = _current_tokenizer = None
         gc.collect()
@@ -72,7 +78,7 @@ def _load_model(use_lora: bool):
 
     path  = str(MODEL_DIR) if use_lora else MODEL_ID
     label = "fine-tuned (LoRA)" if use_lora else "base"
-    print(f"Loading {label} model...")
+    print(f"  Loading {label} model...")
     model, tokenizer = FastLanguageModel.from_pretrained(
         model_name=path,
         max_seq_length=2048,
@@ -89,12 +95,12 @@ def _load_model(use_lora: bool):
 
 
 # ---------------------------------------------------------------------------
-# RAG — loaded once at startup (embeddings only, ~1GB)
+# RAG vector store — load once at startup
 # ---------------------------------------------------------------------------
 
-print("Loading vector store (RAG)...")
-_vs        = load_vectorstore()
-print("Vector store ready. Starting Gradio...")
+print("Loading vector store (FAISS + BGE-M3)...")
+_vs = load_vectorstore()
+print("Vector store ready. Starting Gradio...\n")
 
 
 # ---------------------------------------------------------------------------
@@ -103,29 +109,35 @@ print("Vector store ready. Starting Gradio...")
 
 def _source_label(doc, idx: int) -> str:
     md = doc.metadata or {}
-    bits = [
-        f"Nguồn {idx}",
-        md.get("doc_id") or md.get("source") or "unknown",
-    ]
+    parts = [f"Nguồn {idx}", md.get("doc_id") or md.get("source") or "unknown"]
     article = md.get("article")
     if article:
-        bits.append(article)
-    return " | ".join(bits)
+        parts.append(article[:80])
+    clause = md.get("clause_number")
+    if clause:
+        parts.append(f"khoản {clause}")
+    point = md.get("point_letter")
+    if point:
+        parts.append(f"điểm {point}")
+    return " · ".join(parts)
 
 
-def _retrieve(question: str) -> tuple[str, list[tuple[str, str]]]:
+def _retrieve(question: str) -> tuple[str, str]:
+    """Return (context_for_prompt, markdown_for_display)."""
     docs = retrieve_ranked_docs(_vs, question, top_k=RAG_TOP_K)
+    if not docs:
+        return "", "_Không tìm thấy đoạn luật phù hợp._"
     context_parts = []
     display_parts = []
     for idx, doc in enumerate(docs, start=1):
         md = doc.metadata or {}
         label = _source_label(doc, idx)
         title = md.get("title") or ""
-        source_path = md.get("source_path") or ""
-        header = f"[{label}]\nTiêu đề: {title}\nFile: {source_path}"
-        context_parts.append(f"{header}\n\n{doc.page_content}")
-        display_parts.append((header, doc.page_content))
-    return "\n\n---\n\n".join(context_parts), display_parts
+        context_parts.append(f"[{label}]\n{doc.page_content}")
+        display_parts.append(
+            f"**{label}**\n\n*{title}*\n\n```\n{doc.page_content[:1200]}\n```"
+        )
+    return "\n\n---\n\n".join(context_parts), "\n\n---\n\n".join(display_parts)
 
 
 def _generate(model, tokenizer, question: str, context: str | None) -> str:
@@ -161,28 +173,64 @@ def _generate(model, tokenizer, question: str, context: str | None) -> str:
 
 
 # ---------------------------------------------------------------------------
-# Main handler
+# Compare-all handler (streaming)
 # ---------------------------------------------------------------------------
 
-def answer(question: str, config: str) -> tuple[str, str]:
-    if not question.strip():
-        return "Vui lòng nhập câu hỏi.", ""
+def answer_all(question: str):
+    """Yield (A, B, C, D, rag_md, status) progressively as each config finishes."""
+    if not question or not question.strip():
+        yield "", "", "", "", "", "❌ Vui lòng nhập câu hỏi."
+        return
 
-    use_rag  = config in ("B", "D")
-    use_lora = config in ("C", "D")
+    t_start = time.time()
 
-    model, tokenizer = _load_model(use_lora)
+    # Step 1: retrieve once (used by B and D)
+    context, rag_md = _retrieve(question)
 
-    context, chunks = _retrieve(question) if use_rag else ("", [])
-    response        = _generate(model, tokenizer, question, context if use_rag else None)
+    # Initial display: all four pending
+    yield WAITING, WAITING, WAITING, WAITING, rag_md, LOADING_BASE
 
-    rag_display = ""
-    if use_rag and chunks:
-        rag_display = "\n\n---\n\n".join(
-            f"**{header}**\n\n{content}" for header, content in chunks
-        )
+    # Step 2: load base model -> A, B
+    base_model, base_tok = _load_model(use_lora=False)
 
-    return response, rag_display
+    yield GENERATING, WAITING, WAITING, WAITING, rag_md, "🤖 A (base, no RAG)..."
+    a_ans = _generate(base_model, base_tok, question, None)
+
+    yield a_ans, GENERATING, WAITING, WAITING, rag_md, "🤖 B (base + RAG)..."
+    b_ans = _generate(base_model, base_tok, question, context)
+
+    yield a_ans, b_ans, WAITING, WAITING, rag_md, LOADING_LORA
+
+    # Step 3: swap to LoRA -> C, D
+    lora_model, lora_tok = _load_model(use_lora=True)
+
+    yield a_ans, b_ans, GENERATING, WAITING, rag_md, "🤖 C (LoRA, no RAG)..."
+    c_ans = _generate(lora_model, lora_tok, question, None)
+
+    yield a_ans, b_ans, c_ans, GENERATING, rag_md, "🤖 D (LoRA + RAG)..."
+    d_ans = _generate(lora_model, lora_tok, question, context)
+
+    elapsed = time.time() - t_start
+    yield a_ans, b_ans, c_ans, d_ans, rag_md, f"✅ Hoàn tất ({elapsed:.0f}s)"
+
+
+def answer_d_only(question: str):
+    """Fast path: only run config D (best). Yields the same 6 outputs."""
+    if not question or not question.strip():
+        yield "", "", "", "", "", "❌ Vui lòng nhập câu hỏi."
+        return
+
+    t_start = time.time()
+    context, rag_md = _retrieve(question)
+
+    yield "—", "—", "—", WAITING, rag_md, LOADING_LORA
+    lora_model, lora_tok = _load_model(use_lora=True)
+
+    yield "—", "—", "—", GENERATING, rag_md, "🤖 D (LoRA + RAG)..."
+    d_ans = _generate(lora_model, lora_tok, question, context)
+
+    elapsed = time.time() - t_start
+    yield "—", "—", "—", d_ans, rag_md, f"✅ D hoàn tất ({elapsed:.0f}s)"
 
 
 # ---------------------------------------------------------------------------
@@ -190,57 +238,50 @@ def answer(question: str, config: str) -> tuple[str, str]:
 # ---------------------------------------------------------------------------
 
 EXAMPLE_QUESTIONS = [
-    "Người điều khiển xe ô tô có nồng độ cồn vượt 80mg/100ml máu bị phạt bao nhiêu?",
-    "Hành vi lạng lách đánh võng trên đường bộ bị xử lý như thế nào?",
-    "Tốc độ tối đa của xe con trên đường cao tốc là bao nhiêu?",
-    "Điều kiện để được cấp giấy phép lái xe hạng B là gì?",
-    "Xe ưu tiên gồm những loại xe nào?",
     "Người đi xe máy không đội mũ bảo hiểm bị phạt bao nhiêu?",
-    "Điểm giấy phép lái xe hoạt động như thế nào?",
-    "Khi gặp đèn đỏ, người tham gia giao thông phải làm gì?",
+    "Lái ô tô vượt đèn đỏ bị xử phạt bao nhiêu tiền?",
+    "Lái xe máy có nồng độ cồn dưới 0.25 mg/lít khí thở bị phạt như thế nào?",
+    "Nghị định 168 có hiệu lực khi nào?",
+    "Giấy phép lái xe có bao nhiêu điểm và làm sao để phục hồi?",
+    "Tốc độ tối đa của xe ô tô trên đường cao tốc là bao nhiêu?",
+    "Đi xe đạp vượt đèn đỏ bị phạt bao nhiêu tiền?",
+    "Xe ưu tiên gồm những loại xe nào?",
 ]
 
-with gr.Blocks(title="Hỏi đáp Luật Giao thông VN", theme=gr.themes.Soft()) as demo:
+CONFIG_CARDS = {
+    "A": ("A · Base, No RAG",  "Qwen3.5-9B gốc trả lời trực tiếp, không tra cứu."),
+    "B": ("B · Base + RAG",     "Qwen3.5-9B gốc + truy xuất văn bản luật."),
+    "C": ("C · LoRA, No RAG",   "Qwen3.5-9B fine-tune trả lời trực tiếp."),
+    "D": ("D · LoRA + RAG ★",   "Qwen3.5-9B fine-tune + truy xuất văn bản — cấu hình tốt nhất."),
+}
+
+
+DEMO_CSS = """
+.answer-box textarea { font-size: 14px; }
+.config-d { border: 2px solid #4f46e5; border-radius: 8px; padding: 4px; }
+"""
+
+with gr.Blocks(title="Hỏi đáp Luật Giao thông VN") as demo:
     gr.Markdown(
         """
-        # 🚦 Hệ thống Hỏi đáp Luật Giao thông Đường bộ Việt Nam
-        Dựa trên các file text đã bật trong `docs/docs_giaothong/manifest.json`.
-        Fine-tuned: **Qwen3.5-9B** + **QLoRA** | RAG: **FAISS** + **BGE-M3** | Source policy: **local_text_only**
-
-        > ⚠️ Đổi giữa config A/B ↔ C/D sẽ cần **~30-60 giây** để swap model.
+        # 🚦 Hỏi đáp Luật Giao thông Đường bộ Việt Nam
+        Nhập câu hỏi → so sánh đồng thời câu trả lời của **4 cấu hình A/B/C/D**.
+        *Qwen3.5-9B · QLoRA · FAISS+BGE-M3 · BM25 · Cross-Encoder*
         """
     )
 
     with gr.Row():
-        with gr.Column(scale=1):
-            config_radio = gr.Radio(
-                choices=list(CONFIG_LABELS.keys()),
-                value="D",
-                label="Config",
-                info="A=Base/NoRAG | B=Base+RAG | C=FineTuned/NoRAG | D=FineTuned+RAG",
-            )
-            gr.Markdown(
-                """
-                | Config | Model | RAG |
-                |--------|-------|-----|
-                | A | Base | ✗ |
-                | B | Base | ✓ |
-                | C | Fine-tuned | ✗ |
-                | **D** | **Fine-tuned** | **✓** |
-                """
-            )
+        question_box = gr.Textbox(
+            label="Câu hỏi",
+            placeholder="Ví dụ: Lái xe máy có nồng độ cồn dưới 0.25 mg/lít khí thở bị phạt như thế nào?",
+            lines=2,
+            scale=4,
+        )
+        with gr.Column(scale=1, min_width=180):
+            submit_btn  = gr.Button("So sánh 4 cấu hình 🔍", variant="primary", size="lg")
+            d_only_btn  = gr.Button("Chỉ hỏi D (nhanh) ⚡", variant="secondary")
 
-        with gr.Column(scale=3):
-            question_box = gr.Textbox(
-                label="Câu hỏi",
-                placeholder="Ví dụ: Người điều khiển xe máy không đội mũ bảo hiểm bị phạt bao nhiêu?",
-                lines=3,
-            )
-            submit_btn  = gr.Button("Hỏi 🔍", variant="primary")
-            answer_box  = gr.Textbox(label="Câu trả lời", lines=6, interactive=False)
-
-    with gr.Accordion("📄 Văn bản luật được truy xuất (RAG)", open=False):
-        rag_box = gr.Markdown(value="_Chọn config B hoặc D để xem văn bản tham chiếu._")
+    status_box = gr.Markdown(value="_Sẵn sàng. Lượt đầu cần ~2 phút để tải model._")
 
     gr.Examples(
         examples=EXAMPLE_QUESTIONS,
@@ -248,16 +289,37 @@ with gr.Blocks(title="Hỏi đáp Luật Giao thông VN", theme=gr.themes.Soft()
         label="Câu hỏi mẫu",
     )
 
-    submit_btn.click(
-        fn=answer,
-        inputs=[question_box, config_radio],
-        outputs=[answer_box, rag_box],
-    )
-    question_box.submit(
-        fn=answer,
-        inputs=[question_box, config_radio],
-        outputs=[answer_box, rag_box],
-    )
+    with gr.Row(equal_height=True):
+        with gr.Column():
+            gr.Markdown(f"### {CONFIG_CARDS['A'][0]}\n*{CONFIG_CARDS['A'][1]}*")
+            a_box = gr.Textbox(label="Trả lời", lines=8, interactive=False, elem_classes="answer-box")
+        with gr.Column():
+            gr.Markdown(f"### {CONFIG_CARDS['B'][0]}\n*{CONFIG_CARDS['B'][1]}*")
+            b_box = gr.Textbox(label="Trả lời", lines=8, interactive=False, elem_classes="answer-box")
+
+    with gr.Row(equal_height=True):
+        with gr.Column():
+            gr.Markdown(f"### {CONFIG_CARDS['C'][0]}\n*{CONFIG_CARDS['C'][1]}*")
+            c_box = gr.Textbox(label="Trả lời", lines=8, interactive=False, elem_classes="answer-box")
+        with gr.Column(elem_classes="config-d"):
+            gr.Markdown(f"### {CONFIG_CARDS['D'][0]}\n*{CONFIG_CARDS['D'][1]}*")
+            d_box = gr.Textbox(label="Trả lời", lines=8, interactive=False, elem_classes="answer-box")
+
+    with gr.Accordion("📄 Văn bản luật được truy xuất (RAG context, dùng chung cho B & D)", open=False):
+        rag_box = gr.Markdown(value="_Chưa có câu hỏi._")
+
+    outputs = [a_box, b_box, c_box, d_box, rag_box, status_box]
+
+    submit_btn.click(fn=answer_all,   inputs=question_box, outputs=outputs)
+    d_only_btn.click(fn=answer_d_only, inputs=question_box, outputs=outputs)
+    question_box.submit(fn=answer_all, inputs=question_box, outputs=outputs)
+
 
 if __name__ == "__main__":
-    demo.launch(server_name="0.0.0.0", server_port=7860, share=False)
+    demo.launch(
+        server_name="0.0.0.0",
+        server_port=7860,
+        share=False,
+        theme=gr.themes.Soft(primary_hue="blue"),
+        css=DEMO_CSS,
+    )
