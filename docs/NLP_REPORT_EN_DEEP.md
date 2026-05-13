@@ -462,66 +462,74 @@ flowchart LR
 | `BAAI/bge-m3` | 570M | multilingual pretrain, 102 languages | initial KB |
 | `models/bge-m3-traffic-ft` | 570M | MNR fine-tune on 1,762 traffic pairs, 3 epochs | **current KB** |
 
-**Why fine-tune?** Two clauses in the same article share the same header text and differ only in the fine amount — base `bge-m3` produces nearly identical embeddings for them. The fine-tune teaches the model to bridge colloquial queries (*"vượt đèn đỏ"*) to legal clause vocabulary (*"không chấp hành hiệu lệnh đèn tín hiệu"*).
+**Why fine-tune?** The base model faces two gaps it cannot bridge without domain adaptation:
+
+| Gap | Example | Problem |
+|---|---|---|
+| Vocabulary | *"vượt đèn đỏ"* ↔ *"không chấp hành hiệu lệnh đèn tín hiệu"* | Colloquial ≠ legal wording |
+| Fine-bracket | khoản 9 (18–20M) vs khoản 1 (400K) — same Điều 6 header | Embeddings nearly identical |
 
 #### Training data construction
 
-Two sources are combined, each built differently:
+Two sources are combined:
 
 | Source | Pairs | Hard negatives |
 |---|---|---|
-| `qa_train.jsonl` — procedure QA | ~1,542 | none (LLM-generated Q/A, diverse topics) |
-| `penalty_training_pairs.jsonl` — penalty QA | ~220 | yes — same article, different fine bracket |
+| `qa_train.jsonl` — LLM-generated QA | ~1,542 | none |
+| `penalty_training_pairs.jsonl` — synthetic penalty QA | ~220 | yes |
 
-**Procedure pairs** come directly from the QA generation pipeline (`generate_qa.py`): the LLM writes a question and the source clause is the positive. No extra processing needed.
+**Procedure pairs** come directly from the QA generation pipeline — no extra processing.
 
-**Penalty pairs** are synthetically constructed from `legal_sanction_facts.jsonl` — a structured table parsed from every sanction clause in NĐ 168/2024, with fields: `citation`, `violation_text`, `fine_text`, `points_deducted`, `suspension_text`, `vehicle_scope`. The construction pipeline (`generate_penalty_pairs.py`) works as follows:
+**Penalty pairs** are built from scratch because the QA dataset contains no penalty examples. The pipeline:
 
 ```
-legal_sanction_facts.jsonl
+NĐ 168 .txt
+  └─ parse every sanction clause → legal_sanction_facts.jsonl
+       fields: citation, violation_text, fine_text,
+               points_deducted, suspension_text, vehicle_scope
   └─ filter: answer_ready=True AND fine_text present
-       └─ for each fact → generate 3–5 question variants via templates
-       └─ build context: citation + violation_text + fine_text + points_deducted
+  └─ for each fact:
+       ├─ generate 3–5 question variants via templates
+       │    "Điều khiển {vehicle} {violation} bị phạt bao nhiêu?"
+       ├─ build positive: citation + violation_text + fine_text + points
        └─ find hard negatives: same article_number, different clause_number
 ```
 
-**Concrete example — one penalty training triplet:**
+**Concrete triplet example:**
 
 ```
-anchor (question):
+anchor:
   "Điều khiển ô tô vượt đèn đỏ bị phạt bao nhiêu tiền?"
 
-positive (clause chunk for khoản 9):
-  nd_168_2024_nd_cp Điều 6 khoản 9
-  9. Phạt tiền từ 18.000.000 đồng đến 20.000.000 đồng đối với người điều
-  khiển xe thực hiện một trong các hành vi vi phạm sau đây:
-  b) Không chấp hành hiệu lệnh của đèn tín hiệu giao thông;
-  Mức phạt: phạt tiền từ 18.000.000 đồng đến 20.000.000 đồng
-  Trừ điểm: 02 điểm giấy phép lái xe
+positive  (khoản 9):
+  Điều 6 khoản 9 — Phạt tiền từ 18.000.000 đến 20.000.000 đồng
+  b) Không chấp hành hiệu lệnh của đèn tín hiệu giao thông
+  Trừ điểm: 02 điểm
 
-hard negative (khoản 1 — same article, different fine bracket):
-  nd_168_2024_nd_cp Điều 6 khoản 1
-  1. Phạt tiền từ 400.000 đồng đến 600.000 đồng đối với người điều
-  khiển xe thực hiện một trong các hành vi vi phạm sau đây:
-  a) Không chấp hành hiệu lệnh, chỉ dẫn của biển báo hiệu, vạch kẻ đường...
-  Mức phạt: phạt tiền từ 400.000 đồng đến 600.000 đồng
+hard negative  (khoản 1 — same article, different bracket):
+  Điều 6 khoản 1 — Phạt tiền từ 400.000 đến 600.000 đồng
+  a) Không chấp hành hiệu lệnh, chỉ dẫn của biển báo hiệu...
 ```
 
-Both the positive and the hard negative share the same article title. The only distinguishing signal is the fine bracket and the specific violation list — exactly what the embedder must learn to separate.
+Both chunks share the identical Điều 6 article header. The only discriminating signal is the fine bracket and violation list — exactly what the model must learn.
 
 #### MultipleNegativesRankingLoss
 
-For a batch of $B$ pairs, the model embeds all anchors and all positives in one forward pass. For each anchor $q_i$, every other positive in the batch acts as a free in-batch negative. The loss is InfoNCE-style:
+Given a batch of $B$ pairs, the model encodes all $B$ anchors and all $B$ positives in one forward pass, producing a $B \times B$ similarity matrix. For each row $i$, the diagonal entry is the correct match; every other entry in that row is a **free in-batch negative** — no labeling needed.
+
+The loss treats each row as a $B$-class classification problem:
 
 $$L = -\log \frac{\exp\left(\text{sim}(q_i, p_i)/\tau\right)}{\displaystyle\sum_{j=1}^{B} \exp\left(\text{sim}(q_i, p_j)/\tau\right)}$$
 
-where $\tau$ is a learned temperature and $\text{sim}$ is cosine similarity. Intuitively: the loss pushes $q_i$ closer to its paired $p_i$ and simultaneously further from all other $p_j$ in the batch. No manual labeling is needed — the pairing itself provides the supervision signal.
+**Temperature $\tau$** (learned) controls sharpness. Small $\tau$ amplifies similarity differences → steeper gradients → faster separation but higher risk of overfit. Large $\tau$ flattens the distribution → softer gradients → more stable.
 
-For penalty pairs, the explicit hard negative is appended to the denominator alongside the in-batch negatives:
+**Why batch size matters.** Larger $B$ means harder in-batch negatives (more chance of a topically similar pair landing in the same batch) and a larger denominator that keeps the loss non-trivial even when the model is mostly correct. This is why effective batch 32 (4 × 8 grad accum) is preferred over a naive batch of 4.
 
-$$\sum_{j=1}^{B} \exp(\cdot) \;\longrightarrow\; \sum_{j=1}^{B} \exp(\cdot) + \exp\left(\text{sim}(q_i, n_i)/\tau\right)$$
+**Hard negative extension.** In-batch negatives are random — the chance that khoản 1 and khoản 9 from the same article both land in the same batch is low. For penalty pairs, the hard negative $n_i$ is explicitly added to the denominator:
 
-This increases the penalty specifically when the model confuses the correct clause with the same-article confusable one, forcing it to attend to fine amount differences.
+$$L = -\log \frac{\exp\left(\text{sim}(q_i, p_i)/\tau\right)}{\displaystyle\sum_{j=1}^{B} \exp\left(\text{sim}(q_i, p_j)/\tau\right) + \exp\left(\text{sim}(q_i, n_i)/\tau\right)}$$
+
+When the model gives $n_i$ a high score (confuses khoản 1 with khoản 9), the denominator grows sharply → loss spikes → large gradient → the model is forced to separate them. This targeted signal is why 220 penalty pairs produce a measurable recall improvement despite being a small fraction of the 1,762-pair dataset.
 
 | Hyperparameter | Value |
 |---|---|
