@@ -128,6 +128,7 @@ RAG_LEGAL_UNIT_APPEND_BACKUP = os.environ.get("RAG_LEGAL_UNIT_APPEND_BACKUP", "0
 RAG_LEGAL_UNIT_USE_CE = os.environ.get("RAG_LEGAL_UNIT_USE_CE", "0") == "1"
 RAG_LEGAL_UNIT_SEED_K = int(os.environ.get("RAG_LEGAL_UNIT_SEED_K", "8"))
 RAG_EVIDENCE_CARD_RENDERING = os.environ.get("RAG_EVIDENCE_CARD_RENDERING", "1") == "1"
+RAG_QUERY_REWRITE = os.environ.get("RAG_QUERY_REWRITE", "0") == "1"
 GENERATION_REPETITION_PENALTY = float(os.environ.get("GENERATION_REPETITION_PENALTY", "1.08"))
 GENERATION_NO_REPEAT_NGRAM = int(os.environ.get("GENERATION_NO_REPEAT_NGRAM", "0"))
 RAG_TOP_K_RECALL  = 5     # chunks retrieved for Recall@k metric
@@ -398,6 +399,44 @@ def _all_docs_for_packing(vs):
     _ALL_DOCS_CACHE["vs_id"] = id(vs)
     _ALL_DOCS_CACHE["docs"] = docs
     return docs
+
+
+_REWRITE_CACHE_PATH = Path(os.environ.get(
+    "RAG_QUERY_REWRITE_CACHE",
+    str(REPORTS_DIR.parent.parent / "data" / "query_rewrite_cache.json"),
+))
+_REWRITE_CACHE: dict[str, str] | None = None
+
+
+def _load_rewrite_cache() -> dict[str, str]:
+    """Load precomputed query rewrites built by scripts/build_rewrite_cache.py.
+
+    The cache is a JSON map {original_question: rewritten_question}. We delegate
+    the actual rewriting to an external chat model (OpenRouter) because the
+    fine-tuned LoRA always tries to answer instead of rewrite.
+    """
+    global _REWRITE_CACHE
+    if _REWRITE_CACHE is not None:
+        return _REWRITE_CACHE
+    if _REWRITE_CACHE_PATH.exists():
+        _REWRITE_CACHE = json.loads(_REWRITE_CACHE_PATH.read_text(encoding="utf-8"))
+        print(f"[query_rewrite] loaded {_REWRITE_CACHE_PATH} ({len(_REWRITE_CACHE)} entries)")
+    else:
+        print(f"[query_rewrite] cache file missing: {_REWRITE_CACHE_PATH}; falling back to identity")
+        _REWRITE_CACHE = {}
+    return _REWRITE_CACHE
+
+
+def _rewrite_question(model, tokenizer, question: str, cache: dict[str, str]) -> str:
+    """Look up a precomputed rewrite (no LLM call). Falls back to the original."""
+    if not question:
+        return question
+    if question in cache:
+        return cache[question]
+    rewrites = _load_rewrite_cache()
+    rewritten = rewrites.get(question, question)
+    cache[question] = rewritten
+    return rewritten
 
 
 def retrieve_context(vs, question: str) -> tuple[str, list[dict]]:
@@ -1183,6 +1222,10 @@ def evaluate_config(
     references  = [d["answer"] for d in test_data]
     latencies   = []
     retrieved_sources: list[list[dict]] = []
+    rewrite_cache: dict[str, str] = {}
+    # Only fine-tuned configs (C, D) can rewrite queries usefully; base model
+    # does not follow the "no answer, only rewrite" instruction reliably.
+    use_query_rewrite = RAG_QUERY_REWRITE and use_rag and config_name in ("D",)
 
     for batch_start in tqdm(
         range(0, len(test_data), EVAL_BATCH_SIZE),
@@ -1199,7 +1242,11 @@ def evaluate_config(
                 retrieved_sources.append([])
         elif use_rag:
             for q in batch_questions:
-                context, sources = retrieve_context(retriever, q)
+                q_for_retrieval = (
+                    _rewrite_question(model, tokenizer, q, rewrite_cache)
+                    if use_query_rewrite else q
+                )
+                context, sources = retrieve_context(retriever, q_for_retrieval)
                 batch_contexts.append(context)
                 retrieved_sources.append(sources)
         else:

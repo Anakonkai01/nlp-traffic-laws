@@ -39,7 +39,7 @@ EMBED_BATCH = 128
 EMBED_MAX_SEQ = 1024
 
 FORBIDDEN_LEGACY_TERMS_LOWER = [term.lower() for term in FORBIDDEN_LEGACY_TERMS]
-LEGAL_CHUNKING_POLICY = "article_clause_v3"
+LEGAL_CHUNKING_POLICY = "article_clause_point_v4"
 
 
 def _read_build_meta() -> dict:

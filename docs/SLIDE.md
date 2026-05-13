@@ -207,16 +207,37 @@ Lời người thuyết trình:
 
 ---
 
-# Limitations & future work
+# Phase 9 — targeted fixes (factual accuracy)
 
-1. **Point-level chunking** — `point_recall` still 0; would help for fine-specific queries. Expected +0.03 R-L.
-2. **Retrain CE on clause-level labels** from eval_manual_labeled_v5 with same-article hard negatives. Expected +0.02 R-L.
-3. **Query rewriter** — colloquial "say rượu" → legal "nồng độ cồn…" via a small LoRA pass before retrieval. Addresses the remaining retrieval bottleneck without rules.
-4. Human eval on 50 samples (already in plan per đề bài).
+Three layers added on top of Phase 7:
+
+1. **Point-level chunking** — `chunking.py` emits point chunks for dense clauses; KB 2 853 → 5 931 chunks.
+2. **Clause-level CE retrain** — *failed*, format mismatch with live KB. Discarded.
+3. **OpenRouter query rewriter** — `gemini-2.0-flash-001` rewrites colloquial → legal style, cached for the 145 eval queries.
+
+| metric | D — Phase 7 | D — Phase 9 |
+|---|---|---|
+| ROUGE-L | 0.515 | 0.510 |
+| BLEU | 0.350 | **0.364** |
+| BERTScore | 0.692 | 0.690 |
+| **LLM-Judge** | **0.6924** | **0.7393** (+0.05) |
 
 <!--
 Lời người thuyết trình:
-Còn một số hướng cải thiện đáng làm tiếp: chunk xuống cấp point cho những article nhiều điểm, train lại cross-encoder trên label clause-level đã có, và thêm một bước rewriting câu hỏi colloquial thành văn phong pháp lý trước retrieval. Cuối cùng là human eval 50 câu theo yêu cầu của đề bài. Xin cảm ơn thầy cô đã lắng nghe. Em sẵn sàng trả lời câu hỏi.
+Ở phase 9 tôi đi sâu vào 3 nguyên nhân fail còn lại: clause-miss, LoRA hallucinate, và domain confusion. Tôi thử 3 layer: chunk point-level, train lại cross-encoder, và rewriting câu hỏi qua Gemini. Train CE thất bại vì format mismatch, được lưu làm ablation. Hai layer còn lại đẩy LLM-Judge từ 0.69 lên 0.74 — tức là 3.46 lên 3.70 trên 5. Surface metric giữ nguyên vì rewriter mang đến clause đúng nhưng có phong cách khác reference, đánh đổi này được Judge cho là tốt hơn.
+-->
+
+---
+
+# Limitations & future work
+
+1. **CE retrain with matched format** — rebuild training pairs from live KB chunks (not synthetic). Expected +0.02 R-L.
+2. **Selective rewriting** — skip rewrites for already-legal queries; saves cost + avoids over-rewrite.
+3. Human eval on 50 samples (theo yêu cầu đề bài).
+
+<!--
+Lời người thuyết trình:
+Hướng cải thiện tiếp: train CE với format đúng từ live KB, rewrite chọn lọc chỉ cho câu colloquial, và human eval 50 câu theo đề bài. Xin cảm ơn thầy cô đã lắng nghe.
 -->
 
 ---

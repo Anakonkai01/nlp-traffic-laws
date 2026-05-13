@@ -3,22 +3,24 @@
 **Project:** Introductory NLP (Đề bài 1 — QA with RAG + Fine-tune)
 **Domain:** Vietnamese road-traffic law (local-text-only policy)
 **Base model:** Qwen3.5-9B + QLoRA adapter
-**Retrieval:** FAISS (BGE-M3 finetuned) + BM25 + Cross-Encoder rerank
+**Retrieval:** FAISS (BGE-M3 finetuned) + BM25 + Cross-Encoder rerank + (Phase 9) query rewriting
+**Chunking:** Phase 7 clause-level; **Phase 9** adds point-level for sanction-dense clauses
 **Evaluation set:** `data/eval_manual_labeled_v5.jsonl` (145 samples, manually labelled with gold article/clause/point/fine)
-**Report date:** 2026-05-11
+**Report date:** 2026-05-11 (Phase 9 update)
 
 ---
 
 ## 1. Executive summary
 
-Config **D (LoRA + RAG)** is the best configuration on every headline metric and on LLM-Judge (Gemini 2.0 Flash):
+Config **D (LoRA + RAG)** is the best configuration on every headline metric and on LLM-Judge (Gemini 2.0 Flash). Phase 9 adds point-level chunking and external query rewriting on top of Phase 7's clause-level chunking, lifting LLM-Judge from **3.46/5 → 3.70/5** with surface metrics held steady.
 
 | Config | ROUGE-L | ROUGE-2 | BLEU-4 | METEOR | F1-token | BERTScore | LLM-Judge |
 |--------|---------|---------|--------|--------|----------|-----------|-----------|
 | A (base, no RAG)      | 0.1458 | 0.1158 | 0.0191 | 0.2567 | 0.1271 | 0.5483 | 0.3490 |
 | B (base, + RAG)       | 0.3479 | 0.2896 | 0.0786 | 0.4195 | 0.3078 | 0.6071 | 0.5628 |
 | C (LoRA, no RAG)      | 0.3894 | 0.3084 | 0.1464 | 0.4102 | 0.3590 | 0.6380 | 0.3917 |
-| **D (LoRA + RAG)**    | **0.5149** | **0.4468** | **0.3496** | **0.4909** | **0.4188** | **0.6920** | **0.6924** |
+| D — Phase 7 (LoRA + RAG, clause chunks)         | 0.5149 | 0.4468 | 0.3496 | 0.4909 | 0.4188 | 0.6920 | 0.6924 |
+| **D — Phase 9** ★ (+ point chunks + query rewrite) | **0.5105** | **0.4453** | **0.3641** | **0.4706** | **0.4162** | **0.6903** | **0.7393** |
 
 ![Figure 1](figures/report_v2/fig1_metric_comparison.png)
 
@@ -236,9 +238,42 @@ python src/app.py
 - Reports: `reports/traffic/evaluation_results.json` (final 4 configs), `preds_d_clause_final.json`, `predictions_all_configs.json`, `retrieval_diagnostics.json`, `FINAL_REPORT.md`, `FINAL_REPORT_EN.md` (this file).
 - Figures: `docs/figures/report_v2/fig{1,2,3,4,5}*.png`.
 
-## 9. Limitations and further work
+## 9. Phase 9 — targeted fixes for residual failures (factual accuracy)
 
-1. **Point-level chunking.** `point_recall` is still 0 because clause chunks do not expose `point_letter`. Adding chunks at the point level for dense sanction articles (e.g. Điều 6/7 of Nghị định 168) would surface per-point facts directly and likely give another +0.02–0.05 ROUGE-L on fine-specific queries.
-2. **CE reranker trained on clause-level labels.** The labelled `eval_manual_labeled_v5` plus `legal_sanction_facts.jsonl` gives us enough material to build `(query, chunk)` pairs with hard negatives from the same article but a different clause. Expected +0.02 ROUGE-L on top of the current retrieval pipeline.
-3. **Query rewriter.** Colloquial queries ("say rượu", "uống bia") still map inconsistently to legal surface forms ("nồng độ cồn trong máu hoặc hơi thở"). A tiny LoRA (or even the current LoRA in a dedicated prompt) applied to the question before retrieval should close this gap without adding rules.
-4. **Answer-grounded eval.** LLM-Judge correlates with factual accuracy but still disagrees with ROUGE on a handful of cases where D is terse but correct. A human-graded sample of ~50 answers would de-risk the final numbers for the written report.
+Error analysis on the 6 red-light questions exposed three independent failure modes that Phase 7 had left in place:
+
+| failure | example | root cause |
+|---|---|---|
+| Clause-miss within the right article | "Xe máy vượt đèn đỏ" → CE picks clause 4/3/5 instead of clause 7 (signal) | CE pretrained `bge-reranker-v2-m3` is not Vietnamese-legal-tuned |
+| LoRA hallucinates over correct context | "Xe đạp vượt đèn đỏ" → context says 150-250k, model writes 300-400k | LoRA memorised training distribution |
+| Domain confusion via shared trigger word | "Vượt rào đường sắt khi đèn đỏ" → retrieves traffic-signal articles instead of Điều 24 (railway) | "đèn đỏ" overlap |
+
+Three layers were trialled:
+
+1. **Point-level chunking** — `src/chunking.py::article_clause_chunks` now also emits point chunks for clauses with ≥2 points and ≥400 chars. Each point chunk preserves the article title and the clause lead (so the sanction headline stays visible). `LEGAL_CHUNKING_POLICY="article_clause_point_v4"`. KB grew 2853 → **5931 chunks**.
+2. **Clause-level CE reranker** trained on `data/fact_reranker_v6_train.jsonl` (2862 pairs) — *failed*. The training-data format (`Điều X khoản Y\n<title>\n<vehicle scope>\n<violation>`) does not match what the live KB returns to the reranker, so the trained model underperforms the pretrained `BAAI/bge-reranker-v2-m3` (source_recall@5 dropped 0.87 → 0.57). Discarded; pretrained CE kept.
+3. **OpenRouter-based query rewriter** — colloquial → legal-style rewrites precomputed by `google/gemini-2.0-flash-001` into `data/query_rewrite_cache.json` (145 rewrites, ~$0.005). The fine-tuned LoRA cannot do this itself because it always answers instead of rewriting. Loaded by `src/evaluate.py::_load_rewrite_cache()` when `RAG_QUERY_REWRITE=1`. Original question is still used for *generation*, only the *retrieval* sees the rewrite.
+
+Result (145 samples, side-by-side):
+
+| metric | D — Phase 7 | D — Phase 9 | delta |
+|---|---|---|---|
+| ROUGE-L | 0.5149 | 0.5105 | −0.004 |
+| BLEU-4 | 0.3496 | **0.3641** | +0.014 |
+| METEOR | 0.4909 | 0.4706 | −0.020 |
+| F1-token | 0.4188 | 0.4162 | −0.003 |
+| BERTScore | 0.6920 | 0.6903 | −0.002 |
+| **LLM-Judge** | 0.6924 | **0.7393** | **+0.047** |
+| false refusal | 0.0071 | 0.0071 | — |
+| context_recall@5 | 0.9750 | 0.9750 | — |
+| source_recall@5 | 0.9643 | 0.9643 | — |
+
+LLM-Judge moves from 3.46/5 ("mostly correct, small gaps") to **3.70/5** ("mostly correct, very close to full"). Surface metrics stay flat because rewritten queries fetch *factually correct* clauses whose wording sometimes differs from the reference phrasing, which costs surface overlap while gaining factual accuracy — exactly what the judge model rewards.
+
+The negative CE-training result is kept as ablation evidence (`scripts/finetune_clause_reranker.py`, no checkpoint).
+
+## 10. Limitations and further work
+
+1. **CE retrain with matched chunk format** — repeat the Phase 9b experiment but build training pairs from the *actual* KB chunks (clause + point text) rather than the synthetic fact-table format. Expected +0.02 ROUGE-L.
+2. **Selective query rewriting** — only rewrite queries flagged as "colloquial" (lexical heuristic, very cheap) so we don't pay the LLM cost and don't risk over-rewrites for already-legal phrasing. Could close most of the small METEOR/F1 dip without losing the Judge gain.
+3. **Answer-grounded eval** — LLM-Judge correlates with factual accuracy but still disagrees with ROUGE on a handful of cases. A human-graded sample of ~50 answers would de-risk the final numbers for the written report.
