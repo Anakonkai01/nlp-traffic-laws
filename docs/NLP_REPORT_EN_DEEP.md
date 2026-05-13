@@ -460,7 +460,7 @@ flowchart LR
 | model | params | training | used in |
 |---|---|---|---|
 | `BAAI/bge-m3` | 570M | multilingual pretrain, 102 languages | initial KB |
-| `models/bge-m3-traffic-ft` | 570M | MNR fine-tune on 1,762 traffic pairs, 3 epochs | **current KB** |
+| `models/bge-m3-traffic-ft` | 570M | MNR fine-tune on ~3,762 pairs, 3 epochs | **current KB** |
 
 **Why fine-tune?** The base model faces two gaps it cannot bridge without domain adaptation:
 
@@ -469,24 +469,7 @@ flowchart LR
 | Vocabulary | *"vượt đèn đỏ"* ↔ *"không chấp hành hiệu lệnh đèn tín hiệu"* | Colloquial ≠ legal wording |
 | Fine-bracket | khoản 9 (18–20M) vs khoản 1 (400K) — same Điều 6 header | Embeddings nearly identical |
 
-#### Training data construction
-
-~3,762 pairs total (shuffled, cap 8,000):
-
-| Source | Pairs | Hard negative |
-|---|---|---|
-| `qa_train.jsonl` · `corpus=local_text` | 1,249 | — |
-| `qa_train.jsonl` · `corpus=negative` | 513 | — |
-| `legal_sanction_facts.jsonl` → templates | ~2,000 | same article, different clause (955/956 facts) |
-
-Penalty pairs are synthetic: 956 answer-ready sanction facts → 3–5 template questions each → positive = `citation + violation_text + fine_text + points`. Hard negative = another clause in the same article with a different fine bracket.
-
-```
-anchor:    "Điều khiển ô tô vượt đèn đỏ bị phạt bao nhiêu?"
-positive:  Điều 6 khoản 9 — 18–20M đồng, b) không chấp hành đèn tín hiệu
-hard neg:  Điều 6 khoản 1 — 400K–600K, a) không chấp hành biển báo
-           ↑ same article header, only fine bracket differs
-```
+Training data: 1,762 pairs from `qa_train.jsonl` + ~2,000 synthetic penalty pairs from `legal_sanction_facts.jsonl` (956 sanction facts → 3–5 template questions each, positive = clause context, hard negative = different clause same article).
 
 #### MultipleNegativesRankingLoss
 
@@ -504,7 +487,7 @@ $$L = -\log \frac{\exp\left(\text{sim}(q_i, p_i)/\tau\right)}{\displaystyle\sum_
 
 $$L = -\log \frac{\exp\left(\text{sim}(q_i, p_i)/\tau\right)}{\displaystyle\sum_{j=1}^{B} \exp\left(\text{sim}(q_i, p_j)/\tau\right) + \exp\left(\text{sim}(q_i, n_i)/\tau\right)}$$
 
-When the model gives $n_i$ a high score (confuses khoản 1 with khoản 9), the denominator grows sharply → loss spikes → large gradient → the model is forced to separate them. This targeted signal is why 220 penalty pairs produce a measurable recall improvement despite being a small fraction of the 1,762-pair dataset.
+When the model gives $n_i$ a high score (confuses khoản 1 with khoản 9), the denominator grows sharply → loss spikes → large gradient → the model is forced to separate them. This targeted signal is why ~2,000 penalty pairs — built from 956 sanction facts — produce a measurable recall improvement on penalty-heavy eval questions.
 
 #### Training step mechanics
 
