@@ -1,0 +1,87 @@
+{
+  "D": {
+    "config": "D",
+    "n_samples": 145,
+    "rouge_1": 0.5003,
+    "rouge_2": 0.3182,
+    "rouge_l": 0.4181,
+    "bleu": 0.214,
+    "meteor": 0.3259,
+    "f1_token": 0.327,
+    "bert_score_f1": 0.0,
+    "exact_match": 0.0,
+    "forbidden_legacy_rate": 0.0,
+    "avg_latency_s": 2.01,
+    "source_hit_rate": 0.9357,
+    "source_hit_rate_top_3": 0.9357,
+    "source_hit_rate_by_doc": {
+      "luat_35_2024_qh15": 0.6,
+      "luat_36_2024_qh15": 0.5,
+      "nd_158_2024_nd_cp": 1.0,
+      "nd_165_2024_nd_cp": 1.0,
+      "nd_168_2024_nd_cp": 0.9623,
+      "nd_336_2025_nd_cp": 1.0,
+      "tt_65_2024_tt_bca": 1.0,
+      "tt_79_2024_tt_bca": 0.0
+    },
+    "provision_metrics": {
+      "article_recall": 0.5039,
+      "article_denominator": 129,
+      "clause_recall": 0.5581,
+      "point_recall": 0.2636,
+      "article_mrr": 0.4147
+    },
+    "slot_metrics": {
+      "fine_slot_recall": 0.3579,
+      "fine_slot_denominator": 95,
+      "points_slot_recall": 0.0,
+      "points_slot_denominator": 35
+    },
+    "unsupported_refusal_rate": 0.0,
+    "false_refusal_rate": 0.0357,
+    "eval_validation": {
+      "n_samples": 145,
+      "missing_category": 0,
+      "supported_missing_expected_doc_ids": 0,
+      "unsupported_with_expected_doc_ids": 0,
+      "expected_doc_ids_not_in_manifest": {},
+      "measurable_source_rows": 140
+    },
+    "eval_run_config": {
+      "test_file": "data/eval_manual_labeled_v5.jsonl",
+      "n_samples": 145,
+      "configs": [
+        "D"
+      ],
+      "max_new_tokens": 512,
+      "generation_repetition_penalty": 1.08,
+      "generation_no_repeat_ngram": 8,
+      "rag_top_k": 2,
+      "rag_top_k_recall": 5,
+      "rag_context_packing": true,
+      "rag_context_max_chunks": 4,
+      "rag_evidence_compression": false,
+      "rag_evidence_max_spans": 6,
+      "rag_evidence_max_chars": 650,
+      "rag_clause_aware_packing": true,
+      "rag_span_reranking": false,
+      "rag_context_order": "litm",
+      "rag_legal_unit_retrieval": true,
+      "rag_legal_unit_top_k": 3,
+      "rag_legal_unit_max_candidates": 80,
+      "rag_legal_unit_append_backup": false,
+      "rag_legal_unit_use_ce": false,
+      "rag_legal_unit_seed_k": 8,
+      "rag_answer_only_context_first": false,
+      "rag_evidence_card_rendering": true,
+      "fast_metrics": true,
+      "env": {
+        "RAG_EVIDENCE_CARD_RENDERING": "1"
+      },
+      "command": "src/evaluate.py --configs D --samples 145 --test-file data/eval_manual_labeled_v5.jsonl --fast-metrics --output reports/traffic/evaluation_results_clean_d.json --predictions-output reports/traffic/predictions_clean_d.json"
+    },
+    "context_rouge_recall_at_5": 0.525,
+    "recall_at_5": 0.525,
+    "source_recall_at_5": 0.95
+  }
+}

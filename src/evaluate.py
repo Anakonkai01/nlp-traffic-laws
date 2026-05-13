@@ -110,7 +110,7 @@ _SYSTEM_WITH_CONTEXT = TRAFFIC_QA_SYSTEM_PROMPT_WITH_CONTEXT
 
 MAX_NEW_TOKENS    = int(os.environ.get("MAX_NEW_TOKENS", "512"))   # cite-heavy legal answers need room for sanctions and point deductions
 EVAL_BATCH_SIZE   = 1     # RAG prompts are long; batch=1 avoids OOM on 16GB VRAM
-RAG_TOP_K         = 2     # compact context improves VRAM stability and reduces noise
+RAG_TOP_K         = int(os.environ.get("RAG_TOP_K", "2"))
 RAG_CONTEXT_PACKING = os.environ.get("RAG_CONTEXT_PACKING", "1") == "1"
 RAG_CONTEXT_MAX_CHUNKS = int(os.environ.get("RAG_CONTEXT_MAX_CHUNKS", "4"))
 RAG_EVIDENCE_COMPRESSION = os.environ.get("RAG_EVIDENCE_COMPRESSION", "0") == "1"

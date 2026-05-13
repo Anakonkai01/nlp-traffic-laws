@@ -167,21 +167,17 @@ The system has three layers that are independently measurable:
 
 ```mermaid
 flowchart TB
-    subgraph RET["Retrieval Layer"]
-        R1["FAISS dense top-50"]
-        R2["BM25 sparse top-50"]
-        R3["Doc alias + Article mention"]
-        R1 & R2 & R3 --> RRF["RRF fusion k=60"]
-        RRF --> CE["CE rerank top-12"]
-        CE --> PACK["Article-neighbour packing, max 4 chunks"]
-    end
-    subgraph FMT["Context Formatting"]
-        F1["evidence_card_from_text (structure parse)"]
-    end
-    subgraph GEN["Generation"]
-        G1["Qwen3.5-9B + LoRA, greedy decode, max 320 tokens"]
-    end
-    RET --> FMT --> GEN --> ANS["Answer"]
+    Q(["Question"]) --> QE["Query expansion"]
+    QE --> FA["FAISS dense  top-50"]
+    QE --> BM["BM25 sparse  top-50"]
+    QE --> AL["Doc alias match"]
+    QE --> AR["Article mention match"]
+    FA & BM & AL & AR --> RRF["Weighted RRF  k=60  top-40"]
+    RRF --> CE["Cross-Encoder rerank  top-2 seeds"]
+    CE --> PK["Article-neighbour packing  2-4 chunks"]
+    PK --> EV["Evidence card"]
+    EV --> GEN["Qwen3.5-9B + LoRA  greedy  max 512 tok"]
+    GEN --> ANS(["Answer"])
 ```
 
 | Config | A | B | C | **D** |
@@ -203,127 +199,383 @@ In production (the Gradio demo and the eval runner), the LoRA-attached model is 
 
 ## 4. Deep Dive: The RAG System
 
-This is the core contribution of the project. The default RAG pipeline goes through **6 sub-stages**:
+The RAG pipeline converts a user question into a grounded legal answer through six sequential stages. Every stage below is illustrated with a single running example traced end-to-end.
+
+> **Running example:** *"Người điều khiển ô tô vượt đèn đỏ bị phạt bao nhiêu tiền?"*
 
 ```mermaid
 flowchart LR
-    Q["Question"] --> E["1. Query expansion"]
-    E --> H["2. Hybrid retrieval: FAISS + BM25"]
-    H --> F["3. RRF fusion k=60"]
-    F --> C["4. Cross-Encoder rerank top-12"]
-    C --> P["5. Context packing, max 4 chunks"]
-    P --> S["6. Evidence card from text"]
-    S --> G["Generation: LoRA Qwen3.5-9B"]
+    Q(["Question"]) --> S1["1. Query expansion"]
+    S1 --> S2A["FAISS top-50"]
+    S1 --> S2B["BM25 top-50"]
+    S1 --> S2C["Doc alias"]
+    S1 --> S2D["Article mention"]
+    S2A & S2B & S2C & S2D --> S3["2. RRF k=60 top-40"]
+    S3 --> S4["3. CE rerank top-2"]
+    S4 --> S5["4. Packing 2-4 chunks"]
+    S5 --> S6["5. Evidence card"]
+    S6 --> S7["6. Generation LoRA Qwen3.5-9B"]
+    S7 --> ANS(["Answer"])
 ```
 
-### Stage 1: Query expansion (lexical normalisation only)
+---
 
-`expand_query_generic()` in `src/retrieval_v4.py` applies lexical normalisation to the question:
+### Stage 1: Query expansion
 
-- `gplx` → `giấy phép lái xe`
-- `xe máy` → `xe mô tô xe gắn máy`
-- `ô tô` → `xe hơi xe ô tô`
+`expand_query_generic()` (`src/retrieval_v4.py`) applies a fixed lexical normalisation table. Expansions are **purely surface-level** — they never map a phrase to a specific article or legal provision.
 
-These expansions are **purely lexical** — they do not map any phrase to a specific article or clause. The expanded string is used for both the hybrid retrieval and the cross-encoder input. Passing the expanded form to the CE (a two-line change from the original code) gave the first measurable lift in the smoke experiments.
+| Surface form in query | Term added to query |
+|---|---|
+| `ô tô` | `xe hơi xe ô tô` |
+| `xe máy` | `xe mô tô xe gắn máy` |
+| `mức phạt` / `bị phạt` | `xử phạt phạt tiền` |
+| `gplx` | `giấy phép lái xe` |
+| `nđ` / `nd` | `nghị định` |
 
-### Stage 2: Hybrid retrieval (4 rank lists)
+**Running example:**
 
-Four independent rank lists are computed in parallel:
+```
+Input:  "Người điều khiển ô tô vượt đèn đỏ bị phạt bao nhiêu tiền?"
 
-1. **Dense FAISS** — Cosine similarity between the question embedding (`models/bge-m3-traffic-ft`, 1,024-dim) and all 5,931 chunk embeddings. Returns top-50.
-2. **BM25 sparse** — `rank_bm25` over Vietnamese tokenised chunks (`pyvi.ViTokenizer`). Returns top-50.
-3. **Doc alias match** — Lexical match between surface mentions in the question ("nghị định 168", "168/2024", "luật đường bộ", …) and an alias set extracted from each document's metadata. Returns matching chunks.
-4. **Article mention** — Regex `Điều + \d+` in the question → match chunks whose `article_number` metadata equals the extracted number.
+Output: "Người điều khiển ô tô vượt đèn đỏ bị phạt bao nhiêu tiền?
+         xe hơi xe ô tô xử phạt phạt tiền"
+```
 
-These four lists are **fused with weighted Reciprocal Rank Fusion (RRF)**:
+The expanded string is passed to both FAISS and the cross-encoder, so the legal vocabulary (`phạt tiền`) reaches both retrieval stages.
 
-$$score_c = \sum_{i \in sources} \frac{w_i}{k + rank_c^{(i)}}$$
+> **Ablation (n=30):** disabling query expansion costs **0.7 pp R-L** (0.446→0.439). The effect is expected to be larger on tail queries that use abbreviations (`gplx`, `nđ`) absent from chunk text.
 
-where $k = 60$, and $w_{dense}=0.6$, $w_{sparse}=0.4$, $w_{alias}=0.03$, $w_{article}=0.07$. These weights were fixed during early tuning and have not been changed since.
+---
+
+### Stage 2: Hybrid retrieval (4 rank lists → RRF)
+
+Four independent rank lists are computed, then fused with Weighted Reciprocal Rank Fusion:
+
+```mermaid
+flowchart TB
+    Q["Expanded query"] --> FA["FAISS dense  BGE-M3  top-50"]
+    Q --> BM["BM25 sparse  pyvi tokenised  top-50"]
+    Q --> AL["Doc alias match  e.g. nghi dinh 168"]
+    Q --> AR["Article mention  regex Dieu + number"]
+    FA --> RRF["Weighted RRF  w_dense=0.6  w_sparse=0.4  w_alias=0.03  w_article=0.07  k=60  top-40"]
+    BM --> RRF
+    AL --> RRF
+    AR --> RRF
+```
+
+**Running example — what each source returns:**
+
+| Source | What it finds for "vượt đèn đỏ bị phạt bao nhiêu?" |
+|---|---|
+| FAISS | Chunks about "điều khiển xe ô tô", "đèn tín hiệu giao thông", "phạt tiền" — semantic match |
+| BM25 | Exact match on "phạt", "tiền", "ô tô" — but misses "vượt đèn đỏ" since legal text says "không chấp hành hiệu lệnh của đèn tín hiệu giao thông" |
+| Doc alias | No doc number or alias in query → empty list |
+| Article mention | No "Điều X" in query → empty list |
+| RRF | Dense and BM25 fused; Điều 6 khoản 9 chunks bubble up because they appear in both lists |
+
+> **Ablation (n=30):**
+>
+> | Config | R-L | METEOR | F1-tok |
+> |---|---|---|---|
+> | Full hybrid (baseline) | 0.446 | 0.318 | 0.351 |
+> | Dense + BM25 only | 0.446 | 0.318 | 0.351 |
+> | Dense FAISS only | 0.442 | 0.311 | 0.344 |
+>
+> BM25 adds ~0.4 pp R-L over dense alone. Doc alias and article mention show no measurable effect on this 30-sample test set — most questions do not cite a document number or an explicit article reference.
+
+---
 
 ### Stage 3: Cross-Encoder (CE) rerank
 
-The top-40 RRF-fused chunks are re-ranked by `BAAI/bge-reranker-v2-m3`. The CE receives the **expanded query** (Stage 1 output) paired with each passage and predicts a relevance score via a linear layer over the transformer's pooled representation. Top-12 are kept.
+The top-40 RRF candidates are re-scored by `BAAI/bge-reranker-v2-m3` (568M params). Unlike the bi-encoder (FAISS), the CE reads query and passage **jointly** through a single transformer — allowing cross-attention between query tokens and passage tokens.
 
-**Ablation note:** we trained a clause-level CE on `data/fact_reranker_v6_{train,dev}.jsonl` (2,862 + 738 `(query, document, label)` pairs). The trained model under-performed the pretrained one because the training data used a synthetic fact-table format that did not match the live KB chunk format. The pretrained CE remains the default.
+| Rank | Chunk | CE score |
+|---|---|---|
+| **1** | Điều 6 khoản 9 điểm b | **0.94** |
+| 2 | Điều 6 khoản 5 điểm b | 0.71 |
+| 3 | Điều 9 khoản 1 | 0.38 |
+| … | 37 more pairs | … |
+
+CE keeps top-12. `retrieve_ranked_docs` returns top-8, caller slices to top-2 seeds for packing.
+
+**Why CE is essential:** BM25 cannot bridge "vượt đèn đỏ" (colloquial) → "không chấp hành hiệu lệnh của đèn tín hiệu giao thông" (legal). The CE attends to both strings jointly and learns the semantic correspondence, pushing the correct clause to rank 1.
+
+> **Ablation (n=30):** removing CE drops R-L by **2.1 pp**, METEOR by **2.2 pp**, F1 by **2.5 pp** — the **largest single-component degradation** in the entire pipeline.
+
+---
 
 ### Stage 4: Article-neighbour packing
 
-`pack_article_context()` in `src/context_packing.py` takes the top-2 seeds and, for each seed, adds sibling chunks that share the same `(doc_id, article_number)` key. At most 4 chunks are returned. This step is post-retrieval: it ensures the model sees the *surrounding clauses* of the article that the retrieval system has deemed most relevant, which is critical for sanction questions where the specific clause and its governing paragraph must be read together.
+`pack_article_context()` (`src/context_packing.py`) takes the top-2 CE seeds and adds sibling chunks that share the same `(doc_id, article_number)` key, up to a maximum of 4 chunks.
+
+**CE top-2 seeds:**
+
+| # | doc | Điều | khoản | note |
+|---|---|---|---|---|
+| Seed 1 | nd_168 | 6 | 9 | phạt 18–20M, điểm b = đèn đỏ |
+| Seed 2 | nd_168 | 6 | 8 | gây tai nạn không dừng xe |
+
+**After packing** (radius=1, max 4 chunks):
+
+| Slot | chunk | relation |
+|---|---|---|
+| 1 | Điều 6 khoản 9 | seed |
+| 2 | Điều 6 khoản 8 | seed |
+| 3 | Điều 6 khoản 10 | same-article neighbour of seed 1 |
+| 4 | *(budget full)* | — |
+
+**Why this helps:** the CE ranks the clause that names the violation behaviour highest, but the fine amount can be in the clause header while the specific violation is in a sub-point. Packing ensures the model sees the governing sanction paragraph together with the individual violation description.
+
+> **Ablation (n=30):** taking top-4 directly from CE (no packing) gives R-L 0.450 vs 0.446 for packing. The difference is within noise at n=30. Packing is expected to help more for questions where the fine amount and the specific violation live in adjacent clauses of the same article.
+
+---
 
 ### Stage 5: Evidence-card formatting
 
-`evidence_card_from_text()` in `src/evidence_cards.py` applies structure-based regex over the retrieved legal text to produce a compact card:
+`evidence_card_from_text()` (`src/evidence_cards.py`) applies structure-aware regex over each packed chunk to extract a compact structured card. The extractor is **question-agnostic** — it always pulls `Điều`, `khoản`, `điểm`, `phạt tiền từ … đến`, `trừ điểm`, `tước` from the raw text.
+
+**Input (raw legal chunk):**
+
+```
+Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô...
+
+9. Phạt tiền từ 18.000.000 đồng đến 20.000.000 đồng đối với người điều khiển
+xe thực hiện một trong các hành vi vi phạm sau đây:
+b) Không chấp hành hiệu lệnh của đèn tín hiệu giao thông;
+```
+
+**Output (evidence card appended to LLM prompt):**
 
 ```
 EVIDENCE_CARD
 Căn cứ: nd_168_2024_nd_cp Điều 6 khoản 9 điểm b
-Điều luật: Điều 6. Xử phạt … xe ô tô …
+Điều luật: Điều 6. Xử phạt, trừ điểm giấy phép lái xe...
 Mức phạt: phạt tiền từ 18.000.000 đồng đến 20.000.000 đồng
 Kết luận tiền phạt: phạt tiền từ 18.000.000 đồng đến 20.000.000 đồng
+Hành vi/điều kiện liên quan: b) Không chấp hành hiệu lệnh của đèn tín hiệu giao thông;
+Chỉ trả lời bằng kết luận ngắn gọn từ các trường trên; không chép lại thẻ.
 ```
 
-The parser is **not rule-based on the question** — it extracts `Điều`, `khoản`, `điểm`, `phạt tiền`, `trừ điểm`, `tước` from the retrieved text regardless of what the user asked. We ablated turning it off: without the card, the model's answers are ~60% longer and the latency increases ~30%, with no net gain in Judge score.
+> **Ablation (n=30):** removing evidence card causes R-L to fall **5.6 pp** (0.446→0.390) while METEOR rises 7.9 pp. Without the card the model writes longer, more verbose answers (higher recall → higher METEOR) but loses answer precision (lower R-L). More critically, the forbidden-legacy citation rate jumps from **0.000 to 0.033** — the structured citation anchor suppresses references to superseded decrees that the model otherwise pulls from parametric memory.
+
+---
 
 ### Stage 6: Generation with LoRA
 
-The card text and the original question are concatenated into the prompt for `Qwen3.5-9B` with the canonical LoRA adapter (`models/qwen3.5-9b-lora-traffic-v2`, r=32, α=64). Decoding is greedy (`do_sample=False`), `max_new_tokens=320`, `repetition_penalty=1.08`, `no_repeat_ngram_size=0`.
+The packed chunks and evidence cards are assembled into the final prompt:
+
+**Prompt structure:**
+
+| Role | Content |
+|---|---|
+| system | "Bạn là chuyên gia pháp luật giao thông... Nếu thẻ có Mức phạt, hãy trả lời ngay mức phạt trong thẻ..." |
+| user | Đoạn luật liên quan: *[4 packed chunks + evidence cards]* |
+| user | Câu hỏi: Người điều khiển ô tô vượt đèn đỏ bị phạt bao nhiêu tiền? |
+
+Decoding: `do_sample=False`, `max_new_tokens=512`, `repetition_penalty=1.08`.
+
+**Model output:**
+
+> Người điều khiển ô tô không chấp hành hiệu lệnh của đèn tín hiệu giao thông (vượt đèn đỏ) bị phạt tiền từ 18.000.000 đồng đến 20.000.000 đồng, căn cứ Điều 6, khoản 9, điểm b Nghị định 168/2024/NĐ-CP.
 
 ### 4.1 Chunking strategy — evolution and impact
 
 The chunking strategy was the single largest performance lever discovered during this project.
 
-| policy | description | chunks | clause_recall | context_recall | ROUGE-L (D) |
+| policy | description | chunks | clause_recall | context_recall@5 | ROUGE-L (D) |
 |---|---|---|---|---|---|
-| `article_v2` | 1 chunk per article (≈1600 chars) | 1,597 | **0.00** | 0.525 | 0.327 |
-| `article_clause_v3` | 1 chunk per clause, with article header | 2,853 | **0.81** | **0.975** | **0.515** |
-| `article_clause_point_v4` | + point chunks for dense clauses (≥2 points, ≥400 chars) | 5,931 | 0.81 | 0.975 | 0.510 |
+| `article_v2` | 1 chunk per article (~1600 chars) | 1,597 | 0.00 | 0.525 | 0.327 |
+| `article_clause_v3` | 1 chunk per clause + article header | 2,853 | **0.81** | **0.975** | **0.515** |
+| `article_clause_point_v4` | + point chunks for dense clauses (>=2 points, >=400 chars) | 5,931 | 0.81 | 0.975 | 0.510 |
 
-```mermaid
-flowchart TD
-    subgraph Legal["Document"]
-        D["NĐ 168/2024"] --> A2["Điều 6"]
-        A2 --> C1["Khoản 5: Phạt tiền 4-6M"]
-        A2 --> C2["Khoản 9: ..."]
-        C1 --> P1["điểm a"]
-        C1 --> P2["điểm b"]
-    end
-    subgraph Policies["Chunking"]
-        AV["v2: 1 chunk/article, 1,597"]
-        ACV["v3: 1 chunk/clause, 2,853"]
-        ACPV["v4: +point chunks, 5,931"]
-    end
-    A2 -.-> AV
-    A2 -.-> ACV
-    C1 -.-> ACPV
+**Concrete example — same source text, three chunk granularities:**
+
+Source: NĐ 168/2024, Điều 6, khoản 9, điểm b (the "vượt đèn đỏ" clause for ô tô):
+
+**v2 — article-level** (1 chunk = entire Điều 6, ~3,500 chars)
+
+```
+Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô...
+
+1. Phạt tiền từ 400.000 đồng đến 600.000 đồng đối với...
+   a) Không chấp hành hiệu lệnh, chỉ dẫn của biển báo hiệu...
+   b) Khi ra, vào vị trí dừng xe, đỗ xe không có tín hiệu...
+2. Phạt tiền từ 600.000 đồng đến 800.000 đồng đối với...
+   ...   [khoản 3–8: 9 more fine brackets, ~50 violation behaviors]
+9. Phạt tiền từ 18.000.000 đồng đến 20.000.000 đồng...    ← buried here
+   b) Không chấp hành hiệu lệnh của đèn tín hiệu giao thông;
 ```
 
-**Why article-level chunking fails:** a clause-level sanction like "Phạt tiền từ 4.000.000 đồng đến 6.000.000 đồng" lives inside a 1,600-character article block alongside 12 other fines. The embedding of that block is dominated by the article title and the first clause; the dense retriever cannot discriminate the 7th clause from the 9th. Clause-level chunking solves this by giving each clause its own vector and its own BM25 tokens.
+> **Result:** Embedding dominated by title + khoản 1. Dense retriever cannot distinguish khoản 9 from khoản 3. `clause_recall = 0.00`
 
-**Why point-level chunks added less:** the clause chunk already contains the clause lead (which carries the fine), and most questions that need point-level precision also contain the fine in the clause header. The extra point chunks help for edge cases (clauses where the fine differs per point) but increase the search space from 2,853 to 5,931, which slightly dilutes the top-5 ranking.
+---
+
+**v3 — clause-level** (1 chunk = khoản 9, ~180 chars)
+
+```
+Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô...
+
+9. Phạt tiền từ 18.000.000 đồng đến 20.000.000 đồng đối với người điều
+   khiển xe thực hiện một trong các hành vi vi phạm sau đây:
+   a) Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn...
+   b) Không chấp hành hiệu lệnh của đèn tín hiệu giao thông;
+   c) Không chấp hành hiệu lệnh, hướng dẫn của người điều khiển giao thông...
+   d) Đi ngược chiều của đường một chiều...
+```
+
+> **Result:** This chunk is indexed separately. Query "vượt đèn đỏ" now has a dedicated vector with the right fine bracket. `clause_recall` jumps to **0.81**.
+
+---
+
+**v4 — point-level** (1 additional chunk = khoản 9, điểm b only)
+
+```
+Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô...
+
+Khoản 9. Phạt tiền từ 18.000.000 đồng đến 20.000.000 đồng đối với...
+
+b) Không chấp hành hiệu lệnh của đèn tín hiệu giao thông;
+```
+
+> **Result:** A laser-focused chunk: one violation, one fine bracket. Useful when the query asks about one behavior among several in the clause. Recall unchanged (0.81) — the clause chunk already covers it — but helps CE discriminate within a clause when needed.
+
+```mermaid
+flowchart LR
+    subgraph DOC["NĐ 168/2024"]
+        D6["Dieu 6  ~3500 chars  11 fine brackets  ~50 violations"]
+        K9["khoan 9  ~180 chars  18-20M fine  4 violations"]
+        Pb["diem b  ~50 chars  khong chap hanh hieu lenh den tin hieu"]
+    end
+    D6 -->|"v2: 1 chunk"| CV2["1 vector for entire article"]
+    K9 -->|"v3: 1 chunk"| CV3["1 vector for this clause only"]
+    Pb -->|"v4: +1 chunk"| CV4["1 vector for this point only"]
+```
+
+**Why article-level fails:** the Điều 6 embedding is dominated by the article title and khoản 1. The dense retriever cannot distinguish khoản 9 (18-20M fine) from khoản 3 (800K-1M fine) because their position in the 3,500-char block is too similar vectorially.
+
+**Why point chunks add less than expected:** the clause chunk already embeds the clause headline (`Phạt tiền từ 18.000.000 đồng...`), which carries the answer. Point chunks help edge cases where four violations in one clause have different penalties, but they double the search space (2,853→5,931), slightly diluting the top-5 ranking.
 
 ### 4.2 Embedding model
 
-| model | source | training | used in |
+| model | params | training | used in |
 |---|---|---|---|
-| `BAAI/bge-m3` | HuggingFace pretrained | multilingual, 102 languages | initial KB |
-| `models/bge-m3-traffic-ft` | Finetuned from `bge-m3` | `MultipleNegativesRankingLoss` on 1,762 traffic QA pairs + penalty hard negatives, 3 epochs, lr 2e-5 | **current KB** |
+| `BAAI/bge-m3` | 570M | multilingual pretrain, 102 languages | initial KB |
+| `models/bge-m3-traffic-ft` | 570M | MNR fine-tune on 1,762 traffic pairs, 3 epochs | **current KB** |
 
-The finetuned embedder was already present on disk but the KB had not been rebuilt with it. When we rebuilt with `EMBED_MODEL=models/bge-m3-traffic-ft`, source retrieval improved from ~0.91 to ~0.96.
+**Why fine-tune?** Two clauses in the same article share the same header text and differ only in the fine amount — base `bge-m3` produces nearly identical embeddings for them. The fine-tune teaches the model to bridge colloquial queries (*"vượt đèn đỏ"*) to legal clause vocabulary (*"không chấp hành hiệu lệnh đèn tín hiệu"*).
+
+#### Training data construction
+
+Two sources are combined, each built differently:
+
+| Source | Pairs | Hard negatives |
+|---|---|---|
+| `qa_train.jsonl` — procedure QA | ~1,542 | none (LLM-generated Q/A, diverse topics) |
+| `penalty_training_pairs.jsonl` — penalty QA | ~220 | yes — same article, different fine bracket |
+
+**Procedure pairs** come directly from the QA generation pipeline (`generate_qa.py`): the LLM writes a question and the source clause is the positive. No extra processing needed.
+
+**Penalty pairs** are synthetically constructed from `legal_sanction_facts.jsonl` — a structured table parsed from every sanction clause in NĐ 168/2024, with fields: `citation`, `violation_text`, `fine_text`, `points_deducted`, `suspension_text`, `vehicle_scope`. The construction pipeline (`generate_penalty_pairs.py`) works as follows:
+
+```
+legal_sanction_facts.jsonl
+  └─ filter: answer_ready=True AND fine_text present
+       └─ for each fact → generate 3–5 question variants via templates
+       └─ build context: citation + violation_text + fine_text + points_deducted
+       └─ find hard negatives: same article_number, different clause_number
+```
+
+**Concrete example — one penalty training triplet:**
+
+```
+anchor (question):
+  "Điều khiển ô tô vượt đèn đỏ bị phạt bao nhiêu tiền?"
+
+positive (clause chunk for khoản 9):
+  nd_168_2024_nd_cp Điều 6 khoản 9
+  9. Phạt tiền từ 18.000.000 đồng đến 20.000.000 đồng đối với người điều
+  khiển xe thực hiện một trong các hành vi vi phạm sau đây:
+  b) Không chấp hành hiệu lệnh của đèn tín hiệu giao thông;
+  Mức phạt: phạt tiền từ 18.000.000 đồng đến 20.000.000 đồng
+  Trừ điểm: 02 điểm giấy phép lái xe
+
+hard negative (khoản 1 — same article, different fine bracket):
+  nd_168_2024_nd_cp Điều 6 khoản 1
+  1. Phạt tiền từ 400.000 đồng đến 600.000 đồng đối với người điều
+  khiển xe thực hiện một trong các hành vi vi phạm sau đây:
+  a) Không chấp hành hiệu lệnh, chỉ dẫn của biển báo hiệu, vạch kẻ đường...
+  Mức phạt: phạt tiền từ 400.000 đồng đến 600.000 đồng
+```
+
+Both the positive and the hard negative share the same article title. The only distinguishing signal is the fine bracket and the specific violation list — exactly what the embedder must learn to separate.
+
+#### MultipleNegativesRankingLoss
+
+For a batch of $B$ pairs, the model embeds all anchors and all positives in one forward pass. For each anchor $q_i$, every other positive in the batch acts as a free in-batch negative. The loss is InfoNCE-style:
+
+$$L = -\log \frac{\exp\!\left(\operatorname{sim}(q_i,\, p_i)/\tau\right)}{\displaystyle\sum_{j=1}^{B} \exp\!\left(\operatorname{sim}(q_i,\, p_j)/\tau\right)}$$
+
+where $\tau$ is a learned temperature and $\operatorname{sim}$ is cosine similarity. Intuitively: the loss pushes $q_i$ closer to its paired $p_i$ and simultaneously further from all other $p_j$ in the batch. No manual labeling is needed — the pairing itself provides the supervision signal.
+
+For penalty pairs, the explicit hard negative is appended to the denominator alongside the in-batch negatives:
+
+$$\sum_{j=1}^{B} \exp(\cdot) \;\longrightarrow\; \sum_{j=1}^{B} \exp(\cdot) + \exp\!\left(\operatorname{sim}(q_i,\, n_i)/\tau\right)$$
+
+This increases the penalty specifically when the model confuses the correct clause with the same-article confusable one, forcing it to attend to fine amount differences.
+
+| Hyperparameter | Value |
+|---|---|
+| Epochs | 3, early-stop on `recall@3` |
+| Effective batch | 32 (4 per device × 8 grad accum) |
+| Learning rate | 2e-5, 10% warmup |
+| Max seq length | 256 tokens |
+| Precision | fp16 + gradient checkpointing |
+
+**Effect:** `source_recall@5` improved **0.91 → 0.96**.
 
 ### 4.3 Retrieval recall metrics
 
+Measured over 145 annotated questions (`eval_manual_labeled_v5.jsonl`).
+
 ```mermaid
 xychart-beta
-    title "Source hit rate by document (top-5 retrieval)"
-    x-axis ["NĐ168", "NĐ165", "L35/2024", "L36/2024", "TT65", "TT05", "NĐ39", "NĐ158", "TT79"]
-    y-axis "Hit rate" 0 --> 1
-    bar [0.962, 0.833, 0.688, 0.667, 0.571, 0.455, 0.333, 0.125, 0.000]
+    title "Overall retrieval quality (top-5, full pipeline)"
+    x-axis ["source_recall@5", "context_recall@5", "clause_recall (v3)", "context_recall (v2)"]
+    y-axis "Score" 0 --> 1
+    bar [0.964, 0.975, 0.810, 0.525]
 ```
 
-Retrieval-quality jump from article to clause chunking:
-- `clause_recall`: **0.00 → 0.81**
-- `context_recall@5`: **0.525 → 0.975**
+`source_recall@5` — expected source document appears in top-5. `context_recall@5` — a chunk containing the answer text appears in top-5. `context_recall` slightly exceeds `source_recall` because a chunk from a different document that happens to contain the answer string still counts. The last two bars show the jump from article-level (v2) to clause-level (v3) chunking — the single highest-leverage change in the pipeline.
+
+---
+
+### 4.4 Component ablation
+
+Config D (LoRA + RAG), 30 samples, seed 42. Each row removes exactly one component.
+
+```mermaid
+xychart-beta
+    title "Component ablation — ROUGE-L (config D, n=30)"
+    x-axis ["Baseline", "No pack", "No QExp", "Dense only", "+BM25", "No CE", "No card"]
+    y-axis "ROUGE-L" 0.35 --> 0.47
+    bar [0.446, 0.450, 0.439, 0.442, 0.446, 0.425, 0.390]
+```
+
+```mermaid
+xychart-beta
+    title "Component ablation — METEOR (config D, n=30)"
+    x-axis ["Baseline", "No pack", "No QExp", "Dense only", "+BM25", "No CE", "No card"]
+    y-axis "METEOR" 0.28 --> 0.42
+    bar [0.318, 0.334, 0.343, 0.311, 0.318, 0.296, 0.397]
+```
+
+**Key findings:**
+
+- **CE rerank** — largest consistent drop when removed (R-L −2.1 pp, METEOR −2.2 pp, F1 −2.5 pp). Most important single component.
+- **Evidence card** — asymmetric: removing it raises METEOR +7.9 pp (longer, more verbose answers) but drops R-L −5.6 pp and sends legacy citation rate from **0.000 → 0.033**. The card anchors the model to current law; without it the model cites superseded decrees from parametric memory.
+- **BM25** — small consistent gain (~0.4 pp R-L). Alias and article-mention signals show no measurable effect on this 30-sample set.
+- **Packing vs top-4 from CE** — top-4 straight from CE marginally outperforms packing (+0.4 pp R-L) at n=30. Inconclusive; larger evaluation needed.
+- **Query expansion** — negligible at n=30 (−0.7 pp R-L); may matter for tail queries with atypical vocabulary.
 
 ---
 
@@ -377,43 +629,87 @@ An external LLM (`google/gemini-2.0-flash-001` via OpenRouter) scores each predi
 
 ## 7. Results
 
-### 7.1 Final results (D config, best by LLM-Judge)
+### 7.1 RAG and LoRA contributions
 
-| metric | A (base) | B (base+RAG) | C (LoRA) | **D (LoRA+RAG)** |
-|---|---|---|---|---|
-| ROUGE-L | 0.1458 | 0.3479 | 0.3894 | **0.5105** |
-| ROUGE-1 | 0.1877 | 0.4439 | 0.5325 | **0.5732** |
-| ROUGE-2 | 0.1158 | 0.2896 | 0.3084 | **0.4453** |
-| BLEU-4 | 0.0191 | 0.0786 | 0.1464 | **0.3641** |
-| METEOR | 0.2567 | 0.4195 | 0.4102 | **0.4706** |
-| F1-token | 0.1271 | 0.3078 | 0.3590 | **0.4162** |
-| BERTScore-F1 | 0.5483 | 0.6071 | 0.6380 | **0.6903** |
-| LLM-Judge | 0.3490 | 0.5628 | 0.3917 | **0.7393** ★ |
-| source_recall@5 | — | 0.9643 | — | 0.9643 |
-| context_recall@5 | — | 0.9750 | — | 0.9750 |
-| false_refusal | 0.0000 | 0.1000 | 0.0071 | **0.0071** |
-| forbidden_legacy | 0.3103 | 0.0621 | 0.0000 | **0.0000** |
+Each config adds exactly one component to the previous. This isolates what RAG and LoRA each contribute:
+
+```mermaid
+flowchart LR
+    A["A: Base  Judge=0.349  R-L=0.146"]
+    B["B: Base+RAG  Judge=0.563  R-L=0.348"]
+    C["C: LoRA  Judge=0.392  R-L=0.389"]
+    D["D: LoRA+RAG  Judge=0.739  R-L=0.511"]
+
+    A -->|"+ RAG  +0.214 Judge"| B
+    A -->|"+ LoRA  +0.043 Judge"| C
+    B -->|"+ LoRA  +0.176 Judge"| D
+    C -->|"+ RAG  +0.347 Judge"| D
+```
+
+| | RAG contribution (no LoRA) | RAG contribution (with LoRA) |
+|---|---|---|
+| ROUGE-L | +0.202 (A→B) | +0.122 (C→D) |
+| LLM-Judge | +0.214 (A→B) | +0.347 (C→D) |
+
+| | LoRA contribution (no RAG) | LoRA contribution (with RAG) |
+|---|---|---|
+| ROUGE-L | +0.243 (A→C) | +0.163 (B→D) |
+| LLM-Judge | +0.043 (A→C) | +0.176 (B→D) |
+
+**Insight — LoRA and RAG are synergistic on Judge but additive on ROUGE-L.** The combined D gain on Judge (0.739) is larger than A+RAG+LoRA individually would predict, because LoRA teaches the model to cite correctly *and* RAG provides the correct number to cite.
+
+---
+
+### 7.2 Full metric table (145 samples)
 
 ```mermaid
 xychart-beta
-    title "Metric comparison across 4 configs"
-    x-axis ["ROUGE-L", "BLEU-4", "BERTScore", "Judge"]
+    title "ROUGE-L and LLM-Judge across 4 configs"
+    x-axis ["A: Base", "B: Base+RAG", "C: LoRA", "D: LoRA+RAG"]
     y-axis "Score" 0 --> 1
-    bar [0.146, 0.019, 0.548, 0.349]
-    bar [0.348, 0.079, 0.607, 0.563]
-    bar [0.389, 0.146, 0.638, 0.392]
-    bar [0.511, 0.364, 0.690, 0.739]
+    bar [0.146, 0.348, 0.389, 0.511]
+    line [0.349, 0.563, 0.392, 0.739]
 ```
 
-*Bars in order: A (base,no RAG) | B (base+RAG) | C (LoRA,no RAG) | D (LoRA+RAG)*
+*Bars = ROUGE-L  |  Line = LLM-Judge*
 
-**Key observations:**
+```mermaid
+xychart-beta
+    title "Hallucination rates across 4 configs"
+    x-axis ["A: Base", "B: Base+RAG", "C: LoRA", "D: LoRA+RAG"]
+    y-axis "Rate (lower is better)" 0 --> 0.35
+    bar [0.310, 0.062, 0.000, 0.000]
+    line [0.000, 0.100, 0.007, 0.007]
+```
 
-1. **The monotone ordering A < B < C < D holds on nearly every metric.** RAG roughly doubles ROUGE-L for the base model (0.15 → 0.35); LoRA adds another ~0.04; combining them gives the ceiling (~0.51).
+*Bars = forbidden-legacy citation rate  |  Line = false-refusal rate*
 
-2. **LoRA alone (C) has unusually low LLM-Judge (0.39).** C produces fluent, legal-sounding answers but frequently gets the *fine amount* wrong because it relies on memorised training numbers. B scores higher on Judge (0.56) because RAG forces it to copy the correct number from the retrieved text even though the answer style is rougher.
+| metric | A (base) | B (base+RAG) | C (LoRA) | **D (LoRA+RAG)** |
+|---|---|---|---|---|
+| ROUGE-L | 0.146 | 0.348 | 0.389 | **0.511** |
+| ROUGE-1 | 0.188 | 0.444 | 0.533 | **0.573** |
+| ROUGE-2 | 0.116 | 0.290 | 0.308 | **0.445** |
+| BLEU-4 | 0.019 | 0.079 | 0.146 | **0.364** |
+| METEOR | 0.257 | 0.420 | 0.410 | **0.471** |
+| F1-token | 0.127 | 0.308 | 0.359 | **0.416** |
+| BERTScore-F1 | 0.548 | 0.607 | 0.638 | **0.690** |
+| LLM-Judge | 0.349 | 0.563 | 0.392 | **0.739** ★ |
+| source_recall@5 | — | 0.964 | — | 0.964 |
+| context_recall@5 | — | 0.975 | — | 0.975 |
+| false_refusal | 0.000 | 0.100 | 0.007 | **0.007** |
+| forbidden_legacy | 0.310 | 0.062 | 0.000 | **0.000** |
 
-3. **D closes the gap on both fronts.** It has B's factual accuracy and C's clean answer style.
+---
+
+### 7.3 Key observations
+
+**1. The ordering A < B < C < D holds on almost every metric.** RAG alone more than doubles ROUGE-L for the base model (0.146→0.348). LoRA alone adds similar R-L gain. Combining both reaches 0.511.
+
+**2. LoRA alone (C) scores surprisingly low on LLM-Judge (0.392) — lower than base+RAG (B at 0.563).** C generates fluent, legal-sounding answers but memorises training-set fine amounts. If the correct amount differs, the answer fails factual verification. B, despite rougher style, copies numbers directly from retrieved chunks and gets them right.
+
+**3. D combines B's factual grounding with C's fluency.** The Judge score of 0.739 reflects this: the model cites the right clause, quotes the right amount, and writes in natural Vietnamese.
+
+**4. Legacy citation is solved by LoRA.** Config A (base model, no RAG) cites superseded decrees in 31% of answers. Config B halves this to 6.2% by providing a retrieved context that mentions the current law. LoRA (C, D) eliminates it entirely — the adapter was trained with an explicit system prompt that forbids legacy citations.
 
 ---
 

@@ -1,0 +1,78 @@
+{
+  "D": {
+    "config": "D",
+    "n_samples": 30,
+    "rouge_1": 0.5199,
+    "rouge_2": 0.3198,
+    "rouge_l": 0.4251,
+    "bleu": 0.1617,
+    "meteor": 0.2955,
+    "f1_token": 0.3265,
+    "bert_score_f1": 0.0,
+    "exact_match": 0.0,
+    "forbidden_legacy_rate": 0.0,
+    "avg_latency_s": 2.2,
+    "source_hit_rate": 0.8667,
+    "source_hit_rate_top_3": 0.8667,
+    "source_hit_rate_by_doc": {
+      "luat_35_2024_qh15": 0.0,
+      "nd_168_2024_nd_cp": 1.0
+    },
+    "provision_metrics": {
+      "article_recall": 0.8148,
+      "article_denominator": 27,
+      "clause_recall": 0.6667,
+      "point_recall": 0.1111,
+      "article_mrr": 0.7346
+    },
+    "slot_metrics": {
+      "fine_slot_recall": 0.6667,
+      "fine_slot_denominator": 21,
+      "points_slot_recall": 0.0,
+      "points_slot_denominator": 1
+    },
+    "false_refusal_rate": 0.0,
+    "eval_validation": {
+      "n_samples": 30,
+      "missing_category": 0,
+      "supported_missing_expected_doc_ids": 0,
+      "unsupported_with_expected_doc_ids": 0,
+      "expected_doc_ids_not_in_manifest": {},
+      "measurable_source_rows": 30
+    },
+    "eval_run_config": {
+      "test_file": "data/eval_manual_labeled_v5.jsonl",
+      "n_samples": 30,
+      "configs": [
+        "D"
+      ],
+      "max_new_tokens": 512,
+      "generation_repetition_penalty": 1.08,
+      "generation_no_repeat_ngram": 0,
+      "rag_top_k": 2,
+      "rag_top_k_recall": 5,
+      "rag_context_packing": true,
+      "rag_context_max_chunks": 4,
+      "rag_evidence_compression": false,
+      "rag_evidence_max_spans": 6,
+      "rag_evidence_max_chars": 650,
+      "rag_clause_aware_packing": true,
+      "rag_span_reranking": false,
+      "rag_context_order": "litm",
+      "rag_legal_unit_retrieval": false,
+      "rag_legal_unit_top_k": 3,
+      "rag_legal_unit_max_candidates": 80,
+      "rag_legal_unit_append_backup": false,
+      "rag_legal_unit_use_ce": false,
+      "rag_legal_unit_seed_k": 8,
+      "rag_answer_only_context_first": false,
+      "rag_evidence_card_rendering": true,
+      "fast_metrics": true,
+      "env": {},
+      "command": "src/evaluate.py --configs D --samples 30 --fast-metrics --test-file data/eval_manual_labeled_v5.jsonl --output reports/traffic/ablation/abl_06_no_ce.json --predictions-output reports/traffic/ablation/preds_06_no_ce.json"
+    },
+    "context_rouge_recall_at_5": 0.0,
+    "recall_at_5": 0.0,
+    "source_recall_at_5": 0.8667
+  }
+}
